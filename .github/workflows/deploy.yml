@@ -25,8 +25,6 @@ jobs:
 
       - name: Build the Next.js application
         run: npm run build
-        env:
-          MONGO_URL: "mongodb://localhost:27017/dummy"
 
       - name: Zip project files for transfer
         # We exclude node_modules, .git, and .next/cache to keep the zip small
