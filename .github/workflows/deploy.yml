@@ -65,7 +65,7 @@ jobs:
             rm deployment.zip
             
             # Install production dependencies only (much faster)
-            npm install --omit=dev
+            npm install --omit=dev --legacy-peer-deps
             
             # Restart the application using PM2
             # CHANGE THIS: Update 'techmapperz-app' with your actual PM2 process name
