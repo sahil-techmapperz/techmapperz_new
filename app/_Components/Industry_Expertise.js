@@ -7,13 +7,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
 import Ecommerce from "@/public/Industry/E-commerce.webp";
-import Education from "@/public/Industry/Education & E-learning.webp";
-import Government from "@/public/Industry/Goverment & Public Sector.webp";
+import Education from "@/public/Industry/Education-E-learning.webp";
+import Government from "@/public/Industry/Goverment-Public-Sector.webp";
 import Healthcare from "@/public/Industry/Healthcare.webp";
-import Logistics from "@/public/Industry/Logistic & Supply Chain.webp";
+import Logistics from "@/public/Industry/Logistic-Supply-Chain.webp";
 import Manufacturing from "@/public/Industry/Manufacturing.webp";
 import Retail from "@/public/Industry/Retail.webp";
-import Travel from "@/public/Industry/Travel & hospitality.webp";
+import Travel from "@/public/Industry/Travel-Hospitality.webp";
 
 
 
