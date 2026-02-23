@@ -26,8 +26,8 @@ const Navbar = () => {
     {
       title: 'Geospatial Services',
       items: [
-        { name: 'GIS Services', link: '/service/gis/gisservice' },
-        { name: 'Drone Services', link: '/service/gis/droneservice' },
+        { name: 'GIS Services', link: '/service/gisservice' },
+        { name: 'Drone Services', link: '/service/droneservice' },
       ],
     },
     {
