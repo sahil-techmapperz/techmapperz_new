@@ -20,10 +20,6 @@ import Travel from "@/public/Industry/Travel-Hospitality.webp";
 
 
 
-
-
-
-
 export const categoryData = [
     {
         name: 'E-COMMERCE',
