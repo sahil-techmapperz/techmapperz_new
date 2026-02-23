@@ -1,0 +1,68 @@
+name: Deploy to Litesell AWS
+
+on:
+  push:
+    branches:
+      - main
+      - master # Triggers on push to main or master branch
+
+jobs:
+  build-and-deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18' # Adjust if you are using a different Node version
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Build the Next.js application
+        run: npm run build
+
+      - name: Zip project files for transfer
+        # We exclude node_modules, .git, and .next/cache to keep the zip small
+        run: zip -r deployment.zip . -x "node_modules/*" -x ".git/*" -x ".next/cache/*"
+
+      - name: Copy build to AWS server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_PRIVATE_KEY }}
+          source: "deployment.zip"
+          target: "/var/www/techmapperz" # CHANGE THIS: Target directory on your AWS server
+
+      - name: Restart application on AWS server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_PRIVATE_KEY }}
+          script: |
+            # Load NVM to ensure node/npm/pm2 are available
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            
+            # Navigate to your project directory
+            # CHANGE THIS to your actual project path
+            cd /var/www/techmapperz
+            
+            # Unzip the deployed files (overwrite existing)
+            unzip -o deployment.zip
+            
+            # Clean up the zip file
+            rm deployment.zip
+            
+            # Install production dependencies only (much faster)
+            npm install --omit=dev
+            
+            # Restart the application using PM2
+            # CHANGE THIS: Update 'techmapperz-app' with your actual PM2 process name
+            pm2 restart techmapperz-app || pm2 start npm --name "techmapperz-app" -- run start
