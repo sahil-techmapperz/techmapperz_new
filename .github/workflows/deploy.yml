@@ -1,79 +1,107 @@
-name: Deploy to Litesell AWS
+name: Deploy to Techmapperz AWS
 
 on:
   push:
     branches:
       - main
-      - master # Triggers on push to main or master branch
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
 
 jobs:
-  build-and-deploy:
-    name: Build & Deploy
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20' # Required for Next.js 16
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci || npm install --legacy-peer-deps
 
-      - name: Build the Next.js application
+      - name: Build project
         run: npm run build
+        env:
+          MONGO_URL: ${{ secrets.MONGO_URL }}
+          NEXT_PUBLIC_BACKEND_BASE_URL: ${{ secrets.NEXT_PUBLIC_BACKEND_BASE_URL }}
+          NEXT_PUBLIC_Site_URL: ${{ secrets.NEXT_PUBLIC_Site_URL }}
+          NODE_ENV: production
 
-      - name: Zip project files for transfer
-        # We exclude node_modules, .git, and .next/cache to keep the zip small
-        run: zip -r deployment.zip . -x "node_modules/*" -x ".git/*" -x ".next/cache/*"
-
-      - name: Copy build to AWS server
+      - name: Upload build files to AWS
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY }}
-          source: "deployment.zip"
-          target: "/var/www/techmapperz" # CHANGE THIS: Target directory on your AWS server
+          source: ".next,package.json,package-lock.json,next.config.mjs,public,nginx.conf"
+          target: "/var/www/techmapperz/"
+          overwrite: true
 
-      - name: Restart application on AWS server via SSH
+      - name: Deploy on AWS server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.AWS_HOST }}
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY }}
           script: |
-            # Ensure unzip is installed (won't prompt due to -y)
-            sudo apt-get update
-            sudo apt-get install -y unzip
-            
             # Load NVM to ensure node/npm/pm2 are available
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            
-            # Navigate to your project directory
-            # CHANGE THIS to your actual project path
+
+            # Navigate to project directory
             cd /var/www/techmapperz
-            
-            # Unzip the deployed files (overwrite existing)
-            unzip -o deployment.zip
-            
-            # Clean up the zip file
-            rm deployment.zip
-            
-            # Install production dependencies only (much faster)
-            npm install --omit=dev --legacy-peer-deps
-            
-            # Restart the application using PM2
-            # CHANGE THIS: Update 'techmapperz-app' with your actual PM2 process name
-            pm2 restart techmapperz-app || pm2 start npm --name "techmapperz-app" -- run start
-            
-            # Setup Nginx to proxy Next.js and serve static files
+
+            # Create .env file with environment variables
+            cat > .env << 'EOF'
+            MONGO_URL=${{ secrets.MONGO_URL }}
+            NEXT_PUBLIC_Site_URL=${{ secrets.NEXT_PUBLIC_Site_URL }}
+            JWT_SECRET=${{ secrets.JWT_SECRET }}
+            ImagekitpublicKey=${{ secrets.ImagekitpublicKey }}
+            ImagekitprivateKey=${{ secrets.ImagekitprivateKey }}
+            ImagekiturlEndpoint=${{ secrets.ImagekiturlEndpoint }}
+            SMTP_HOST=${{ secrets.SMTP_HOST }}
+            SMTP_PORT=${{ secrets.SMTP_PORT }}
+            SMTP_USER=${{ secrets.SMTP_USER }}
+            SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+            NODE_ENV=production
+            PORT=3000
+            EOF
+
+            # Install production dependencies (build already done by GitHub Actions)
+            npm ci --omit=dev --legacy-peer-deps || npm install --omit=dev --legacy-peer-deps
+
+            echo "✅ Using pre-built application from GitHub Actions"
+
+            # Verify build exists
+            if [ ! -d ".next" ]; then
+              echo "❌ .next directory not found!"
+              exit 1
+            fi
+
+            echo "✅ Build verification successful"
+
+            # Stop existing PM2 process and start fresh
+            pm2 stop techmapperz-app 2>/dev/null || echo "No existing process to stop"
+            pm2 delete techmapperz-app 2>/dev/null || echo "No existing process to delete"
+            pm2 start npm --name "techmapperz-app" -- start
+            pm2 save
+
+            echo "✅ PM2 started successfully"
+            pm2 status
+
+            # Setup Nginx
             sudo apt-get install -y nginx
             sudo cp /var/www/techmapperz/nginx.conf /etc/nginx/sites-available/techmapperz
             sudo ln -sf /etc/nginx/sites-available/techmapperz /etc/nginx/sites-enabled/techmapperz
             sudo rm -f /etc/nginx/sites-enabled/default
             sudo nginx -t && sudo systemctl reload nginx
+
+            echo "🚀 Deployment completed successfully!"
