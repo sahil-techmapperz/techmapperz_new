@@ -35,6 +35,16 @@ jobs:
           NEXT_PUBLIC_Site_URL: ${{ secrets.NEXT_PUBLIC_Site_URL }}
           NODE_ENV: production
 
+      - name: Clean target directory before upload
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_PRIVATE_KEY }}
+          script: |
+            # Remove old build files to prevent tar extraction 'File exists' errors
+            rm -rf /var/www/techmapperz/.next
+
       - name: Upload build files to AWS
         uses: appleboy/scp-action@v0.1.7
         with:
