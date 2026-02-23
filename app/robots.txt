@@ -1,0 +1,28 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /tmp/
+Disallow: /_next/
+Disallow: /404
+Disallow: /500
+
+# Allow specific important pages
+Allow: /service/
+Allow: /portfolios/
+Allow: /blog/
+Allow: /contact
+Allow: /about
+
+# Sitemap
+Sitemap: https://www.techmapperz.com/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Block specific bots if needed (optional)
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /

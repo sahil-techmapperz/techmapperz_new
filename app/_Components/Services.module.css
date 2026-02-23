@@ -1,0 +1,66 @@
+/* styles/Services.module.css */
+.container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    width: 100%;
+    min-height: 200vh; /* Ensure there's enough space to scroll */
+    padding: 2rem;
+  }
+  
+  /* Left side styles */
+  .leftContent {
+    position: relative;
+    padding: 1rem;
+    background-color: #f7f7f7;
+    border-radius: 6px;
+  }
+  
+  /* Right side container */
+  .rightContent {
+    position: relative;
+  }
+  
+  /* The sticky box that remains in place on the right */
+  .stickyBox {
+    position: sticky;
+    top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #ffffff;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+  
+  /* The content inside the sticky box */
+  .stickyContent {
+    transition: all 0.3s ease;
+  }
+  
+  .stickyContent img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-top: 1rem;
+    border-radius: 4px;
+  }
+  
+  /* Container for the sections that trigger intersection */
+  .sectionsWrapper {
+    grid-column: 1 / span 2; /* Spanning across both columns to keep them below the sticky area */
+    margin-top: 3rem;
+  }
+  
+  /* Each service section in-page */
+  .serviceSection {
+    padding: 4rem 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #ddd;
+    scroll-snap-align: start;
+  }
+  
+  .serviceSection h2 {
+    margin-bottom: 1rem;
+  }

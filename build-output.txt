@@ -1,0 +1,35 @@
+﻿
+> techmapperz-nextjs16@0.1.0 build
+> cross-env NODE_OPTIONS=--max-old-space-size=1536 next build
+
+node.exe :  ΓÜá `eslint` configuration in next.config.mjs is no longer supported. See more info here: 
+https://nextjs.org/docs/app/api-reference/cli/next#next-lint-options
+At C:\Program Files\nodejs\npm.ps1:29 char:3
++   & $NODE_EXE $NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( ΓÜá `eslint` c...xt-lint-options:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ ΓÜá `images.domains` is deprecated in favor of `images.remotePatterns`. Please update next.config.mjs to protect your application from malicious users.
+ ΓÜá Invalid next.config.mjs options detected: 
+ ΓÜá     Unrecognized key(s) in object: 'eslint'
+ ΓÜá See more info here: https://nextjs.org/docs/messages/invalid-next-config
+ ΓÜá Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of D:\Techmapperz_Nextjs\package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * D:\Techmapperz_Nextjs\Techmapperz_Nextjs16\package-lock.json
+
+ΓÜá∩╕Å  NEXT_PUBLIC_BACKEND_BASE_URL is not set. API calls will use fallback data.
+   Γû▓ Next.js 16.0.8 (Turbopack)
+   - Environments: .env.local
+
+ ΓÜá The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+   Creating an optimized production build ...
+ΓÜá∩╕Å  NEXT_PUBLIC_BACKEND_BASE_URL is not set. API calls will use fallback data.
+ Γ£ô Compiled successfully in 12.1s
+   Running TypeScript ...
+   Collecting page data using 11 workers ...
+ Γ¿» Invalid segment configuration export detected. This can cause unexpected behavior from the configs not being applied. You should see the relevant 
+failures in the logs above. Please fix them to continue.

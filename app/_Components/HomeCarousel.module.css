@@ -1,0 +1,85 @@
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+		opacity: 0.8;
+	}
+	50% {
+		transform: scale(1.05);
+		opacity: 0.6;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 0.8;
+	}
+}
+
+.animatePulse {
+	animation: pulse 4s ease-in-out infinite;
+}
+
+.animatePulseDelay {
+	animation: pulse 4s ease-in-out infinite;
+	animation-delay: 1s;
+}
+
+.animatePulseDouble {
+	animation: pulse 4s ease-in-out infinite;
+	animation-delay: 2s;
+}
+
+.iconPulse {
+	animation: pulse 3s ease-in-out infinite;
+}
+
+.iconContainer {
+	width: 4rem;
+	height: 4rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transform: translate(-50%, -50%);
+	background: rgba(255, 255, 255, 0.15);
+	backdrop-filter: blur(8px);
+	border-radius: 50%;
+	transition: all 0.3s ease;
+	transform-style: preserve-3d;
+	backface-visibility: hidden;
+}
+
+.iconContainer:hover {
+	transform: translate(-50%, -50%) scale(1.2);
+	background: rgba(255, 255, 255, 0.25);
+}
+
+.iconWrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	transform-style: preserve-3d;
+	backface-visibility: hidden;
+}
+
+@keyframes gradient {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}
+
+.animateGradient {
+	animation: gradient 8s ease-in-out infinite;
+}
+
+.bg300 {
+	background-size: 300% 300%;
+}
+
+@keyframes float {
+	0% { transform: translateY(0px); }
+	50% { transform: translateY(-20px); }
+	100% { transform: translateY(0px); }
+}
+
+.float {
+	animation: float 6s ease-in-out infinite;
+}

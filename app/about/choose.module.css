@@ -1,0 +1,159 @@
+.main {
+    padding: 2rem 5rem;
+    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.9) 100%);
+}
+
+.first_part {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.image_container {
+    transition: transform 0.3s ease;
+}
+
+.image_container:hover {
+    transform: scale(1.02);
+}
+
+.company_info {
+    padding: 2rem;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
+}
+
+.company_info:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.company_info p {
+    color: #A3A3A3;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+}
+
+.second_paragraph {
+    margin-top: 3rem;
+    width: 100%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.second_paragraph p {
+    color: #E0E0E0;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+.accordion {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem 0;
+}
+
+.accordion_item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.accordion_button {
+    background: rgba(255,255,255,0.05) !important;
+    padding: 1.2rem !important;
+    transition: all 0.3s ease !important;
+    border: none !important;
+}
+
+.accordion_button:hover {
+    background: rgba(255,255,255,0.1) !important;
+}
+
+.accordion_panel {
+    background: rgba(0,0,0,0.5);
+    padding: 1.5rem !important;
+    line-height: 1.8;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Remove grid/dropdown related styles */
+.dropdown, .grid_box, .grid_box h3, .grid_box p {
+    display: none;
+}
+
+
+@media screen and (max-width: 1100px) {
+    .main {
+        padding: 1rem;
+    }
+    
+    .dropdown {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .company_info {
+        padding: 1rem;
+    }
+    
+    .company_info p {
+        font-size: 1rem;
+    }
+    
+    .second_paragraph p {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .main {
+        padding: 1rem 0.5rem;
+    }
+    
+    .company_info h2 {
+        font-size: 1.5rem !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .accordion_button {
+        padding: 1rem !important;
+        font-size: 1rem !important;
+    }
+    
+    .accordion_panel {
+        padding: 1rem !important;
+        font-size: 0.9rem;
+    }
+
+    .image_container {
+        margin: 0 auto;
+        max-width: 90%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .accordion {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    
+    .accordion_button {
+        padding: 1rem !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .accordion_panel {
+        padding: 1rem !important;
+        font-size: 0.9rem;
+    }
+}
+
