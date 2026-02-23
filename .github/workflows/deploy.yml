@@ -119,6 +119,7 @@ jobs:
             sudo cp /var/www/techmapperz/nginx.conf /etc/nginx/sites-available/techmapperz
             sudo ln -sf /etc/nginx/sites-available/techmapperz /etc/nginx/sites-enabled/techmapperz
             sudo rm -f /etc/nginx/sites-enabled/default
+            sudo rm -f /etc/nginx/sites-enabled/techmapperz-site  # REMOVE BROKEN OLD SYMLINK CAUSING CRASH
             sudo nginx -t && sudo systemctl reload nginx
 
             echo "🚀 Deployment completed successfully!"
