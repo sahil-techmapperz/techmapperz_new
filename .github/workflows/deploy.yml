@@ -42,8 +42,15 @@ jobs:
           username: ${{ secrets.AWS_USERNAME }}
           key: ${{ secrets.AWS_PRIVATE_KEY }}
           script: |
-            # Remove old build files to prevent tar extraction 'File exists' errors
-            rm -rf /var/www/techmapperz/.next
+            # Clean existing build files and ensure correct permissions for SCP tar extraction
+            if [ -d "/var/www/techmapperz" ]; then
+              sudo chown -R $USER:$USER /var/www/techmapperz
+              sudo chmod -R u+w /var/www/techmapperz
+              sudo rm -rf /var/www/techmapperz/.next
+            else
+              sudo mkdir -p /var/www/techmapperz
+              sudo chown -R $USER:$USER /var/www/techmapperz
+            fi
 
       - name: Upload build files to AWS
         uses: appleboy/scp-action@v0.1.7
