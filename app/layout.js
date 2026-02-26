@@ -9,6 +9,9 @@ const ConditionalLayout = dynamic(() => import('./_Components/ConditionalLayout'
 const PerformanceProvider = dynamic(() => import('./_Components/PerformanceProvider'));
 import { Montserrat } from "next/font/google";
 import Head from 'next/head';
+import SmoothScroll from './_Components/SmoothScroll';
+import ExitIntentPopup from './_Components/ExitIntentPopup';
+
 
 // Dynamic imports for non-critical components removed for performance
 
@@ -145,17 +148,17 @@ export default function RootLayout({ children }) {
         {/* Preload critical assets */}
         <link rel="preload" href="/Photos/3Drendered_digital_Ear.webp" as="image" />
         <link rel="preload" href="/logo.webp" as="image" />
-        
+
         {/* DNS Prefetch for external resources */}
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://connect.facebook.net" />
         <link rel="dns-prefetch" href="https://calendly.com" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        
+
         {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
-        
+
         {/* Schema.org structured data */}
         <script
           type="application/ld+json"
@@ -247,10 +250,13 @@ export default function RootLayout({ children }) {
       </head>
 
       <body className={montserrat.variable}>
-        <CriticalCSS />
-        <a href="#main-content" className="skip-link">Skip to main content</a>
-        <ConditionalLayout>{children}</ConditionalLayout>
-      
+        <SmoothScroll>
+          <CriticalCSS />
+          <ExitIntentPopup />
+          <a href="#main-content" className="skip-link">Skip to main content</a>
+          <ConditionalLayout>{children}</ConditionalLayout>
+        </SmoothScroll>
+
 
         {/* Meta Pixel Code */}
         <Script

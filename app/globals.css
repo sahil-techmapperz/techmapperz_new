@@ -10,21 +10,43 @@
 /* Performance optimizations */
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto !important;
   }
-  
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
+
   body {
     @apply font-sans antialiased;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   /* Improve focus visibility for accessibility */
   *:focus-visible {
     @apply outline-2 outline-blue-500 outline-offset-2;
   }
-  
+
   /* Hide focus ring for mouse users */
   *:focus:not(:focus-visible) {
     @apply outline-none;
@@ -33,9 +55,12 @@
 
 /* Loading animation */
 @keyframes pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
   }
+
   50% {
     opacity: .5;
   }
@@ -61,7 +86,7 @@ img {
   .no-print {
     display: none !important;
   }
-  
+
   body {
     color: black !important;
     background: white !important;
@@ -80,6 +105,7 @@ img {
 
 /* Reduced motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

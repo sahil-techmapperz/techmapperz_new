@@ -67,7 +67,7 @@ const DroneSurveyandMapping = () => {
                 servicedescription:
                     "Our drone survey and data processing services deliver accurate Digital Elevation Models (DEM) and contour maps essential for flood modeling, watershed analysis, road design, and land development projects. The outputs are GIS-ready and compliant with industry standards.",
                 serviceimg:
-                    "/gis_images/drone_services/drone_surveying_mapping/corridor_mapping.webp"
+                    "/gis_images/drone_services/drone_surveying_mapping/DEM.png"
 
             },
 
@@ -90,7 +90,7 @@ const DroneSurveyandMapping = () => {
                 servicedescription:
                     "All drone survey outputs are delivered in GIS-compatible formats, enabling seamless integration with existing systems for spatial analysis, asset management, and decision support across government and enterprise projects.",
                 serviceimg:
-                    "/gis_images/drone_services/drone_surveying_mapping/corridor_mapping.webp"
+                    "/gis_images/drone_services/drone_surveying_mapping/GIS-Ready Drone Data & Deliverables.png"
 
             }
             ]
