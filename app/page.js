@@ -87,6 +87,11 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.techmapperz.co
 
 
 
+
+
+
+
+
 export const metadata = {
   title: "IT Company | GIS Services Company | Drone Survey | Techmapperz | India",
   description: "Techmapperz is a leading IT, GIS, and Drone Solutions provider company in India. From custom web and app development to CRM systems and drone services, we streamline operations, drive data-driven decisions, and fuel sustainable growth for organizations of every scale.",
