@@ -10,7 +10,6 @@ const PerformanceProvider = dynamic(() => import('./_Components/PerformanceProvi
 import { Montserrat } from "next/font/google";
 import Head from 'next/head';
 import SmoothScroll from './_Components/SmoothScroll';
-import ExitIntentPopup from './_Components/ExitIntentPopup';
 
 
 // Dynamic imports for non-critical components removed for performance
@@ -252,7 +251,6 @@ export default function RootLayout({ children }) {
       <body className={montserrat.variable}>
         <SmoothScroll>
           <CriticalCSS />
-          <ExitIntentPopup />
           <a href="#main-content" className="skip-link">Skip to main content</a>
           <ConditionalLayout>{children}</ConditionalLayout>
         </SmoothScroll>
