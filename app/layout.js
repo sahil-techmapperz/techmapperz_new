@@ -12,9 +12,6 @@ import Head from 'next/head';
 import SmoothScroll from './_Components/SmoothScroll';
 
 
-// Dynamic imports for non-critical components removed for performance
-
-
 
 const montserrat = Montserrat({
   subsets: ["latin"],
