@@ -31,7 +31,7 @@ const service = () => {
 
       <section className="h-[70vh] flex flex-col justify-center items-center bg-cover bg-center" style={{ backgroundImage: 'url("/gis_images/Main_Service_Page_Banner.webp")' }}>
         <div className='w-full h-full flex flex-col justify-center items-center gap-4 bg-black/80'>
-          <h1 className='text-center text-6xl max-sm:text-3xl text-white font-bold'>Our Services</h1>
+          <h1 className="text-4xl lg:text-[45px] max-sm:text-4xl font-bold text-white max-w-[900px] leading-[1.2]">Our Services</h1>
           <p className='text-center text-lg max-sm:text-sm text-gray-200 mt-4 px-4 md:px-8 md:w-[50%]'>
             Empowering Your Business with Smart Tech Solutions
           </p>

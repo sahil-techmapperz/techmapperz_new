@@ -4,73 +4,14 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import ScrollToTop from "@/app/_Components/ScrollToTop";
-import { 
-  ArrowLeft, 
-  Calendar, 
-  MapPin, 
-  ExternalLink, 
-  CheckCircle2,
-  Target,
-  Lightbulb,
-  TrendingUp,
-  Users,
-  Award,
-  Rocket,
-  ArrowUpRight,
-  Building2,
-  Gauge,
-  BarChart3,
-  Layers,
-  Star,
-  Zap
-} from "lucide-react";
+import HeroButtons from "@/app/_Components/HeroButtons";
 
-function Badge({ children, variant = "default" }) {
-  const variants = {
-    default: "bg-gray-800 border-gray-600 text-gray-300",
-    primary: "bg-[#00B0FE]/20 border-[#00B0FE]/30 text-[#00B0FE]",
-    success: "bg-green-500/20 border-green-500/30 text-green-400"
-  };
-  
-  return (
-    <span className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-sm font-medium ${variants[variant]}`}>
-      {children}
-    </span>
-  );
-}
-
-function Metric({ icon, label, value, description }) {
-  return (
-    <div className="rounded-2xl border border-gray-600 bg-gray-800 p-4">
-      <div className="flex items-center gap-3 mb-2">
-        <div className="flex size-10 items-center justify-center rounded-xl border border-gray-600 bg-gray-700 text-[#00B0FE]">
-          {icon}
-        </div>
-        <div>
-          <div className="text-lg font-bold text-white">{value}</div>
-          <div className="text-xs text-gray-400">{label}</div>
-        </div>
-      </div>
-      {description && <p className="text-sm text-gray-300">{description}</p>}
-    </div>
-  );
-}
-
-function Section({ icon, title, children, background = false }) {
-  return (
-    <section className={`py-12 lg:py-16 ${background ? 'bg-gray-800/50' : ''}`}>
-      <div className="mx-auto max-w-7xl px-4 lg:px-6">
-        <div className="mb-8 flex items-center gap-3">
-          <div className="flex size-12 items-center justify-center rounded-2xl border border-gray-600 bg-gray-800 text-[#00B0FE]">
-            {icon}
-          </div>
-          <h2 className="text-2xl font-bold text-white lg:text-3xl">{title}</h2>
-        </div>
-        {children}
-      </div>
-    </section>
-  );
-}
+const CheckIcon = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
+    <circle cx="12" cy="12" r="10" fill="#05D7DE"/>
+    <path d="M8 12.5L11 15.5L16 9" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+  </svg>
+);
 
 export default function PortfolioDetailTemplate({ 
   portfolioItem,
@@ -84,309 +25,223 @@ export default function PortfolioDetailTemplate({
 
   if (loading || !portfolioItem) {
     return (
-      <div className="min-h-screen bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-[#070A11] flex items-center justify-center">
         <div className="text-white">Loading...</div>
       </div>
     );
   }
 
-  // Extract data from portfolioItem (dynamic data structure)
   const techStackArray = portfolioItem.techStack ? portfolioItem.techStack.split(',').map(tech => tech.trim()) : [];
-  
-  // Handle different data structures for GIS vs IT portfolios
-  const challenges = portfolioItem.category === "GIS" 
-    ? (portfolioItem.objectives || []) 
-    : (portfolioItem.challenges || []);
+  const challenges = portfolioItem.category === "GIS" ? (portfolioItem.objectives || []) : (portfolioItem.challenges || []);
   const solutions = portfolioItem.solutions || [];
-  const results = portfolioItem.category === "GIS" 
-    ? (portfolioItem.benefits || []) 
-    : (portfolioItem.results || []);
-  const conclusion = portfolioItem.conclusion || "";
+  const results = portfolioItem.category === "GIS" ? (portfolioItem.benefits || []) : (portfolioItem.results || []);
   const projectDetails = portfolioItem.projectDetails || {};
-  const testimonial = portfolioItem.testimonial || null;
+  const description = Array.isArray(portfolioItem.details) ? portfolioItem.details[0] : portfolioItem.details;
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="bg-[#070A11] text-white relative overflow-hidden font-sans min-h-screen">
       <ScrollToTop />
       
       {/* Hero Section */}
-      <header className="relative min-h-[80vh] flex items-center overflow-hidden">
-        {/* Background with overlay */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"></div>
-          <div className="absolute inset-0 bg-[url('/Photos/Rectangle41.webp')] bg-cover bg-center opacity-10"></div>
-          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 to-transparent"></div>
+      <section className="min-h-[90vh] flex items-center justify-center p-6 md:p-12 relative pt-24 lg:pt-32">
+        {/* Background subtle glow effects */}
+        <div className="absolute top-1/4 left-10 w-[30rem] h-[30rem] bg-blue-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-10 right-10 w-[30rem] h-[30rem] bg-[#05D7DE]/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center relative z-10">
           
-          {/* Animated background elements */}
-          <div className="absolute top-20 left-20 w-72 h-72 bg-[#00B0FE]/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        </div>
-        
-        <div className="relative mx-auto max-w-7xl px-4 py-24 lg:px-6 lg:py-28">
-          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-            {/* Hero Content */}
-            <div className="space-y-8">
-              {/* Badge Section */}
-              <div className="space-y-4">
-                <div className="inline-flex items-center gap-2 rounded-full border border-[#00B0FE]/30 bg-[#00B0FE]/10 px-4 py-2 text-sm text-[#00B0FE]">
-                  <Rocket className="h-4 w-4" /> Portfolio Showcase
-                </div>
-                
-                <div className="flex flex-wrap items-center gap-3">
-                  <Badge variant="primary">
-                    <Building2 className="h-4 w-4" />
-                    {portfolioItem.category} Project
-                  </Badge>
-                  {/* <Badge>
-                    <Calendar className="h-4 w-4" />
-                    {projectDetails.year || "2024"}
-                  </Badge>
-                  <Badge>
-                    <MapPin className="h-4 w-4" />
-                    {projectDetails.location || "India"}
-                  </Badge> */}
-                  {/* {projectDetails.duration && (
-                    <Badge>
-                      <Gauge className="h-4 w-4" />
-                      {projectDetails.duration}
-                    </Badge>
-                  )} */}
-                </div>
-              </div>
-
-              {/* Main Heading */}
-              <div className="space-y-6">
-                <h1 className="text-4xl font-bold leading-tight text-white lg:text-[3.5rem] xl:text-[3.5rem]">
-                  {portfolioItem.name}
-                  <span className="block text-2xl lg:text-2xl xl:text-2xl font-normal text-gray-400 mt-2">
-                    {projectDetails.industry ? `${projectDetails.industry} Solution` : 'Digital Innovation'}
-                  </span>
-                </h1>
-                <p className="text-lg text-gray-300 lg:text-xl leading-relaxed max-w-2xl">
-                  {Array.isArray(portfolioItem.details) ? portfolioItem.details[0] : portfolioItem.details}
-                </p>
-              </div>
-
-
-
-              {/* Technology Stack Preview */}
-              <div className="space-y-4">
-                {/* <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">Technology Stack</h3> */}
-                <div className="flex flex-wrap gap-2">
-                  {techStackArray.slice(0, 4).map((tech, index) => (
-                    <div key={index} className="rounded-xl border border-gray-600 bg-gray-800/70 px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-all duration-300">
-                      {tech}
-                    </div>
-                  ))}
-                  {techStackArray.length > 4 && (
-                    <div className="rounded-xl border border-[#00B0FE]/30 bg-[#00B0FE]/10 px-3 py-2 text-sm font-medium text-[#00B0FE]">
-                      +{techStackArray.length - 4} more
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Hero CTAs */}
-              <div className="flex flex-wrap gap-4 pt-4">
-                {portfolioItem.link && portfolioItem.link !== "#" && (
-                  <Link
-                    href={'/portfolios'}
-                    className="group inline-flex items-center gap-3 rounded-xl bg-[#00B0FE] px-8 py-4 text-base font-medium text-white hover:bg-[#0090d4] hover:shadow-lg hover:shadow-[#00B0FE]/25 transition-all duration-300 transform hover:scale-105"
-                  >
-                    View Projects 
-                    <ExternalLink className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-                  </Link>
-                )}
-                <Link
-                  href="/contact"
-                  className="group inline-flex items-center gap-3 rounded-xl border border-gray-600 bg-gray-800/80 backdrop-blur-sm px-8 py-4 text-base font-medium text-white hover:bg-gray-700 hover:border-[#00B0FE]/50 transition-all duration-300"
-                >
-                  Start Similar Project 
-                  <ArrowUpRight className="h-5 w-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-                </Link>
-              </div>
+          {/* Left Column */}
+          <div className="space-y-8">
+            <div className="inline-block px-5 py-2 rounded-full bg-[#18212F] border border-[#233549]">
+              <span className="text-[#05D7DE] text-sm font-semibold tracking-wide">
+                {portfolioItem.category} Project {projectDetails.industry && `• ${projectDetails.industry}`}
+              </span>
             </div>
 
-            {/* Hero Image */}
-            <div className="relative  lg:order-last">
-              {/* Main project image */}
-              <div className="relative group">
-                <div className="aspect-[4/3] overflow-hidden rounded-3xl border border-gray-600 bg-gray-800 shadow-2xl">
-                  <Image
-                    src={portfolioItem.image}
-                    alt={portfolioItem.name}
-                    width={700}
-                    height={500}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    priority
-                  />
-                </div>
-                
-                {/* Floating info card */}
-                <div className="absolute -bottom-6 -right-6 rounded-2xl border border-gray-600 bg-gray-800/95 backdrop-blur-sm p-6 shadow-xl">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <div className="size-3 rounded-full bg-green-400 animate-pulse"></div>
-                      <span className="text-sm font-medium text-gray-300">Live Project</span>
-                    </div>
-                    {/* <p className="text-xs text-gray-400">
-                      {projectDetails.teamSize ? `Team: ${projectDetails.teamSize}` : 'Professional Team'}
-                    </p> */}
-                    <p className="text-xs text-gray-400">
-                      {projectDetails.industry || 'Enterprise Solution'}
-                    </p>
+            <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-[1.1] tracking-tight">
+              {portfolioItem.name}
+            </h1>
+
+            <p className="text-gray-300 text-base md:text-lg leading-relaxed max-w-xl font-light">
+              {description}
+            </p>
+
+            <HeroButtons />
+          </div>
+
+          {/* Right Column (Image & Stats) */}
+          <div className="relative w-full mt-10 lg:mt-0">
+            <div className="absolute inset-0 bg-gradient-to-b from-[#285D8B] via-[#0D243B] to-[#12A0AD] rounded-[2rem] transform scale-[1.03] -z-10 opacity-60 blur-[3px]"></div>
+            
+            <div className="bg-[#090E17]/90 backdrop-blur-xl rounded-[2rem] p-4 border border-white/10 shadow-2xl relative overflow-hidden">
+              <div className="aspect-[4/3] relative rounded-[1.5rem] overflow-hidden mb-6">
+                <img 
+                  src={portfolioItem.image} 
+                  alt={portfolioItem.name}
+                  className="object-cover w-full h-full hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 px-2 pb-2">
+                {projectDetails.location && (
+                  <div className="bg-[#1C232E] border border-white/5 rounded-2xl p-4">
+                    <h3 className="text-[#05D7DE] text-[10px] font-bold tracking-widest uppercase mb-1">Location</h3>
+                    <p className="text-white text-sm font-semibold truncate">{projectDetails.location}</p>
                   </div>
-                </div>
+                )}
+                {projectDetails.duration && (
+                  <div className="bg-[#1C232E] border border-white/5 rounded-2xl p-4">
+                    <h3 className="text-[#05D7DE] text-[10px] font-bold tracking-widest uppercase mb-1">Duration</h3>
+                    <p className="text-white text-sm font-semibold truncate">{projectDetails.duration}</p>
+                  </div>
+                )}
+                {projectDetails.projectType && (
+                  <div className="bg-[#1C232E] border border-white/5 rounded-2xl p-4 col-span-2">
+                    <h3 className="text-[#05D7DE] text-[10px] font-bold tracking-widest uppercase mb-1">Project Type</h3>
+                    <p className="text-white text-sm font-semibold">{projectDetails.projectType}</p>
+                  </div>
+                )}
               </div>
-              
-              {/* Background decoration */}
-              <div className="absolute -top-4 -left-4 size-24 rounded-full border border-[#00B0FE]/20 bg-[#00B0FE]/5"></div>
-              <div className="absolute -bottom-8 -left-8 size-32 rounded-full border border-purple-500/20 bg-purple-500/5"></div>
-            </div>
-          </div>
-
-          {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-            <div className="rounded-full border border-gray-600 bg-gray-800/80 p-2">
-              <ArrowUpRight className="h-4 w-4 text-gray-400 rotate-90" />
             </div>
           </div>
         </div>
-      </header>
+      </section>
 
-      {/* Challenges/Objectives Section */}
+      {/* Challenges Section */}
       {challenges.length > 0 && (
-        <Section 
-          icon={<Target size={24} />} 
-          title={portfolioItem.category === "GIS" ? "Objectives" : "Challenges"} 
-          background
-        >
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {challenges.map((challenge, index) => (
-              <div key={index} className="rounded-2xl border border-gray-600 bg-gray-800 p-6">
-                <h3 className="mb-3 text-lg font-semibold text-white">{challenge.title}</h3>
-                <p className="text-gray-300">{challenge.description}</p>
+        <section className="max-w-7xl mx-auto w-full px-6 md:px-12 pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 relative z-10 pt-16 border-t border-white/5">
+          <div className="lg:col-span-4 space-y-4">
+            <h3 className="text-[#05D7DE] text-xs font-bold tracking-widest uppercase">The Challenge</h3>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">What the Project Needed.</h2>
+            <p className="text-gray-400 text-[15px] leading-relaxed">
+              Every ambitious project comes with its own set of hurdles. Here are the core challenges we addressed.
+            </p>
+          </div>
+          <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {challenges.map((challenge, idx) => (
+              <div key={idx} className="flex flex-col gap-3 bg-[#161C26] border border-white/5 rounded-2xl p-6 hover:bg-[#1E2532] transition-colors">
+                <h4 className="text-white text-lg font-bold flex items-center gap-3">
+                  <span className="flex-shrink-0 size-8 rounded-full bg-[#05D7DE]/10 flex items-center justify-center text-[#05D7DE] text-sm">0{idx+1}</span>
+                  {challenge.title}
+                </h4>
+                <p className="text-gray-400 text-[14px] leading-relaxed ml-11">
+                  {challenge.description}
+                </p>
               </div>
             ))}
           </div>
-        </Section>
+        </section>
       )}
 
       {/* Solutions Section */}
       {solutions.length > 0 && (
-        <Section icon={<Lightbulb size={24} />} title="Our Solutions">
-          <div className="space-y-8">
-            {solutions.map((solution, index) => (
-              <div key={index} className="grid gap-6 lg:grid-cols-2 lg:items-center">
-                <div className={`space-y-4 ${index % 2 === 1 ? 'lg:order-2' : ''}`}>
-                  <h3 className="text-xl font-semibold text-white">{solution.title}</h3>
-                  <p className="text-gray-300">{solution.description}</p>
-                  {solution.features && (
-                    <ul className="space-y-2">
-                      {solution.features.map((feature, fIndex) => (
-                        <li key={fIndex} className="flex items-start gap-3 text-gray-300">
-                          <CheckCircle2 className="h-5 w-5 text-green-400 mt-0.5 flex-shrink-0" />
-                          {feature}
-                        </li>
+        <section className="bg-[#090E17] py-24 border-y border-white/5 relative z-10">
+          <div className="max-w-7xl mx-auto w-full px-6 md:px-12">
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <h3 className="text-[#05D7DE] text-xs font-bold tracking-widest uppercase mb-4">The Solution</h3>
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-6">How Techmapperz Solved It</h2>
+            </div>
+            
+            <div className="space-y-6">
+              {solutions.map((solution, idx) => (
+                <div key={idx} className="bg-[#111721] border border-[#233549] rounded-3xl p-8 md:p-10 flex flex-col lg:flex-row gap-10 hover:border-[#2A415A] transition-colors">
+                  <div className="lg:w-1/3">
+                    <div className="w-14 h-14 mb-6 rounded-2xl bg-gradient-to-br from-[#285D8B] to-[#12A0AD] flex items-center justify-center shadow-lg shadow-[#12A0AD]/20">
+                      <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-4">{solution.title}</h3>
+                    <p className="text-gray-400 text-[15px] leading-relaxed">{solution.description}</p>
+                  </div>
+                  
+                  {solution.features && solution.features.length > 0 && (
+                    <div className="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-4 h-fit">
+                      {solution.features.map((feature, fIdx) => (
+                        <div key={fIdx} className="bg-[#1C2331] border border-white/5 rounded-xl p-4 flex items-start gap-4">
+                          <CheckIcon />
+                          <span className="text-gray-300 text-sm font-medium pt-1">{feature}</span>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   )}
                 </div>
-                {solution.image && (
-                  <div className={`${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                    <div className="aspect-video overflow-hidden rounded-xl border border-gray-600 bg-gray-800">
-                      <Image
-                        src={solution.image}
-                        alt={solution.title}
-                        width={500}
-                        height={300}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Results & Tech Stack Section */}
+      <section className="max-w-7xl mx-auto w-full px-6 md:px-12 py-24 grid grid-cols-1 lg:grid-cols-2 gap-16 relative z-10">
+        
+        {/* Results */}
+        {results.length > 0 && (
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-[#05D7DE] text-xs font-bold tracking-widest uppercase mb-2">Business Impact</h3>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Results & Value Delivered</h2>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {results.map((result, idx) => (
+                <div key={idx} className="rounded-2xl p-[1px] bg-gradient-to-br from-[#1A334A] to-[#111721]">
+                  <div className="bg-[#111721] rounded-[15px] p-6 h-full flex flex-col justify-center items-center text-center">
+                    <span className="text-3xl font-bold text-[#05D7DE] mb-2">{result.value}</span>
+                    <span className="text-white text-[15px] font-bold tracking-wide mb-1">{result.label}</span>
+                    {result.description && <span className="text-gray-400 text-xs">{result.description}</span>}
                   </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </Section>
-      )}
-
-      {/* Results/Benefits Section */}
-      {results.length > 0 && (
-        <Section 
-          icon={<TrendingUp size={24} />} 
-          title={portfolioItem.category === "GIS" ? "Benefits" : "Results & Impact"} 
-          background
-        >
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {results.map((result, index) => (
-              <Metric
-                key={index}
-                icon={result.icon || <BarChart3 size={20} />}
-                label={result.label}
-                value={result.value}
-                description={result.description}
-              />
-            ))}
-          </div>
-        </Section>
-      )}
-
-      {/* Technology Deep Dive */}
-      {portfolioItem.category !== "GIS" && (
-        <Section icon={<Rocket size={24} />} title="Technology Stack">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {techStackArray.map((tech, index) => (
-              <div key={index} className="rounded-2xl border border-gray-600 bg-gray-800 p-4 text-center">
-                <div className="mx-auto mb-3 h-12 w-12 rounded-xl bg-[#00B0FE]/20 flex items-center justify-center">
-                  <span className="text-lg font-bold text-[#00B0FE]">{tech.charAt(0)}</span>
                 </div>
-                <h3 className="text-sm font-semibold text-white">{tech}</h3>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </Section>
-      )}
+        )}
 
-      {/* Conclusion */}
-      {conclusion && portfolioItem.category !== "GIS" && (
-        <Section icon={<Award size={24} />} title="Project Conclusion" background>
-          <div className="mx-auto max-w-4xl rounded-2xl border border-gray-600 bg-gray-800 p-8 text-center">
-            <p className="text-lg text-gray-300">{conclusion}</p>
+        {/* Tech Stack */}
+        {techStackArray.length > 0 && (
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-[#05D7DE] text-xs font-bold tracking-widest uppercase mb-2">Core Capabilities</h3>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Technology Stack</h2>
+            </div>
+            
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              {techStackArray.map((tech, idx) => (
+                <div key={idx} className="bg-[#244252] border border-[#366173] rounded-xl py-4 px-3 flex items-center justify-center text-center shadow-inner hover:bg-[#2C4E61] transition-colors">
+                  <span className="text-white text-xs sm:text-[13px] font-bold tracking-wide uppercase">{tech}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </Section>
-      )}
+        )}
+      </section>
 
-
-     
-
-      {/* Call to Action */}
-      <section className="py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-4 lg:px-6">
-          <div className="rounded-2xl border border-gray-600 bg-gradient-to-br from-gray-800 to-gray-700 p-8 text-center lg:p-12">
-            <h2 className="mb-4 text-2xl font-bold text-white lg:text-3xl">
-              Ready to Start Your Project?
+      {/* CTA Section */}
+      <section className="max-w-7xl mx-auto w-full px-6 md:px-12 pb-32 relative z-10 border-t border-white/5 pt-16 mt-12">
+        <div className="relative rounded-[2rem] overflow-hidden bg-[#111721] border border-[#233549] p-8 md:p-16 shadow-2xl flex flex-col justify-center border-dashed text-center">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[30rem] h-[30rem] bg-[#05D7DE] opacity-10 blur-[100px] rounded-full pointer-events-none"></div>
+          <div className="absolute inset-0 border-[2px] border-dashed border-[#05D7DE]/20 rounded-[2rem] pointer-events-none z-20 m-1"></div>
+          
+          <div className="relative z-10 max-w-3xl mx-auto space-y-6">
+            <h3 className="text-[#05D7DE] text-[11px] md:text-xs font-bold tracking-widest uppercase">
+              Ready to start your project?
+            </h3>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-snug">
+              Let's build your next digital innovation together.
             </h2>
-            <p className="mb-8 text-gray-300 lg:text-lg">
-              Let's discuss how we can create a similar solution for your business needs.
+            <p className="text-gray-400 text-[15px] leading-relaxed pb-6">
+              Get a tailored proposal within 48 hours. We help teams execute fast, accurate, and scalable solutions for their business needs.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#00B0FE] px-6 py-3 text-sm font-medium text-white hover:bg-[#0090d4] transition-colors lg:px-8 lg:py-4 lg:text-base"
-              >
-                Get Started <ArrowUpRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/portfolios"
-                className="inline-flex items-center gap-2 rounded-xl border border-gray-600 bg-gray-800 px-6 py-3 text-sm font-medium text-white hover:bg-gray-700 transition-colors lg:px-8 lg:py-4 lg:text-base"
-              >
-                View More Projects
+            
+            <div className="flex justify-center">
+              <Link href="/contact" className="inline-flex items-center gap-3 rounded-xl bg-[#05D7DE] text-gray-900 font-bold px-8 py-4 hover:bg-[#04bcc2] transition-colors shadow-[0_0_20px_rgba(5,215,222,0.3)]">
+                Start a project
               </Link>
             </div>
           </div>
         </div>
       </section>
+
     </div>
   );
 }

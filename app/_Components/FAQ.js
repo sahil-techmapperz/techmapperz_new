@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaPlus, FaMinus } from "react-icons/fa";
 
 const FAQ = ({ faqData }) => {
-    const [openIndex, setOpenIndex] = useState(null);
+    const [openIndex, setOpenIndex] = useState(0);
 
     const toggleFAQ = (index) => {
         setOpenIndex(openIndex === index ? null : index);
@@ -11,9 +11,7 @@ const FAQ = ({ faqData }) => {
 
     return (
         <div className="max-w-[1600px] mx-auto sm:px-10 px-4 py-10">
-            <h2 className="text-xl sm:text-2xl md:text-[28px] leading-10 font-bold text-center mb-6">
-                Frequently Asked Questions <span className="font-[500]" >(FAQs)</span>
-            </h2>
+            
             <div className="lg:w-[80%] md:w-[90%] w-full mx-auto space-y-3 sm:space-y-4">
                 {faqData && faqData.length > 0 && faqData.map((faq, index) => (
                     <div key={index} className="sm:p-4 p-3 border-b border-gray-500 shadow-lg">

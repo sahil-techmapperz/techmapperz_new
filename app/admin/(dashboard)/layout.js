@@ -25,7 +25,7 @@ export default function DashboardLayout({ children }) {
     }
 
     // Check if user is trying to access protected routes
-    const protectedRoutes = ['/admin/dashboard', '/admin/events', '/admin/culture', '/admin/workspace', '/admin/blog-posts', '/admin/testimonials', '/admin/contacts', '/admin/career', '/admin/comments', '/admin/authors']
+    const protectedRoutes = ['/admin/dashboard', '/admin/events', '/admin/culture', '/admin/workspace', '/admin/blog-posts', '/admin/testimonials', '/admin/contacts', '/admin/career', '/admin/comments', '/admin/authors', '/admin/portfolio']
     const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route))
 
     if (isProtectedRoute && !token) {

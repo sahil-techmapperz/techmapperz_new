@@ -1,40 +1,48 @@
 import Link from 'next/link';
-import { FaLaptopCode } from 'react-icons/fa';
+import { FaLaptopCode, FaArrowRight } from 'react-icons/fa';
 import { memo } from 'react';
 
 const FlipCard = memo(({ desc = "", title = "", icon = <FaLaptopCode />, link = "" }) => {
   return (
-    <div className="w-full mb-4 md:mb-6 p-3 md:p-4 group relative overflow-hidden rounded-lg bg-gray-800 transition-all duration-500 ease-in-out will-change-transform hover:transform hover:scale-105">
+    <div className="group h-full flex flex-col p-8 rounded-[2rem] bg-[#111622]/80 backdrop-blur-xl border border-white/5 hover:border-[#d2292b]/30 transition-all duration-500 overflow-hidden relative shadow-lg hover:shadow-[0_10px_40px_rgba(210,41,43,0.1)] hover:-translate-y-2">
+      
+      {/* Background Hover Glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#4b7bff]/10 via-[#855896]/10 to-[#d2292b]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+
       {/* Icon */}
-      <div className="text-3xl md:text-5xl mb-3 md:mb-4 transition-all duration-700 relative z-10 group-hover:fill-white">
-        <div className="group-hover:brightness-0 text-white">{icon}</div>
+      <div className="relative z-10 w-16 h-16 rounded-2xl bg-[#1C2433] border border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-500 shadow-xl overflow-hidden">
+        {/* The icon SVG itself - we use brightness to turn it white if needed, but allow custom SVG colors */}
+        <div className="w-10 h-10 object-contain text-white drop-shadow-[0_0_8px_rgba(210,41,43,0.5)] flex items-center justify-center">
+            {icon}
+        </div>
       </div>
 
       {/* Title */}
       {title && (
-        <h2 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 text-gray-300 group-hover:text-white transition-colors duration-700 relative z-10">
+        <h2 className="text-2xl font-bold text-white mb-4 group-hover:text-[#d2292b] transition-colors duration-500 relative z-10 tracking-tight">
           {title}
         </h2>
       )}
 
       {/* Description */}
-      <div className="space-y-2 md:space-y-3">
-        <p className="text-sm md:text-base font-medium text-gray-400 group-hover:text-white transition-colors duration-700 relative z-10">
+      <div className="flex-grow relative z-10 mb-8">
+        <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors duration-500">
           {desc}
         </p>
       </div>
 
       {/* Button */}
-      <Link 
-        href={link} 
-        className="inline-block custom-button text-sm md:text-base px-4 md:px-6 py-3 md:py-4 mt-3 md:mt-4 border border-white rounded-lg text-white transition-all duration-700 relative z-10 group-hover:bg-white group-hover:text-black min-h-[44px] min-w-[44px] flex items-center justify-center"
-        aria-label={`Learn more about ${title}`}
-      >
-        {title ? `Learn More About ${title}` : 'Learn More'}
-      </Link>
+      <div className="relative z-10 mt-auto">
+        <Link 
+          href={link} 
+          className="inline-flex w-full items-center justify-center gap-3 px-6 py-3.5 bg-[#1C2433] border border-white/10 rounded-xl text-white font-bold text-sm tracking-wide transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-[#4b7bff] group-hover:via-[#855896] group-hover:to-[#d2292b] group-hover:border-transparent group-hover:shadow-[0_0_20px_rgba(210,41,43,0.3)]"
+          aria-label={`Learn more about ${title}`}
+        >
+          <span>Learn More</span>
+          <FaArrowRight className="text-[#ffb3b3] group-hover:text-white group-hover:translate-x-1 transition-all duration-300" />
+        </Link>
+      </div>
 
-      {/* Background gradient on hover */}
-      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-[#376bab] via-[#376bab] via-60% to-[#d2292b] opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"></div>
     </div>
   );
 });

@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import HeroButtons from '@/app/_Components/HeroButtons';
 import ScrollToTop from '@/app/_Components/ScrollToTop';
 import { createOptimizedLoader, ISR_CONFIGS } from '@/app/lib/utils/performanceOptimizer';
 
@@ -13,10 +14,6 @@ import GIS_Survey from "@/public/gis_images/GIS_Main_Page/GIS_Survey.webp";
 import GISintroImg from "@/public/gis_images/GISintroImg.webp";
 
 // Critical above-the-fold components
-const WebsiteBanner = dynamic(() => import('@/app/_Components/WebsiteBanner'), {
-  ssr: true,
-  ...createOptimizedLoader("500px", "bg-gradient-to-br from-gray-900 to-black")
-});
 
 const WebsiteIntroduction = dynamic(() => import('@/app/_Components/WebsiteIntroduction'), {
   ssr: true,
@@ -145,42 +142,53 @@ const faqData = [
   }
 ];
 
-const bannerData = {
-  title: (
-    <>
-      <span className="text-gradient">Transform Data</span> into Actionable Insights with Our Cutting-Edge{" "}
-      <span className="text-gradient">GIS Services</span>
-    </>
-  ),
-  subtitle: "Cutting-Edge GIS Solutions Service Provider in India",
-  description: "",
-  buttonText: "Get In Touch",
-  imageSrc: "/gis_images/GISserviceBanner.webp",
-  imageAlt: "GIS Services Mockup"
-};
-
-const introData = {
-  imageSrc: GISintroImg,
-  imageAlt: "GIS Services",
-  paragraphs: [
-    "At Techmapperz we help transform your operations, improve your decision-making, and accelerate your growth with the help of our GIS solutions. We offer end-to-end GIS Solutions that help the public & Government organizations, improve their decision support system. Our goal is simple: to give detailed and accurate spatial data insights that facilitate better decision-making, operational efficiency, and strategic planning."
-  ],
-  services: [
-    { text: "High Accuracy", highlight: "GIS Data" },
-    { text: "End-to-End", highlight: "Geospatial Services" },
-    { text: "High-Precision", highlight: "Outputs" },
-    { text: "Cost-Effective  & ", highlight: "Scalable Solution" }
-  ],
-  backgroundText: "GIS Services"
-};
-
 const gisservice = () => {
+
+  const introData = {
+    imageSrc: GISintroImg,
+    imageAlt: "GIS Services",
+    paragraphs: [
+      "At Techmapperz we help transform your operations, improve your decision-making, and accelerate your growth with the help of our GIS solutions. We offer end-to-end GIS Solutions that help the public & Government organizations, improve their decision support system. Our goal is simple: to give detailed and accurate spatial data insights that facilitate better decision-making, operational efficiency, and strategic planning."
+    ],
+    services: [
+      { text: "High Accuracy", highlight: "GIS Data" },
+      { text: "End-to-End", highlight: "Geospatial Services" },
+      { text: "High-Precision", highlight: "Outputs" },
+      { text: "Cost-Effective  & ", highlight: "Scalable Solution" }
+    ],
+    backgroundText: "GIS Services"
+  };
 
   return (
     <>
-      <div className="bg-black text-white">
+      <div className="bg-black text-white relative overflow-hidden">
         <ScrollToTop />
-        <WebsiteBanner {...bannerData} />
+
+        <section
+          className="w-full min-h-[90vh] flex items-center relative bg-cover bg-center bg-no-repeat pt-20"
+          style={{ backgroundImage: `url('/GIS_Service/GIS_Service.png')` }}
+        >
+          <div 
+            className="max-w-[1600px] w-full mx-auto px-20 max-sm:px-4 relative z-10 flex flex-col gap-6"
+            style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}
+          >
+            <div className="w-fit border border-[#4a5f82] bg-[#2a3c5a]/40 backdrop-blur-sm text-[#799ccc] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+              CUTTING-EDGE GIS SOLUTIONS SERVICE PROVIDER IN INDIA
+            </div>
+
+            <h1 className="text-4xl lg:text-[45px] max-sm:text-4xl font-bold text-white max-w-[900px] leading-[1.2]">
+              GIS Mapping & Geospatial  <br className="hidden lg:block" />
+              Solutions for Smart Planning <br className="hidden lg:block" />
+              & Decision Making
+            </h1>
+
+            <p className="lg:text-[17px] text-gray-300 max-w-2xl capitalize text-lg">
+             Leading IT Strategy & Consulting Company in India.
+            </p>
+
+            <HeroButtons button1Text="Get a Free Consultation" button2Text="View Our Work" />
+          </div>
+        </section>
         <section>
 
           <WebsiteIntroduction

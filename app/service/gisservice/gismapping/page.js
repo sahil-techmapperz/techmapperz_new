@@ -96,8 +96,8 @@ const Gismapping = () => {
             <ScrollToTop />
             <section className="h-[70vh] flex flex-col justify-center items-center bg-cover bg-center" style={{ backgroundImage: 'url("/gis_images/GIS_Mapping_Page_Banner.webp")' }}>
                 <div className='w-full h-full flex flex-col justify-center items-center gap-4 bg-gradient-to-b from-red-200/50 to-transparent'>
-                    <h1 className="text-4xl font-bold max-sm:text-2xl">GIS Mapping</h1>
-                    <p className="text-xl text-center max-sm:text-[16px]  text-gray-400">
+                    <h1 className="text-4xl lg:text-[45px] max-sm:text-4xl font-bold text-white max-w-[900px] leading-[1.2]">GIS Mapping</h1>
+                    <p className="text-center text-gray-400 text-lg lg:text-[17px]">
                         <Link href="/">Home</Link> / <Link href="/service">Services</Link>/<Link href="/service/gis/gisservice"> GIS Services</Link> / GIS Mapping
                     </p>
                     <div className="flex gap-4">

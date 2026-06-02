@@ -2,11 +2,21 @@
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useRef } from 'react';
 import { categoryData } from '@/app/_Components/Industry_Expertise';
+import CTABanner from '@/app/_Components/CTABanner';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 const IndustryDetailPage = () => {
 
 	const params = useParams();
+	const containerRef = useRef(null);
+
 	const industry = categoryData.find(
 		cat => cat.name.toLowerCase().replace(/[&\s]+/g, '-') === params.slug
 	);
@@ -153,6 +163,38 @@ const IndustryDetailPage = () => {
 
 	const benefits = getIndustryBenefits(params.slug);
 
+	useEffect(() => {
+		if (typeof window === 'undefined' || !containerRef.current) return;
+		
+		let ctx = gsap.context(() => {
+			// Hero animations
+			gsap.fromTo('.hero-anim', 
+				{ opacity: 0, y: 50 },
+				{ opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out" }
+			);
+
+			// Section animations on scroll
+			gsap.utils.toArray('.gsap-reveal').forEach((elem) => {
+				gsap.fromTo(elem, 
+					{ opacity: 0, y: 50 },
+					{ 
+						opacity: 1, 
+						y: 0, 
+						duration: 0.8, 
+						ease: "power3.out",
+						scrollTrigger: {
+							trigger: elem,
+							start: "top 80%",
+							toggleActions: "play none none reverse"
+						}
+					}
+				);
+			});
+		}, containerRef);
+
+		return () => ctx.revert();
+	}, []);
+
 	if (!industry) {
 		return (
 			<div className="min-h-screen flex items-center justify-center bg-black">
@@ -167,104 +209,118 @@ const IndustryDetailPage = () => {
 	}
 
 	return (
-		<div className="min-h-screen bg-black">
-			{/* Hero Header Section */}
-			<div className="relative h-[40vh] sm:h-[50vh] md:h-[60vh] w-full">
-				<div className="absolute inset-0 bg-black/70 z-10" />
-				<Image
-					src={industry.image}
-					alt={industry.name}
-					fill
-					className="object-cover"
-					priority
-				/>
-				<div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center px-4">
-					<span className="text-4xl sm:text-5xl md:text-6xl mb-4">{industry.icon}</span>
-					<h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 animate-fade-in">
+		<div className="min-h-screen bg-black overflow-hidden" ref={containerRef}>
+			{/* Modern Immersive Hero Section */}
+			<div className="relative h-[60vh] sm:h-[70vh] w-full overflow-hidden">
+				{/* Parallax Background */}
+				<div className="absolute inset-0 z-0">
+					<Image
+						src={industry.image}
+						alt={industry.name}
+						fill
+						className="object-cover opacity-50 scale-105"
+						priority
+					/>
+					{/* Heavy gradient overlay utilizing the industry's accent color */}
+					<div className={`absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent z-10`} />
+					<div className={`absolute inset-0 bg-gradient-to-tr ${industry.accent} opacity-20 z-10`} />
+				</div>
+				
+				<div className="absolute inset-0 z-20 flex flex-col justify-end items-center text-center pb-24 px-4">
+					<div className="hero-anim w-24 h-24 sm:w-32 sm:h-32 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md border border-white/20 flex items-center justify-center text-white mb-8 shadow-2xl">
+						{industry.icon}
+					</div>
+					<h1 className="hero-anim text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-xl tracking-tight">
 						{industry.name}
 					</h1>
-					<p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl animate-fade-in-up px-4">
+					<p className="hero-anim text-lg sm:text-xl text-gray-300 max-w-3xl leading-relaxed drop-shadow-md">
 						{industry.desc}
 					</p>
 				</div>
 			</div>
 
-			{/* Main Content */}
-			<div className="py-8 sm:py-12 md:py-16 px-4">
-				<div className="max-w-7xl mx-auto space-y-8 sm:space-y-12">
-					{/* Services Section */}
-					<div className="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-800 transform transition-all duration-300 hover:scale-[1.01]">
-						<div className="p-4 sm:p-6 md:p-8">
-							<h2 className="text-xl sm:text-2xl font-semibold text-white mb-4">Our Services</h2>
-							<div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-								{industry.categoryTypes.map((type, index) => (
-									<div
-										key={index}
-										className="p-4 bg-gray-800 rounded-lg border border-gray-700 hover:border-blue-500 transition-all duration-300 transform hover:-translate-y-1"
-									>
-										<h3 className="text-blue-400 text-base sm:text-lg font-medium mb-2">{type}</h3>
-										<p className="text-gray-400 text-sm sm:text-base">
-											Comprehensive solutions for {type.toLowerCase()} in the {industry.name.toLowerCase()} sector
+			{/* Main Content Area */}
+			<div className="py-16 sm:py-24 px-4 sm:px-6 relative z-30 -mt-8">
+				<div className="max-w-7xl mx-auto space-y-24 sm:space-y-32">
+					
+					{/* Our Services - Glassmorphism Cards */}
+					<div className="gsap-reveal">
+						<div className="text-center mb-12">
+							<span className={`text-transparent bg-clip-text bg-gradient-to-r ${industry.accent} text-sm font-semibold tracking-widest uppercase`}>Capabilities</span>
+							<h2 className="text-3xl md:text-4xl font-bold text-white mt-2">Our Services</h2>
+						</div>
+						
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+							{industry.categoryTypes?.map((type, index) => (
+								<div
+									key={index}
+									className="group p-8 rounded-3xl bg-gray-900/40 backdrop-blur-sm border border-white/10 hover:border-white/30 transition-all duration-500 relative overflow-hidden"
+								>
+									{/* Subtle background glow on hover */}
+									<div className={`absolute -inset-1 bg-gradient-to-r ${industry.accent} opacity-0 group-hover:opacity-10 transition duration-500 blur-xl`}></div>
+									
+									<div className="relative z-10 flex flex-col h-full justify-between">
+										<h3 className="text-xl sm:text-2xl font-bold text-white mb-4 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all">{type}</h3>
+										<p className="text-gray-400 text-sm sm:text-base leading-relaxed">
+											Comprehensive solutions for {type.toLowerCase()} in the {industry.name.toLowerCase()} sector.
 										</p>
 									</div>
-								))}
+								</div>
+							))}
+						</div>
+					</div>
+
+					{/* Features & Benefits - Bento Grid Style */}
+					<div className="gsap-reveal">
+						<div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+							{/* Left Column: Key Features */}
+							<div>
+								<span className={`text-transparent bg-clip-text bg-gradient-to-r ${industry.accent} text-sm font-semibold tracking-widest uppercase`}>Differentiators</span>
+								<h2 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-8">Key Features</h2>
+								
+								<div className="space-y-4">
+									{features.map((feature, index) => (
+										<div key={index} className="p-6 rounded-2xl bg-gradient-to-r from-gray-900 to-black border border-white/5 hover:border-white/20 transition-all duration-300 flex items-start gap-4 group">
+											<div className={`w-10 h-10 rounded-full bg-gradient-to-br ${industry.accent} flex items-center justify-center shrink-0 p-[1px]`}>
+												<div className="w-full h-full bg-black rounded-full flex items-center justify-center text-white text-xs font-bold group-hover:bg-transparent transition-colors">
+													0{index + 1}
+												</div>
+											</div>
+											<div>
+												<h3 className="text-lg font-bold text-white mb-1">{feature.title}</h3>
+												<p className="text-gray-400 text-sm">{feature.description}</p>
+											</div>
+										</div>
+									))}
+								</div>
+							</div>
+
+							{/* Right Column: Benefits */}
+							<div className="mt-12 lg:mt-0">
+								<span className={`text-transparent bg-clip-text bg-gradient-to-r ${industry.accent} text-sm font-semibold tracking-widest uppercase`}>The Value</span>
+								<h2 className="text-3xl md:text-4xl font-bold text-white mt-2 mb-8">Business Benefits</h2>
+								
+								<div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+									{benefits.map((benefit, index) => (
+										<div key={index} className="p-6 rounded-2xl bg-[#0a0a0a] border border-white/10 hover:border-white/30 transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col justify-center text-center group">
+											<h3 className={`text-xl font-bold text-transparent bg-clip-text bg-gradient-to-br ${industry.accent} mb-3`}>
+												{benefit.title}
+											</h3>
+											<p className="text-gray-400 text-sm group-hover:text-gray-200 transition-colors">
+												{benefit.description}
+											</p>
+										</div>
+									))}
+								</div>
 							</div>
 						</div>
 					</div>
 
-					{/* Features Section */}
-					<div className="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-800 transform transition-all duration-300 hover:scale-[1.01]">
-						<div className="p-4 sm:p-6 md:p-8">
-							<h2 className="text-xl sm:text-2xl font-semibold text-white mb-4">Key Features</h2>
-							<div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-								{features.map((feature, index) => (
-									<div key={index} className="p-4 bg-gray-800 rounded-lg border border-gray-700 transform transition-all duration-300 hover:-translate-y-1">
-										<h3 className="text-blue-400 text-base sm:text-lg font-medium mb-2">{feature.title}</h3>
-										<p className="text-gray-400 text-sm sm:text-base">{feature.description}</p>
-									</div>
-								))}
-							</div>
-						</div>
+					{/* CTA Banner Integration */}
+					<div className="gsap-reveal">
+						<CTABanner />
 					</div>
-
-					{/* Benefits Section */}
-					<div className="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-800 transform transition-all duration-300 hover:scale-[1.01]">
-						<div className="p-4 sm:p-6 md:p-8">
-							<h2 className="text-xl sm:text-2xl font-semibold text-white mb-4">Benefits</h2>
-							<div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-								{benefits.map((benefit, index) => (
-									<div key={index} className="p-4 bg-gray-800 rounded-lg border border-gray-700 transform transition-all duration-300 hover:-translate-y-1">
-										<h3 className="text-blue-400 text-base sm:text-lg font-medium mb-2">{benefit.title}</h3>
-										<p className="text-gray-400 text-sm sm:text-base">{benefit.description}</p>
-									</div>
-								))}
-							</div>
-						</div>
-					</div>
-
-					{/* CTA Section */}
-					<div className="bg-gray-900 rounded-xl shadow-2xl overflow-hidden border border-gray-800 transform transition-all duration-300 hover:scale-[1.01]">
-						<div className="p-4 sm:p-6 md:p-8 text-center">
-							<h2 className="text-xl sm:text-2xl font-semibold text-white mb-4">Ready to Get Started?</h2>
-							<p className="text-gray-400 text-sm sm:text-base mb-6">
-								Let's discuss how we can help transform your {industry.name.toLowerCase()} business
-							</p>
-							<div className="flex flex-col sm:flex-row gap-4 justify-center">
-								<Link
-									href="/contact"
-									className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200 transform hover:scale-105"
-								>
-									Contact Us
-								</Link>
-								<Link
-									href="/"
-									className="inline-block px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200 transform hover:scale-105"
-								>
-									Back to Industries
-								</Link>
-							</div>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>

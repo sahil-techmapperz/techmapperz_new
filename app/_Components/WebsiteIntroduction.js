@@ -30,9 +30,9 @@ const WebsiteIntroduction = ({
                     unoptimized
                     src={imageSrc}
                     alt={imageAlt}
-                    className="object-contain w-[40%] h-[350px] rounded-md max-lg:w-[50%] max-md:w-[70%] max-sm:w-[90vw]"
-                    width={100}
-                    height={100}
+                    className="object-contain w-[40%] h-auto max-h-[500px] rounded-md max-lg:w-[50%] max-md:w-[70%] max-sm:w-[90vw]"
+                    width={800}
+                    height={800}
                 />
 
                 <div className="w-[60%] max-lg:w-full flex flex-col gap-4">

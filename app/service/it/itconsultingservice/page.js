@@ -1,205 +1,337 @@
-import { FaAws, FaJira, FaConfluence, FaGithub, FaDatabase, FaCloud, FaChartBar } from "react-icons/fa";
-import { SiTableau, SiSalesforce, SiServicenow } from "react-icons/si";
 import ScrollToTop from '@/app/_Components/ScrollToTop';
-import dynamicImport from 'next/dynamic';
-import { createOptimizedLoader, ISR_CONFIGS } from '@/app/lib/utils/performanceOptimizer';
+import dynamic from 'next/dynamic';
+import HeroButtons from '@/app/_Components/HeroButtons';
+import Link from 'next/link';
+import { createOptimizedLoader } from '@/app/lib/utils/performanceOptimizer';
+import {
+  FiCheckCircle, FiTarget, FiZap, FiBarChart2, FiSmartphone, FiShield,
+  FiDatabase, FiUsers, FiSettings, FiArrowRight, FiClock, FiTrendingUp
+} from 'react-icons/fi';
+import {
+  MdOutlineIntegrationInstructions, MdOutlineDashboard,
+  MdOutlineAutoMode, MdOutlineRocketLaunch, MdOutlineVerified,
+  MdOutlineSupportAgent, MdOutlineGroups
+} from 'react-icons/md';
+import { FaArrowRightLong, FaAws, FaJira, FaConfluence, FaGithub, FaDatabase as FaDatabaseSolid, FaCloud, FaChartBar } from 'react-icons/fa';
+import { SiTableau, SiSalesforce, SiServicenow } from 'react-icons/si';
 
-// Critical above-the-fold components
-const WebsiteBanner = dynamicImport(() => import('@/app/_Components/WebsiteBanner'), {
-  ssr: true,
-  ...createOptimizedLoader("500px", "bg-gradient-to-br from-gray-900 to-black")
-});
-
-const WebsiteIntroduction = dynamicImport(() => import('@/app/_Components/WebsiteIntroduction'), {
+const WebsiteIntroduction = dynamic(() => import('@/app/_Components/WebsiteIntroduction'), {
   ssr: true,
   ...createOptimizedLoader("400px", "bg-black")
 });
 
-// Below-the-fold components - lazy load
-const OurServices = dynamicImport(() => import('@/app/_Components/OurServices'), {
-  ...createOptimizedLoader("500px", "bg-gradient-to-br from-gray-900 via-blue-900/20 to-gray-900")
+const OurProcess = dynamic(() => import('@/app/_Components/OurProcess'), {
+  ...createOptimizedLoader("300px", "bg-gray-900")
 });
 
-const TechStack = dynamicImport(() => import('@/app/_Components/TechStack'), {
+const TechStack = dynamic(() => import('@/app/_Components/TechStack'), {
   ...createOptimizedLoader("300px", "bg-black")
 });
 
-const WhyChooseTechmapperz = dynamicImport(() => import('@/app/_Components/WhyChooseTechmapperz'), {
+const WhyChooseTechmapperz = dynamic(() => import('@/app/_Components/WhyChooseTechmapperz'), {
   ...createOptimizedLoader("400px", "bg-gray-800")
 });
 
-const FAQ = dynamicImport(() => import('@/app/_Components/FAQ'), {
-  ...createOptimizedLoader("500px", "bg-gray-900")
+const FAQ = dynamic(() => import('@/app/_Components/FAQ'), {
+  ...createOptimizedLoader("500px", "bg-black")
+});
+
+const CTABanner = dynamic(() => import('@/app/_Components/CTABanner'), {
+  ...createOptimizedLoader("300px", "bg-black")
 });
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.techmapperz.com";
 
-// Force dynamic rendering to avoid prerender errors
-export const dynamic = 'force-dynamic';
-
+export const revalidate = 7200;
 
 export const metadata = {
-    title: "Top-rated IT Consulting Services in India | Techmapperz",
-    description: "We provide expert IT solutions tailored to streamline operations, enhance security, and drive business growth with cutting-edge technology.",
-    alternates: {
-        canonical: `${BASE_URL}/service/it/itconsultingservice`,
-    },
+  title: "IT Consulting Services in India | Techmapperz",
+  description: "Techmapperz offers expert IT consulting in India – strategic planning, infrastructure optimization, cybersecurity, and digital transformation to accelerate your business growth.",
+  alternates: {
+    canonical: `${BASE_URL}/service/it/itconsultingservice`,
+  },
 };
 
-const ItConsulting = () => {
-    const introData = {
-        imageSrc: "/Photos/IT_Consulting_Introduction.webp",
-        imageAlt: "IT Consulting",
-        paragraphs: [
-            "Transform your business with our expert IT consulting services. Techmapperz delivers strategic technology solutions that drive innovation and growth. Our experienced consultants provide comprehensive IT strategy, infrastructure optimization, and digital transformation services.",
-            "Stay ahead of the competition with our cutting-edge IT solutions and expert guidance. Partner with Techmapperz to leverage technology for your business success."
-        ],
-        services: [
-            { text: "Strategic IT planning and", highlight: "Digital Transformation" },
-            { text: "Infrastructure optimization for", highlight: "Enhanced Efficiency" },
-            { text: "Cybersecurity solutions for", highlight: "Data Protection" },
-            { text: "Technology implementation for", highlight: "Business Growth" }
-        ],
-        backgroundText: "IT Consulting"
-    };
+// ─── Data ─────────────────────────────────────────────────────────────────────
 
-    const itConsultingServices = [
-        {
-            id: 1,
-            title: "IT Strategy Development",
-            icon: "/it_consultancy_services_icon/IT Assessment.svg",
-            description: "Strategic IT planning and roadmap development to align technology with your business goals and drive digital transformation."
-        },
-        {
-            id: 2,
-            title: "Infrastructure Consulting",
-            icon: "/it_consultancy_services_icon/Tech Integration.svg",
-            description: "Expert guidance on IT infrastructure optimization, cloud solutions, and system architecture for improved efficiency."
-        },
-        {
-            id: 3,
-            title: "Digital Transformation",
-            icon: "/it_consultancy_services_icon/IT Technology consulting.svg",
-            description: "Comprehensive digital transformation services to modernize your business processes and enhance operational efficiency."
-        },
-        {
-            id: 4,
-            title: "Security & Compliance",
-            icon: "/it_consultancy_services_icon/IT Budgeting.svg",
-            description: "Robust cybersecurity consulting and compliance solutions to protect your business assets and data."
-        },
-        {
-            id: 5,
-            title: "Technology Implementation",
-            icon: "/it_consultancy_services_icon/Software Development.svg",
-            description: "Expert implementation of IT solutions, including system integration, software deployment, and process automation."
-        }
-    ];
+const introData = {
+  imageSrc: "/Photos/it_consulting_intro_new.png",
+  imageAlt: "Expert IT Consulting Services in India by Techmapperz",
+  paragraphs: [
+    "Techmapperz provides professional IT consulting services in India to help businesses improve operations, strengthen technology infrastructure, and accelerate digital growth. Our expert consultants work closely with organizations to deliver practical solutions in IT strategy consulting, digital transformation, infrastructure optimization, cybersecurity, and technology implementation.",
+    "We help businesses align technology with their goals, reduce operational inefficiencies, improve system performance, and build scalable digital solutions. Whether you are planning an IT upgrade, modernizing legacy systems, improving cybersecurity, or adopting new digital tools, Techmapperz delivers reliable consulting services tailored to your business needs."
+  ],
+  services: [
+    { text: "Strategic IT planning for ", highlight: "smarter business decisions." },
+    { text: "Digital transformation consulting to ", highlight: "modernize operations." },
+    { text: "Infrastructure optimization for ", highlight: "better performance." },
+    { text: "Cybersecurity solutions to ", highlight: "protect systems & data." },
+  ],
+  backgroundText: "IT Consulting"
+};
 
-    const faqData = [
-        {
-            question: "1.	What is IT strategy and why is it important for my business",
-            answer: "IT strategy aligns technology with business goals, improving efficiency, security, and scalability. It helps businesses stay competitive, optimize processes, and drive long-term growth in a digital landscape.",
-        },
-        {
-            question: "2.	How does Techmapperz develop an It strategy for my business?",
-            answer: "We assess your business needs, analyze existing systems, and create a customized IT strategy focusing on efficiency, security, and scalability to help you achieve long-term success.",
-        },
-        {
-            question: "3.	What IT consulting services do you offer?",
-            answer: "We provides IT strategy development, system integration, cybersecurity solutions, cloud computing, software development, and technology optimization to enhance business efficiency and digital transformation.",
-        },
-        {
-            question: "4.	Can you help us optimize our data management process?",
-            answer: "Yes! We optimize data management by improving storage efficiency, enhancing security, ensuring easy access, and automating processes, allowing your business to operate smoothly with accurate and reliable data.",
-        },
-        {
-            question: "5.	How do you approach IT strategy development?",
-            answer: "We align technology with business goals, assess infrastructure and implement scalable solutions, incorporating market analysis, risk assessment, and future-proofing for long-term efficiency and competitiveness",
-        },
-        {
-            question: "6.	How do I know if my business needs IT Consulting?",
-            answer: "If your business faces IT inefficiencies, security issue, outdated systems, or scalability issues, IT consulting helps you implement smarter solutions for growth and sustainability.",
-        },
-        {
-            question: "7.	What technology do you specialize in?",
-            answer: "We specialize in cloud computing, AI, cybersecurity, data analytics, web and mobile development, CRM solutions, and emerging technologies to support business innovation.",
-        },
-        {
-            question: "8.	How do I get started with your IT consulting services?",
-            answer: "Simply contact Techmapperz! We’ll assess your needs, discuss challenges, and craft a tailored IT strategy to help your business grow with the right technology.",
-        },
+const consultingFeatures = [
+  {
+    icon: <FiTarget className="text-3xl" />,
+    title: "IT Strategy Development",
+    desc: "We offer IT strategy consulting and roadmap development to align technology investments with your business goals, improve decision-making, and support digital transformation.",
+    tags: ["Strategy", "Roadmap", "Business Alignment"]
+  },
+  {
+    icon: <FiDatabase className="text-3xl" />,
+    title: "Infrastructure Consulting",
+    desc: "Our infrastructure consulting services help businesses optimize IT environments, improve system performance, adopt cloud solutions, and build scalable architecture for future growth.",
+    tags: ["Optimization", "Cloud", "Scalability"]
+  },
+  {
+    icon: <MdOutlineRocketLaunch className="text-3xl" />,
+    title: "Digital Transformation",
+    desc: "We provide digital transformation consulting services to modernize business processes, improve workflow efficiency, and help organizations adopt the right digital technologies.",
+    tags: ["Modernization", "Efficiency", "Adoption"]
+  },
+  {
+    icon: <FiShield className="text-3xl" />,
+    title: "Security & Compliance",
+    desc: "Our cybersecurity and compliance consulting services help protect business systems, sensitive data, and IT environments while supporting regulatory and security best practices.",
+    tags: ["Cybersecurity", "Data Protection", "Compliance"]
+  },
+  {
+    icon: <MdOutlineIntegrationInstructions className="text-3xl" />,
+    title: "Technology Implementation",
+    desc: "We deliver technology implementation services including software deployment, system integration, automation, and solution setup to help businesses improve operational efficiency.",
+    tags: ["Deployment", "Integration", "Automation"]
+  }
+];
 
+const processSteps = [
+  {
+    title: "Consultation & Assessment",
+    descriptions: [
+      "We begin with a detailed analysis of your current IT landscape and business objectives."
+    ]
+  },
+  {
+    title: "Strategy & Planning",
+    descriptions: [
+      "Next, we design a customized IT strategy and roadmap (including budgets and timelines)."
+    ]
+  },
+  {
+    title: "Implementation",
+    descriptions: [
+      "Our team implements solutions – building or upgrading systems, migrating to cloud, and integrating software."
+    ]
+  },
+  {
+    title: "Review & Optimize",
+    descriptions: [
+      "After deployment, we monitor performance, provide training, and refine the solution to ensure lasting benefits."
+    ]
+  },
+  {
+    title: "Ongoing Support",
+    descriptions: [
+      "We stay engaged as your technology partner, offering maintenance and future enhancements."
+    ]
+  }
+];
 
+const whyChooseFeatures = [
+  {
+    img: '/flexibility.svg',
+    title: 'Experienced Team',
+    description: 'Our certified consultants have 15+ years in IT strategy and execution, combining deep technical expertise with a client-first approach.'
+  },
+  {
+    img: '/Quality.svg',
+    title: 'Full Accountability',
+    description: 'We take 100% ownership of your project, with a dedicated team and regular CEO oversight to ensure your success.'
+  },
+  {
+    img: '/Friendly.svg',
+    title: 'Rapid Delivery',
+    description: 'Our agile process accelerates time-to-market; we deploy the right people and tools to deliver results quickly.'
+  },
+  {
+    img: '/reduce_cost.svg',
+    title: 'Cost-Effective Solutions',
+    description: 'We optimize your technology spend, leveraging proven frameworks to deliver maximum value (clients report up to 30% cost reductions).'
+  }
+];
 
-    ];
+const itconsultingTechItems = [
+  { name: "AWS", icon: <FaAws />, bg: "#1f2937", textColor: "#FF9900" },
+  { name: "Azure", icon: <FaCloud />, bg: "#1f2937", textColor: "#3b82f6" },
+  { name: "Jira", icon: <FaJira />, bg: "#1f2937", textColor: "#2684FF" },
+  { name: "Confluence", icon: <FaConfluence />, bg: "#1f2937", textColor: "#2684FF" },
+  { name: "Tableau", icon: <SiTableau />, bg: "#1f2937", textColor: "#E97627" },
+  { name: "PowerBI", icon: <FaChartBar />, bg: "#1f2937", textColor: "#F2C811" },
+  { name: "Salesforce", icon: <SiSalesforce />, bg: "#1f2937", textColor: "#00A1E0" },
+  { name: "Github", icon: <FaGithub />, bg: "#1f2937", textColor: "#ffffff" },
+  { name: "Cloud", icon: <FaCloud />, bg: "#1f2937", textColor: "#4285F4" },
+  { name: "Database", icon: <FaDatabaseSolid />, bg: "#1f2937", textColor: "#47A248" }
+];
 
+const faqData = [
+  {
+    question: "How do I know if my business needs IT consulting?",
+    answer: "If you face recurring IT issues, high operational costs, or are planning growth, consulting can align technology with your goals. We help you assess and decide."
+  },
+  {
+    question: "What industries do you serve?",
+    answer: "We serve diverse sectors including healthcare, education, retail, logistics, and more. Our consultants tailor solutions to each industry’s needs."
+  },
+  {
+    question: "What is the process to engage your services?",
+    answer: "Simply contact us for a free initial call. We’ll discuss your needs, recommend a plan, and provide a transparent quote. We start with a trial phase to ensure the right fit."
+  },
+  {
+    question: "How are consulting projects priced?",
+    answer: "We offer flexible engagement models (fixed-price, T&M, dedicated team). After initial scoping, you’ll get a clear proposal. We emphasize upfront cost estimates and 1-week trial periods."
+  }
+];
 
-    const itconsultingTechItems = [
-        { name: "AWS", icon: <FaAws />, bg: "#f0f5ff", textColor: "#FF9900" },
-        { name: "Azure", icon: <FaCloud />, bg: "#f5f5f5", textColor: "#0078D4" },
-        { name: "Jira", icon: <FaJira />, bg: "#fff0f0", textColor: "#0052CC" },
-        { name: "Confluence", icon: <FaConfluence />, bg: "#f0f5ff", textColor: "#172B4D" },
-        { name: "Tableau", icon: <SiTableau />, bg: "#f0f5ff", textColor: "#E97627" },
-        { name: "PowerBI", icon: <FaChartBar />, bg: "#fff0f0", textColor: "#F2C811" },
-        { name: "Salesforce", icon: <SiSalesforce />, bg: "#f5f5f5", textColor: "#00A1E0" },
-        { name: "Github", icon: <FaGithub />, bg: "#f0f5ff", textColor: "#24C8DB" },
-        { name: "Cloud", icon: <FaCloud />, bg: "#f5f5f5", textColor: "#4285F4" },
-        { name: "Database", icon: <FaDatabase />, bg: "#f0f5ff", textColor: "#47A248" }
-    ];
+// ─── Page ──────────────────────────────────────────────────────────────────────
 
+const ITConsulting = () => {
+  return (
+    <div className="bg-black text-white">
+      <ScrollToTop />
 
-    const bannerData = {
-        title: (
-            <>
-                Empower Your Business with Expert{" "}
-                <span className="text-gradient">IT Consultancy</span>
-            </>
-        ),
-        // title: "Empower Your Business with Expert IT Consultancy",
-        subtitle: "Expert IT Consulting to Grow your Business!",
-        description: "",
-        buttonText: "Get In Touch",
-        imageSrc: "/Photos/it_Consultancy_Mockup_banner.webp",
-        imageAlt: "Web Development Mockup"
-    };
+      {/* ── HERO ── */}
+      <section
+        className="w-full min-h-[100vh] flex items-center relative bg-cover bg-center bg-no-repeat pt-20"
+        style={{ backgroundImage: `url('/IT_Consulting/it_consulting_hero_new.png')` }}
+      >
+        {/* <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" /> */}
+        <div className="max-w-[1600px] w-full mx-auto px-20 max-sm:px-4 relative z-10 flex flex-col gap-6">
+          <div className="w-fit border border-[#4a5f82] bg-[#2a3c5a]/40 backdrop-blur-sm text-[#799ccc] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+            Leading IT Strategy & Consulting Company in India
+          </div>
 
-    return (
-        <div className="bg-gray-900 text-white relative">
-            <ScrollToTop />
-            <WebsiteBanner {...bannerData} />
+          <h1 className="text-4xl lg:text-[52px] max-sm:text-3xl font-bold text-white max-w-[820px] leading-[1.15]">
+            Expert IT Consulting <br />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2d5689] to-[#a82123]">
+              Services in India
+            </span>
+          </h1>
 
-            <section className="w-full bg-black ">
+          <p className="text-lg text-gray-300 max-w-2xl leading-relaxed">
+            Technology implementation support for sustainable business growth and modernization of operations.
+          </p>
 
-
-                <WebsiteIntroduction
-                    imageSrc={introData.imageSrc}
-                    imageAlt={introData.imageAlt}
-                    paragraphs={introData.paragraphs}
-                    services={introData.services}
-                    backgroundText={introData.backgroundText}
-                />
-                {/* services we Offer */}
-                <OurServices
-                    title="Services We offer"
-                    headingText=""
-                    description="We provide expert IT solutions tailored to streamline operations, enhance security, and drive business growth with cutting-edge technology."
-                    imageSrc="/Photos/IT_Consulting_service_we_offers.webp"
-                    imageAlt="IT Consulting Services"
-                    services={itConsultingServices}
-                />
-                {/* Technology We Uses */}
-
-                <TechStack techItems={itconsultingTechItems} Headingtext={'Our Tech Tools'} />
-
-                <WhyChooseTechmapperz
-                    heading={'Why Choose Techmapperz for IT Consultancy'}
-                />
-
-                <FAQ faqData={faqData} />
-            </section>
+          <HeroButtons
+            button1Text="Get a Free Consultation"
+            button1Link="/contact"
+            button2Text="Request a Quote"
+            button2Link="/contact"
+          />
         </div>
-    );
-}
+      </section>
 
-export default ItConsulting;
+      {/* ── INTRO ── */}
+      <section className="w-full bg-black px-20 max-sm:px-4 py-10">
+        <WebsiteIntroduction
+          imageSrc={introData.imageSrc}
+          imageAlt={introData.imageAlt}
+          paragraphs={introData.paragraphs}
+          services={introData.services}
+          backgroundText={introData.backgroundText}
+        />
+      </section>
+
+      {/* ── OUR SERVICES ── */}
+      <section className="py-20 px-6 bg-gradient-to-b from-gray-950 to-black relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2d5689] rounded-full filter blur-[200px] opacity-5" />
+        <div className="max-w-7xl mx-auto relative">
+          <div className="text-center mb-14">
+            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Expertise</span>
+            <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Our IT Consulting Services</h2>
+            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+            <p className="text-gray-400 mt-5 text-lg max-w-3xl mx-auto">
+              We provide expert IT consulting services tailored to streamline operations, improve security, and support long-term business growth through practical and scalable technology solutions.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {consultingFeatures.map((feature, i) => (
+              <div key={i} className="group relative bg-gray-900/60 border border-white/5 rounded-3xl p-8 hover:border-[#a82123]/30 hover:-translate-y-1 transition-all duration-400 overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#a82123] rounded-full filter blur-[80px] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+                <div className="relative z-10">
+                  <div className="w-14 h-14 bg-gradient-to-br from-[#2d5689]/30 to-[#a82123]/20 border border-white/10 rounded-2xl flex items-center justify-center text-[#a82123] mb-5 group-hover:scale-110 transition-transform duration-300">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#a82123] transition-colors duration-300">{feature.title}</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed mb-5 group-hover:text-gray-300 transition-colors duration-300">{feature.desc}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {feature.tags.map((tag, j) => (
+                      <span key={j} className="text-xs text-[#799ccc] bg-[#2d5689]/15 border border-[#2d5689]/20 px-3 py-1 rounded-full">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── OUR PROCESS ── */}
+      <section className="py-6 bg-gradient-to-b from-black to-gray-950">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-14">
+            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Roadmap</span>
+            <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Our IT Consulting Process</h2>
+            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+          </div>
+        </div>
+        <OurProcess steps={processSteps} title="" />
+      </section>
+
+      {/* ── TECH STACK ── */}
+      <section className="bg-black pt-10">
+        <TechStack techItems={itconsultingTechItems} Headingtext="Our Technology Expertise" />
+      </section>
+
+      {/* ── WHY CHOOSE ── */}
+      <section className="bg-black">
+        <div className="max-w-7xl mx-auto px-6 pt-10">
+          <div className="text-center mb-4">
+            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Our Advantage</span>
+            <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Why Choose Techmapperz for IT Consulting</h2>
+            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+          </div>
+        </div>
+        <WhyChooseTechmapperz
+          features={whyChooseFeatures}
+          heading=""
+        />
+      </section>
+
+      {/* ── FAQ ── */}
+      <section className="bg-black pt-6">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-10">
+            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Common Questions</span>
+            <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Frequently Asked Questions</h2>
+            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+          </div>
+        </div>
+        <FAQ faqData={faqData} />
+      </section>
+
+      {/* ── CTA BANNER ── */}
+      <CTABanner
+        title="Ready to transform your IT operations?"
+        subtitle="Start accelerating your business with Techmapperz’s expert IT consulting today."
+        primaryButtonText="Get a Free Consultation"
+        primaryButtonLink="/contact"
+        secondaryButtonText="Request a Quote"
+        secondaryButtonLink="/contact"
+      />
+    </div>
+  );
+};
+
+export default ITConsulting;

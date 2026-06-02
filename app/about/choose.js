@@ -19,21 +19,22 @@ const Choose = () => {
 
         {
             title: "Plan",
-            content: "This is the first and foremost step in delivering your project ahead of your expectations, though we are driven by results, we never let that hamper our course of understanding you and requirement. We ensure that our research is onto every vertical that involves the company competitors, target market, and customer psychographics. This is critical and crucial in our further action plan."
+            content: "We understand the problem, define the goals, and create the right strategy."
         },
         {
             title: "Create",
-            content: 'We have a talent pool to make any company jealous, and we use this talent pool to do the creation in such a way that it serves our mission statement "simple solution for complex scenarios". What our team creates is not just fills the vacuum of your requirement but also ensures that the solution remains simple while doing so. In the process, we also ensure that we remain committed to the budget and deadline.'
+            content: "We design and develop the right solution using suitable tools and technologies."
         },
         {
-            title: "Leads",
-            content: "The word leads define a lot of internal and external factors and processes that we do to ensure that everything goes as planned. This is always project dependent, but the crucial step that we undertake under this is to keep your project and requirement confidential, keep it to a need-to-know basis amongst all sections of employees, also maintaining multiple tier experts for the tab on billing or unexpected or additional expenses. With a lot of government and time-sensitive clients' jobs that we do, this layering guarantees us that we don't miss a deadline."
+            title: "Optimize",
+            content: "We refine workflows, improve usability, and ensure the solution performs effectively."
         },
         {
             title: "Achieve",
-            content: "This is it! The execution of the project, no matter how much ever ecstatic it may make us feel, but this is one step we take with utmost precaution. We make certain that everything goes and works as planned, and usually, this is a smooth one for us since we take so much care of everything that precedes this."
+            content: "We help clients generate measurable results, business value, and long-term impact."
         }
     ];
+
 
     return (
         <div className={styles.main}>
@@ -51,19 +52,21 @@ const Choose = () => {
 
                     <div className={styles.company_info}>
 
-                        <h2 className={`text-[36px] max-sm:text-center font-bold text-white mb-[2rem] max-sm:text-[14px]`}>
+                        <h2 className={`text-[36px] max-sm:text-center font-bold text-white mb-[2rem] max-sm:text-[24px]`}>
                             Why Choose Techmapperz?
                         </h2>
-                        <p>The smaller things make a big difference in everything we do. We at Techmapperz also believe in the attention to detail methodology. Our eye for detail in every project that we manage is what makes us stand out from the
-                            rest. We have a 4-step approach on how we execute a project.</p>
+                        <ul className="list-disc pl-5 space-y-4 text-[#A3A3A3] text-lg max-sm:text-base">
+                            <li><strong className="text-white">Proven Expertise:</strong> Team of certified geospatial analysts and developers with 20+ major projects completed.</li>
+                            <li><strong className="text-white">Quality & Reliability:</strong> ISO-certified processes (ISO 9001) ensure on-time, on-budget delivery.</li>
+                            <li><strong className="text-white">Client Satisfaction:</strong> Over 90% of clients are repeat or referred customers; we treat every project with attention to detail.</li>
+                            <li><strong className="text-white">Innovation:</strong> We embrace the latest tech (AI-driven imagery processing, cloud GIS platforms) to give you an edge.</li>
+                        </ul>
                     </div>
                 </div>
 
                 <div className={styles.second_paragraph}>
-                    <p className="max-sm:text-[14px]">
-                        All the services that Techmapperz offers ensure that this four-step methodology is followed, one of the many reasons that
-                        most of our clients are either referred by our existing clients or are returning clients. Working with us will always make you
-                        feel a sense of calmness and confidence; we treat our clients this way because we would want to be treated this way.
+                    <p className="max-sm:text-[14px] text-center mb-8">
+                        We follow a clear and practical process to turn concepts into working solutions:
                     </p>
 
                     <h2 className={`text-[36px] text-center font-bold text-white mb-[2rem] max-sm:text-[24px]`}>

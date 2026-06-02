@@ -1,21 +1,8 @@
 import ScrollToTop from './_Components/ScrollToTop';
 import dynamic from 'next/dynamic';
+import HomeHero from './_Components/HomeHero';
 
 // Critical above-the-fold components - optimized for performance
-const OptimizedHomeCarousel = dynamic(() => import('./_Components/OptimizedHomeCarousel'), {
-  ssr: true, // Enable SSR for critical above-the-fold content
-  loading: () => (
-    <div className="h-[90vh] bg-black animate-pulse">
-      <div className="flex items-center justify-center h-full">
-        <div className="text-center space-y-4">
-          <div className="h-8 bg-gray-800 rounded w-64 mx-auto"></div>
-          <div className="h-4 bg-gray-700 rounded w-48 mx-auto"></div>
-        </div>
-      </div>
-    </div>
-  ),
-});
-
 const Features = dynamic(() => import('./_Components/Features'), {
   ssr: true, // Enable SSR for important services section
   loading: () => (
@@ -77,6 +64,7 @@ import HoverButton from './_Components/ExpandButton';
 import Link from 'next/link';
 import company_logo from "@/public/logo.webp";
 import { LazySection } from './_hooks/useIntersectionObserver';
+import ScrollReveal from './_Components/ScrollReveal';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.techmapperz.com"; // Fallback URL
 
@@ -175,24 +163,25 @@ const Home = () => {
   return (
     <div>
       <ScrollToTop />
-      <OptimizedHomeCarousel />
-      <section className="bg-black pt-8 max-sm:py-2 max-sm:px-4 px-[4rem] relative overflow-x-hidden w-full ">
-        <div className="grid grid-cols-1 m-auto">
-          <div className="flex flex-col items-center">
-            <h1 className="text-white text-4xl font-semibold mb-4">Our Services</h1>
+      <HomeHero />
+      <section className="bg-[#070A11] pt-16 pb-12 max-sm:py-8 max-sm:px-4 px-[4rem] relative overflow-x-hidden w-full border-t border-white/5">
+        <ScrollReveal>
+          <div className="w-full max-w-7xl mx-auto mb-16">
+            <div className="text-center">
+              <span className="text-[#05D7DE] text-sm font-bold tracking-[0.2em] uppercase">What We Do</span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mt-4 mb-6 tracking-tight">
+                Our Services
+              </h2>
+              <div className="w-24 h-[3px] bg-gradient-to-r from-[#2d5689] to-[#05D7DE] mx-auto rounded-full" />
+            </div>
           </div>
-          <div className="flex flex-col items-center">
-            {/* <p className="text-gray-300 w-[70%] max-sm:w-full text-center text-lg max-sm:text-[14px] mb-8">
-            To assist companies in thriving in the digital age, we provide a variety of technological services. We can assist businesses in managing their resources, connecting with their audiences online, and optimizing their operations thanks to our knowledge and expertise.
-          </p> */}
+          <Features />
+          <div className="flex relative justify-center mt-5 mb-[50px]">
+            <Link href="/service">
+              <HoverButton text="View All Services" />
+            </Link>
           </div>
-        </div>
-        <Features />
-        <div className="flex relative justify-center mt-5 mb-[50px]">
-          <Link href="/service">
-            <HoverButton text="View All Services" />
-          </Link>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* Portfolio Section - Higher priority, loads sooner on mobile */}
@@ -220,7 +209,9 @@ const Home = () => {
         mobileRootMargin="100px 0px"
         fallback={<div className="min-h-[300px] bg-gray-800 animate-pulse" />}
       >
-        <Technology />
+        <ScrollReveal>
+          <Technology />
+        </ScrollReveal>
       </LazySection>
 
       {/* Industry Expertise Section */}
@@ -228,7 +219,9 @@ const Home = () => {
         mobileRootMargin="100px 0px"
         fallback={<div className="min-h-[300px] bg-black animate-pulse" />}
       >
-        <IndustryExpertise />
+        <ScrollReveal>
+          <IndustryExpertise />
+        </ScrollReveal>
       </LazySection>
 
       {/* About Us Section */}
@@ -236,7 +229,9 @@ const Home = () => {
         mobileRootMargin="75px 0px"
         fallback={<div className="min-h-[300px] bg-gray-900 animate-pulse" />}
       >
-        <AboutUs />
+        <ScrollReveal>
+          <AboutUs />
+        </ScrollReveal>
       </LazySection>
 
       {/* Happy Clients Section */}
@@ -244,7 +239,9 @@ const Home = () => {
         mobileRootMargin="75px 0px"
         fallback={<div className="min-h-[200px] bg-gray-800 animate-pulse" />}
       >
-        <HappyClients />
+        <ScrollReveal>
+          <HappyClients />
+        </ScrollReveal>
       </LazySection>
 
       {/* Blog Section */}
@@ -252,7 +249,9 @@ const Home = () => {
         mobileRootMargin="50px 0px"
         fallback={<div className="min-h-[400px] bg-gray-900 animate-pulse" />}
       >
-        <OurBlog />
+        <ScrollReveal>
+          <OurBlog />
+        </ScrollReveal>
       </LazySection>
 
       {/* Testimonial Section */}
@@ -260,7 +259,9 @@ const Home = () => {
         mobileRootMargin="50px 0px"
         fallback={<div className="min-h-[300px] bg-black animate-pulse" />}
       >
-        <Testimonial />
+        <ScrollReveal>
+          <Testimonial />
+        </ScrollReveal>
       </LazySection>
 
       {/* Contact Section */}
@@ -268,7 +269,9 @@ const Home = () => {
         mobileRootMargin="25px 0px"
         fallback={<div className="min-h-[400px] bg-gray-900 animate-pulse" />}
       >
-        <Homecontact />
+        <ScrollReveal>
+          <Homecontact />
+        </ScrollReveal>
       </LazySection>
     </div>
   );

@@ -79,8 +79,8 @@ const InspectionandAnalysis = () => {
 
             <section className="h-[70vh] flex flex-col justify-center items-center bg-cover bg-center" style={{ backgroundImage: 'url("/gis_images/Drone_Inspection_analysis_Banner.webp")' }}>
                 <div className='w-full h-full flex flex-col justify-center items-center gap-4 bg-black/80'>
-                    <h1 className="text-4xl font-bold max-sm:text-2xl">Inspection Analysis</h1>
-                    <p className="text-xl text-center max-sm:text-[16px]  text-gray-400">
+                    <h1 className="text-4xl lg:text-[45px] max-sm:text-4xl font-bold text-white max-w-[900px] leading-[1.2]">Inspection Analysis</h1>
+                    <p className="text-center text-gray-400 text-lg lg:text-[17px]">
                         <Link href="/">Home</Link> / <Link href="/service">Services</Link> / <Link href="/service/gis/droneservice"> Drone Services</Link> / Inspection Analysis
                     </p>
                     <div className="flex gap-4">

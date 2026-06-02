@@ -1,9 +1,10 @@
 'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import HoverButton from './ExpandButton'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import enhancedPortfolioData from '../portfolios/PortfolioData'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // Get featured projects from enhanced data (first 3 projects for home page)
 const getFeaturedProjects = () => {
@@ -27,55 +28,15 @@ const getFeaturedProjects = () => {
   });
 };
 
-const legacyProjects = [
-    // {
-    //     id: 1,
-    //     title: "CoCreateLabs",
-    //     techStack: "Next.js, TypeScript, MongoDB, Express.js",
-    //     description: "First of all, a state-of-the-art web tool, the CoCreate Labs AMC Mentor and Mentee Dashboard, was created to assist with mentorship and teamwork within the CoCreate Labs program. The platform offers an easy and interactive experience for participants to engage with mentors, access resources, and track their progress, with dedicated dashboards for mentors and mentees. The dashboard, which is hosted on Amazon Web Services (AWS), utilizes modern web technologies to provide a dynamic and intuitive user interface.",
-    //     mobileDescription: "A state-of-the-art web tool for mentorship and teamwork within the CoCreate Labs program, featuring interactive dashboards for mentors and mentees.",
-    //     image: "/Photos/CCL_home_portfolio.webp",
-    //     link: "/portfolios/cocreatelabs",
-    //     bgColor: "#1e293b"
-    // },
-    {
-        id: 1,
-        title: "Manusher Ghorbari",
-        techStack: "HTML5, CSS3, JavaScript, Bootstrap, CodeIgniter 4, PHP, MySQL, Apache/Nginx",
-        description: "The Manusher Ghorbari room booking website is a user-friendly platform devoted to simplifying the manner of reserving inns on the Manusher Ghorbari guesthouse. Developed with the goal of promoting tourism and offering a seamless experience for site visitors, the website offers specified room listings, an intuitive booking system, and real-time availability updates. Built using PHP, CSS3, and a MySQL database, the website caters to the needs of travelers seeking a tranquil escape and aims to enhance engagement with the Manusher Ghorbari guesthouse.",
-        mobileDescription: "The Manusher Ghorbari room booking website is a user-friendly platform devoted to simplifying the manner of reserving inns on the Manusher Ghorbari gu...",
-        image: "/Photos/manuser-ghorbaari1.webp",
-        link: "/portfolios/manusherghorbari",
-        bgColor: "#1e293b"
-    },
-    {
-        id: 2,
-        title: "Special Human Rights Commission",
-        techStack: "HTML5, CSS3, JavaScript, Bootstrap, PHP, MySQL, Apache/Nginx",
-        description: "First of all, a specialized platform called the Special Human Rights Commission (SHRC) aims to encourage innovation and cooperation among welfare societies. The Web Design was built using the CodeIgniter 4 framework and PHP, SHRC provides a secure environment for members to communicate and engage. By offering features like personalized notifications and two-step OTP verification, the website enhances community engagement while ensuring security.",
-        mobileDescription: "A specialized platform for welfare societies with secure communication features and two-step verification for enhanced security.",
-        image: "/Photos/SHRC_home_portfolio.webp",
-        link: "/portfolios/shrc",
-        bgColor: "#1e1e2d"
-    },
-    {
-        id: 3,
-        title: "Land-Use  Land -Cover Mapping",
-        techStack: "ArcGIS, QGIS, PostGIS, Python, Geographic Information Systems, Drone Mapping",
-        description: "Landuse and Landcover mapping involves creating detailed representations of human settlements using geographic information systems. This entails identifying and delineating residential zones, urban areas, rural settlements, and other inhabited regions. By overlaying various data layers such as population density, building footprints, infrastructure, and land use, GIS facilitates comprehensive analysis and visualization of habitation patterns. This information is crucial for urban planning, disaster management, public health, and resource allocation.",
-        mobileDescription: "Landuse and Landcover mapping involves creating detailed representations of human settlements using geographic information systems. This entails ident...",
-        image: "/Photos/Land_Use_Land_Cover_Mapping.webp",
-        link: "/portfolios/landcover_mapping",
-        bgColor: "#1e293b",
-        // bgColor: "#1a472a",
-
-    }
-]
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger);
+}
 
 const Portfolio = ({ projects = null, showAll = false }) => {
     // Use enhanced data by default, fallback to legacy if needed
     const displayProjects = projects || (showAll ? enhancedPortfolioData : getFeaturedProjects());
     const [isMobile, setIsMobile] = useState(false)
+    const containerRef = useRef(null);
 
     useEffect(() => {
         const checkMobile = () => {
@@ -86,95 +47,139 @@ const Portfolio = ({ projects = null, showAll = false }) => {
         return () => window.removeEventListener('resize', checkMobile)
     }, [])
 
+    useEffect(() => {
+        if (typeof window === 'undefined' || !containerRef.current) return;
+
+        let ctx = gsap.context(() => {
+            const cards = gsap.utils.toArray('.portfolio-card');
+            
+            cards.forEach((card, i) => {
+                // Determine direction based on odd/even for a slight slide-in effect
+                const xOffset = i % 2 === 0 ? -50 : 50;
+
+                gsap.fromTo(card, 
+                    { 
+                        opacity: 0, 
+                        y: 80,
+                        x: xOffset,
+                        scale: 0.95
+                    },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        x: 0,
+                        scale: 1,
+                        duration: 1,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 85%", // Starts animating when the top of the card hits 85% down the viewport
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            });
+        }, containerRef);
+
+        return () => ctx.revert();
+    }, [displayProjects]);
+
     return (
-        <section className="py-8">
-            <div className="container mx-auto px-4 max-w-[1600px] flex flex-col items-center">
+        <section className="py-20 relative overflow-hidden bg-black" ref={containerRef}>
+            {/* Background Glow */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#2d5689] rounded-full blur-[150px] opacity-10 pointer-events-none"></div>
+
+            <div className="container mx-auto px-6 max-w-[1400px] flex flex-col items-center relative z-10">
                 {/* Modern Header */}
-                <div className="text-center mb-12">
-                    <h1 className="text-[36px] font-bold text-white mb-4">
+                <div className="text-center mb-20">
+                    <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Case Studies</span>
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mt-3 mb-4">
                         Some of Our Work
-                    </h1>
-                    <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+                    </h2>
+                    <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mb-6" />
+                    <p className="text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
                         Discover our latest projects showcasing cutting-edge technology solutions 
-                        and innovative approaches across IT and GIS domains.
+                        and innovative approaches across IT and Geospatial domains.
                     </p>
                 </div>
 
                 {/* Modern Portfolio Grid */}
-                <div className="grid gap-8 md:gap-12 w-full max-w-7xl">
+                <div className="grid gap-12 w-full max-w-7xl">
                     {displayProjects.map((project, index) => (
-                        <Link href={project.link} key={project.id || index} className="group">
-                            <div className="rounded-2xl border border-gray-600 bg-gray-800 overflow-hidden hover:border-[#00B0FE]/50 hover:shadow-lg hover:shadow-[#00B0FE]/10 transition-all duration-500 group-hover:scale-[1.02]">
-                                <div className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center`}>
+                        <Link href={project.link || '#'} key={project.id || index} className="group portfolio-card block outline-none">
+                            <div className="relative rounded-3xl border border-white/5 bg-gray-900/60 backdrop-blur-sm overflow-hidden hover:border-[#2d5689]/40 hover:shadow-2xl hover:shadow-[#2d5689]/20 transition-all duration-500">
+                                
+                                {/* Inner Glow on hover */}
+                                <div className="absolute -inset-1 bg-gradient-to-br from-[#2d5689]/20 to-[#a82123]/20 opacity-0 group-hover:opacity-100 transition duration-500 blur-xl pointer-events-none"></div>
+
+                                <div className={`relative z-10 flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-stretch min-h-[400px]`}>
+                                    
                                     {/* Content Section */}
-                                    <div className="w-full md:w-3/5 p-6 md:p-8 lg:p-10 flex flex-col justify-center order-2 md:order-1">
+                                    <div className="w-full md:w-1/2 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+                                        
                                         {/* Category Badge */}
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <span className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium ${
-                                                project.category === 'IT' 
-                                                    ? 'bg-[#00B0FE]/20 border-[#00B0FE]/30 text-[#00B0FE]' 
-                                                    : 'bg-green-500/20 border-green-500/30 text-green-400'
-                                            }`}>
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/50 backdrop-blur-md px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-gray-300 group-hover:border-[#2d5689]/50 group-hover:text-[#799ccc] transition-colors duration-300">
                                                 {project.category === 'IT' ? '💻' : '🗺️'} {project.category}
                                             </span>
-                                            {/* {project.year && (
-                                                <span className="inline-flex items-center gap-1 rounded-full border border-gray-600 bg-gray-700 px-3 py-1 text-xs font-medium text-gray-300">
-                                                    📅 {project.year}
-                                                </span>
-                                            )} */}
                                         </div>
 
                                         {/* Project Title */}
-                                        <h3 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-3 group-hover:text-[#00B0FE] transition-colors duration-300">
+                                        <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-5 leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-400 transition-all duration-300">
                                             {project.title}
                                         </h3>
 
                                         {/* Description */}
-                                        <p className="text-gray-300 text-sm md:text-base lg:text-lg mb-4 leading-relaxed">
-                                            {isMobile ? project.mobileDescription : project.description?.substring(0, 200) + '...'}
+                                        <p className="text-gray-400 text-sm md:text-base mb-8 leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
+                                            {isMobile ? project.mobileDescription : project.description?.substring(0, 250) + '...'}
                                         </p>
 
                                         {/* Tech Stack */}
-                                        <div className="mb-4">
-                                            <p className="text-gray-400 text-xs md:text-sm mb-2">
-                                                <span className="font-medium text-[#00B0FE]">Technologies:</span>
+                                        <div className="mb-8">
+                                            <p className="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-3">
+                                                Technologies Used
                                             </p>
                                             <div className="flex flex-wrap gap-2">
                                                 {project.techStack?.split(',').slice(0, 4).map((tech, techIndex) => (
-                                                    <span key={techIndex} className="rounded-lg border border-gray-600 bg-gray-700 px-3 py-1 text-xs font-medium text-gray-300 hover:bg-gray-600 transition-colors">
+                                                    <span key={techIndex} className="rounded-md border border-white/5 bg-gray-800/50 px-3 py-1.5 text-xs font-medium text-gray-300 group-hover:bg-gray-800 group-hover:border-white/10 transition-colors">
                                                         {tech.trim()}
                                                     </span>
                                                 ))}
                                                 {project.techStack?.split(',').length > 4 && (
-                                                    <span className="rounded-lg border border-[#00B0FE]/30 bg-[#00B0FE]/10 px-3 py-1 text-xs font-medium text-[#00B0FE]">
+                                                    <span className="rounded-md border border-[#2d5689]/30 bg-[#2d5689]/10 px-3 py-1.5 text-xs font-medium text-[#799ccc]">
                                                         +{project.techStack.split(',').length - 4} more
                                                     </span>
                                                 )}
                                             </div>
                                         </div>
 
-                                        {/* View Project Button */}
-                                        <div className="flex items-center gap-2 text-[#00B0FE] font-medium group-hover:gap-3 transition-all duration-300">
-                                            <span>View Project</span>
-                                            <svg className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                            </svg>
+                                        {/* View Project Link */}
+                                        <div className="mt-auto">
+                                            <div className="inline-flex items-center gap-2 text-[#799ccc] font-bold text-sm uppercase tracking-wider group-hover:text-[#a82123] transition-colors duration-300">
+                                                <span>View Case Study</span>
+                                                <svg className="h-4 w-4 group-hover:translate-x-2 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                                </svg>
+                                            </div>
                                         </div>
                                     </div>
 
                                     {/* Image Section */}
-                                    <div className="w-full md:w-2/5 relative aspect-[16/10] md:aspect-[4/3] order-1 md:order-2">
-                                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent z-10"></div>
-                                        <Image
-                                            src={project.image}
-                                            alt={project.title}
-                                            fill
-                                            className="object-cover group-hover:scale-105 transition-transform duration-700"
-                                            priority={index < 2}
-                                        />
-                                        {/* Overlay Effect */}
-                                        <div className="absolute inset-0 bg-[#00B0FE]/0 group-hover:bg-[#00B0FE]/10 transition-all duration-500"></div>
+                                    <div className="w-full md:w-1/2 relative aspect-[4/3] md:aspect-auto overflow-hidden">
+                                        <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-gray-900/80 via-gray-900/20 to-transparent z-10 pointer-events-none"></div>
+                                        {project.image && (
+                                            <Image
+                                                src={project.image}
+                                                alt={project.title}
+                                                fill
+                                                className="object-cover object-top md:object-center group-hover:scale-[1.03] group-hover:rotate-1 transition-transform duration-[1.5s] ease-out"
+                                                priority={index === 0}
+                                            />
+                                        )}
+                                        {/* Hover Overlay */}
+                                        <div className="absolute inset-0 bg-[#2d5689]/0 group-hover:bg-[#2d5689]/10 transition-all duration-500 z-20 pointer-events-none"></div>
                                     </div>
+
                                 </div>
                             </div>
                         </Link>
@@ -182,15 +187,16 @@ const Portfolio = ({ projects = null, showAll = false }) => {
                 </div>
 
                 {/* Enhanced CTA Section */}
-                <div className="mt-12 text-center">
-                    <p className="text-gray-400 mb-6">
-                        Explore our complete portfolio of {enhancedPortfolioData.length}+ successful projects
+                <div className="mt-20 text-center portfolio-card">
+                    <p className="text-gray-400 mb-6 text-lg">
+                        Explore our complete portfolio of successful projects
                     </p>
                     <Link href="/portfolios">
-                        <button className="inline-flex items-center gap-2 rounded-xl bg-[#00B0FE] px-8 py-4 text-base font-medium text-white hover:bg-[#0090d4] hover:shadow-lg hover:shadow-[#00B0FE]/25 transition-all duration-300 transform hover:scale-105">
-                            View All Projects
-                            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        <button className="relative inline-flex items-center gap-3 rounded-full bg-gray-900 border border-white/10 px-8 py-4 text-base font-bold text-white hover:bg-gray-800 hover:border-[#2d5689]/50 transition-all duration-300 overflow-hidden group">
+                            <div className="absolute inset-0 bg-gradient-to-r from-[#2d5689] to-[#a82123] opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                            <span className="relative z-10">View All Projects</span>
+                            <svg className="h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>
                         </button>
                     </Link>
@@ -201,6 +207,3 @@ const Portfolio = ({ projects = null, showAll = false }) => {
 }
 
 export default Portfolio
-
-
-

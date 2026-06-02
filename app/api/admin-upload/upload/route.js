@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server'
 import ImageKit from 'imagekit'
+import connectDB from '@/app/lib/db'
+import Media from '@/app/lib/models/Media'
 
 // Initialize ImageKit with same env vars as main site
 let imagekit = null;
@@ -46,6 +48,15 @@ export async function POST(request) {
         else resolve(result)
       })
     })
+
+    // Save to database
+    await connectDB();
+    const newMedia = new Media({
+      url: uploadResponse.url,
+      fileId: uploadResponse.fileId,
+      fileName: uploadResponse.name || file.name,
+    });
+    await newMedia.save();
 
     // Return the URL in the format TinyMCE expects
     return NextResponse.json({

@@ -33,7 +33,7 @@ const Navbar = () => {
     {
       title: 'IT Services',
       items: [
-        { name: 'Mobile APP Development', link: '/service/it/mobiledevelopment' },
+        { name: 'Mobile APP Development', link: '/service/it/mobile-app-development' },
         { name: 'Website Development', link: '/service/it/webdevelopment' },
         { name: 'CRM Solution', link: '/service/it/crmservice' },
         { name: 'IT Consultancy', link: '/service/it/itconsultingservice' },

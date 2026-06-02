@@ -1,4 +1,3 @@
-import { Poppins } from 'next/font/google';
 import CriticalCSS from './_Components/CriticalCSS';
 import "./globals.css";
 import dynamic from 'next/dynamic';
@@ -7,19 +6,8 @@ import Script from 'next/script';
 // Conditional layout component that handles Navbar/Footer based on route
 const ConditionalLayout = dynamic(() => import('./_Components/ConditionalLayout'));
 const PerformanceProvider = dynamic(() => import('./_Components/PerformanceProvider'));
-import { Montserrat } from "next/font/google";
 import Head from 'next/head';
 import SmoothScroll from './_Components/SmoothScroll';
-
-
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-montserrat",
-  display: 'swap', // Improve font loading performance
-  preload: true,
-});
 
 
 
@@ -141,6 +129,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
         {/* Preload critical assets */}
         <link rel="preload" href="/Photos/3Drendered_digital_Ear.webp" as="image" />
         <link rel="preload" href="/logo.webp" as="image" />
@@ -245,7 +234,7 @@ export default function RootLayout({ children }) {
         />
       </head>
 
-      <body className={montserrat.variable}>
+      <body suppressHydrationWarning style={{ fontFamily: "'IBM Plex Sans', sans-serif" }}>
         <SmoothScroll>
           <CriticalCSS />
           <a href="#main-content" className="skip-link">Skip to main content</a>

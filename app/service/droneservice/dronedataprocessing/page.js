@@ -1,129 +1,177 @@
-import GisServicesIntroduction from '@/app/_Components/GisServicesIntroduction'
-import OurGISService from '@/app/_Components/OurGISService'
-import ScrollToTop from '@/app/_Components/ScrollToTop'
-import Link from 'next/link'
-import React from 'react'
-import { FaArrowRightLong } from 'react-icons/fa6'
+import ScrollToTop from '@/app/_Components/ScrollToTop';
+import dynamic from 'next/dynamic';
+import HeroButtons from '@/app/_Components/HeroButtons';
+import { createOptimizedLoader } from '@/app/lib/utils/performanceOptimizer';
+import { FiImage, FiMap, FiCloud, FiBox, FiLayers, FiRadio } from 'react-icons/fi';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.techmapperz.com"; // Fallback URL
+import Drone_ServiceintroImg from "@/public/gis_images/Drone_ServiceintroImg.webp";
 
+const WebsiteIntroduction = dynamic(() => import('@/app/_Components/WebsiteIntroduction'), {
+  ssr: true,
+  ...createOptimizedLoader("400px", "bg-black")
+});
+
+const CTABanner = dynamic(() => import('@/app/_Components/CTABanner'), {
+  ...createOptimizedLoader("300px", "bg-black")
+});
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.techmapperz.com";
+
+export const revalidate = 7200;
 
 export const metadata = {
-    title: "Transforming Aerial Imagery into Actionable Geospatial Products | Techmapperz",
-    description: "We capture large scale data using drone, harnessing LiDAR technology to deliver various outputs including high-precision maps and 3D models, as well as analytical outputs.",
+    title: "Drone Data Processing Services | UAV Image & LiDAR Processing India",
+    description: "Professional drone data processing services converting raw UAV aerial imagery into accurate orthomosaics, 3D models, point clouds, and DEMs.",
     alternates: {
         canonical: `${BASE_URL}/service/droneservice/dronedataprocessing`,
     },
 };
 
-const Dronedataprocessing = () => {
-    const GisMappingIntrouctiondata = [{
-        title:
-            "Processing drone data is an essential part of converting raw aerial imagery into some useful geospatial products. We capture large scale data using drone, harnessing LiDAR technology to deliver various outputs including high-precision maps and 3D models, as well as analytical outputs. Such processed data sets allow industries including construction, agriculture, urban planning and environmental monitoring to make informed decisions with unparalleled accuracy and efficiency. We utilize state-of-the-art methods to process drone data and ensure that the othomosaics are of high-resolution to optimise project planning, asset management, and spatial analysis.",
-        // img: 
-        // ""
-    }];
+const introData = {
+    imageSrc: Drone_ServiceintroImg,
+    imageAlt: "Drone Data Processing Services",
+    paragraphs: [
+        `Drone data processing is a critical component of transforming raw aerial imagery into accurate and actionable geospatial products. Techmapperz provides professional drone data processing services in India, converting UAV-captured data into high-precision outputs that support informed decision-making across multiple industries.`,
+        `Using advanced photogrammetry and LiDAR data processing techniques, we process large-scale drone datasets to generate orthomosaics, Digital Elevation Models (DEM), Digital Surface Models (DSM), point clouds, contours, and 3D models. These GIS-ready deliverables are widely used in construction, agriculture, urban planning, infrastructure development, asset management, and environmental monitoring.`
+    ],
+    services: [
+        { text: "Advanced", highlight: "Photogrammetry" },
+        { text: "High-Precision", highlight: "LiDAR Processing" },
+        { text: "Accurate &", highlight: "Actionable Products" },
+        { text: "Fast &", highlight: "Scalable" }
+    ],
+    backgroundText: "Processing"
+};
 
-    const OurGISServices = [
-        {
-            title:
-                "Our Drone Data Processing Services",
-            desc:
-                "",
+const servicesList = [
+    {
+        icon: <FiImage className="text-3xl" />,
+        title: "Orthomosaic Generation",
+        desc: "We provide high-resolution orthomosaic generation services by processing raw drone imagery using advanced photogrammetry workflows. The geometrically corrected orthophotos deliver true-scale accuracy for GIS applications.",
+        tags: ["Photogrammetry", "True-Scale Accuracy"]
+    },
+    {
+        icon: <FiMap className="text-3xl" />,
+        title: "Digital Elevation Model (DEM) & (DSM)",
+        desc: "Techmapperz generates accurate Digital Elevation Models (DEM) and Digital Surface Models (DSM) from drone survey data. These outputs support terrain analysis, drainage studies, flood modeling, road design, and urban planning.",
+        tags: ["Terrain Analysis", "Flood Modeling"]
+    },
+    {
+        icon: <FiCloud className="text-3xl" />,
+        title: "Point Cloud Processing",
+        desc: "Our drone point cloud processing services transform raw LiDAR or photogrammetric data into dense, classified point clouds. These datasets are essential for topographic mapping, 3D visualization, and volumetric analysis.",
+        tags: ["Classified Points", "3D Visualization"]
+    },
+    {
+        icon: <FiBox className="text-3xl" />,
+        title: "3D Modeling & Mesh Generation",
+        desc: "We create detailed 3D models and mesh surfaces from processed drone data to support construction planning, mining operations, asset documentation, and project visualization. These models provide realistic representations.",
+        tags: ["Realistic Models", "Mesh Surfaces"]
+    },
+    {
+        icon: <FiLayers className="text-3xl" />,
+        title: "Contour Mapping",
+        desc: "Techmapperz delivers precise contour maps derived from processed drone data, suitable for land development, watershed management, mining planning, and civil engineering projects. Our outputs are GIS-ready.",
+        tags: ["GIS-Ready", "Civil Engineering"]
+    },
+    {
+        icon: <FiRadio className="text-3xl" />,
+        title: "LiDAR Data Processing",
+        desc: "Our LiDAR data processing services convert raw laser scan data into accurate point clouds, DEMs, and terrain models. LiDAR processing is ideal for dense vegetation, corridor mapping, and high-precision topographic surveys.",
+        tags: ["Laser Scan Data", "High-Precision"]
+    }
+];
 
-            Services: [{
-                id: 1,
-                servicetitle:
-                    "Image Stitching Orthomosaic Generation ",
-                servicedescription:
-                    "We stitch images together to create high resolution, georeferenced orthomosaic maps. Such maps render the surveyed area accurately without distortion and can be used for land surveying, infrastructure planning, environmental monitoring, and many other applications.",
-                serviceimg:
-                    "/gis_images/drone_services/drone_data_processing/orthomosaic.webp"
-
-            },
-            {
-                id: 2,
-                servicetitle:
-                    "Point Cloud Processing ",
-                servicedescription:
-                    "LiDAR point cloud data processing ranges from raw to dense point cloud. Such datasets provide a comprehensive understanding of terrain and structuresand may be used for volume computations, burial studies, and digital twin modeling.",
-                serviceimg:
-                    "/gis_images/drone_services/drone_data_processing/point_cloud.webp"
-            },
-            {
-                id: 3,
-                servicetitle:
-                    "Digital Surface Model (DSM)",
-                servicedescription:
-                    "DSM shows the Earth's surface, including buildings, vegetation and other structures. This data is valuable for line-of-sight calculations, urban planning and flood risk, providing a detailed topographical view.",
-                serviceimg:
-                    "/gis_images/drone_services/drone_data_processing/DSM.webp"
-
-            },
-
-            {
-                id: 4,
-                servicetitle:
-                    "Digital Elevation Model (DEM) ",
-                servicedescription:
-                    "We produce high-accuracy digital elevation models (DEMs) of terrain on the earth’s surface. Digital Elevation Models are utilized for various applications, including hydrological modeling, cost-sharing, development projects, and infrastructure design.",
-                serviceimg:
-                    "/gis_images/drone_services/drone_data_processing/DEM.webp"
-
-            },
-
-            {
-                id: 5,
-                servicetitle:
-                    "Contour Mapping ",
-                servicedescription:
-                    "We create contour maps to pinpoint different elevation levels and the morphology of terrain in detail. These maps are critical for engineering, mining and agriculture, allowing professionals to plan excavation, drainage and land use projects.",
-                serviceimg:
-                    "/gis_images/drone_services/drone_data_processing/contour.webp"
-
-            },
-            {
-                id: 6,
-                servicetitle:
-                    "3D Mesh Modeling ",
-                servicedescription:
-                    "We are Drone Data Providers who provides and generates highly detailed 3D mesh models extracted from drone data, a feature-rich output gaining popularity in several applications and industries. These models are popular in virtual reality applications, for monitoring construction progress, and for asset inspections.",
-                serviceimg:
-                    "/gis_images/drone_services/drone_data_processing/3d_mesh_modelling.webp"
-
-            }
-            ]
-        }
-    ]
-
+const DroneDataProcessing = () => {
     return (
-        <div className="bg-black text-white">
+        <div className="bg-black text-white relative">
             <ScrollToTop />
-            <section className="h-[70vh] flex flex-col justify-center items-center bg-cover bg-center" style={{ backgroundImage: 'url("/gis_images/drone_services/Drone_Main_Page/Drone_data_processing.webp")' }}>
-                <div className='w-full h-full flex flex-col justify-center items-center gap-4 bg-black/80'>
-                    <h1 className="text-4xl font-bold max-sm:text-2xl">Drone Data Processing</h1>
-                    <p className="text-xl text-center max-sm:text-[16px]  text-gray-400">
-                        <Link href="/">Home</Link> / <Link href="/service">Services</Link> / <Link href="/service/gis/droneservice"> Drone Services</Link> / Drone Data Processing
+            
+            {/* ── HERO ── */}
+            <section 
+                className="w-full min-h-[100vh] flex items-center relative bg-cover bg-center bg-no-repeat pt-20" 
+                style={{ backgroundImage: `url('/Drone_Service/Drone_Service.png')` }}
+            >
+                <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" />
+                <div className="max-w-[1600px] w-full mx-auto px-20 max-sm:px-4 relative z-10 flex flex-col gap-6">
+                    <div className="w-fit border border-[#4a5f82] bg-[#2a3c5a]/40 backdrop-blur-sm text-[#799ccc] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+                        Professional UAV Processing Solutions
+                    </div>
+                    
+                    <h1 className="text-4xl lg:text-[52px] max-sm:text-3xl font-bold text-white max-w-[900px] leading-[1.15]">
+                        Drone Data <br />
+                        <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2d5689] to-[#a82123]">
+                            Processing Services
+                        </span>
+                    </h1>
+                    
+                    <p className="text-lg text-gray-300 max-w-2xl leading-relaxed">
+                        Transforming raw aerial imagery and LiDAR data into actionable geospatial intelligence.
                     </p>
-                    <div className="flex gap-4">
-                        <Link href="/contact">
-                            <button
-                                className="py-3 px-6 rounded-full bg-gradient-to-r from-[#2d5689] to-[#a82123] transition-all duration-300 flex items-center gap-2"
-                            >
-                                Get A Free Quote
-                                <FaArrowRightLong />
-                            </button>
-                        </Link>
+                    
+                    <HeroButtons 
+                        button1Text="Request Data Processing Quote" 
+                        button1Link="/contact"
+                    />
+                </div>
+            </section>
+
+            {/* ── INTRO ── */}
+            <section className="bg-black px-20 max-sm:px-4 py-10">
+                <WebsiteIntroduction
+                    imageSrc={introData.imageSrc}
+                    imageAlt={introData.imageAlt}
+                    paragraphs={introData.paragraphs}
+                    services={introData.services}
+                    backgroundText={introData.backgroundText}
+                />
+            </section>
+
+            {/* ── SERVICES GRID ── */}
+            <section className="py-20 px-6 bg-gradient-to-b from-gray-950 to-black relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2d5689] rounded-full filter blur-[200px] opacity-10" />
+                <div className="max-w-7xl mx-auto relative">
+                    <div className="text-center mb-14">
+                        <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Expertise</span>
+                        <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Our Drone Data Processing Services</h2>
+                        <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {servicesList.map((feature, i) => (
+                            <div key={i} className="group relative bg-gray-900/60 border border-white/5 rounded-3xl p-8 hover:border-[#a82123]/30 hover:-translate-y-1 transition-all duration-400 overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-[#a82123] rounded-full filter blur-[80px] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+                                <div className="relative z-10">
+                                    <div className="w-14 h-14 bg-gradient-to-br from-[#2d5689]/30 to-[#a82123]/20 border border-white/10 rounded-2xl flex items-center justify-center text-[#a82123] mb-5 group-hover:scale-110 transition-transform duration-300">
+                                        {feature.icon}
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#a82123] transition-colors duration-300">{feature.title}</h3>
+                                    <p className="text-gray-400 text-sm leading-relaxed mb-5 group-hover:text-gray-300 transition-colors duration-300">{feature.desc}</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {feature.tags.map((tag, j) => (
+                                            <span key={j} className="text-xs text-[#799ccc] bg-[#2d5689]/15 border border-[#2d5689]/20 px-3 py-1 rounded-full">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            <section className="p-4 sm:p-6 md:p-8 lg:p-20 max-w-[1600px] mx-auto">
-                <GisServicesIntroduction GisMappingIntrouctiondata={GisMappingIntrouctiondata} />
-                <OurGISService OurGISServices={OurGISServices} />
-
-            </section>
+            {/* ── CTA BANNER ── */}
+            <CTABanner 
+                title="Ready to Process Your Drone Data?"
+                subtitle="Upload your raw UAV data and let our experts deliver high-precision, GIS-ready outputs."
+                primaryButtonText="Request Data Processing Quote"
+                primaryButtonLink="/contact"
+                secondaryButtonText="Contact Us"
+                secondaryButtonLink="/contact"
+            />
         </div>
-    )
-}
-export default Dronedataprocessing 
+    );
+};
+
+export default DroneDataProcessing;
