@@ -5,6 +5,7 @@ const BannerSchema = new mongoose.Schema({
   banner_img_url: { type: String },
   userId: { type: String },
   subTitle: { type: String },
+  pageName: { type: String },
 });
 
 const Banner = mongoose.models.banner || mongoose.model('banner', BannerSchema);

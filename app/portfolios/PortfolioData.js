@@ -618,89 +618,84 @@ const itPortfolioData = [
 
     {
         image: "/Photos/IT_portfolio/aahelipublishers/1.webp",
-        category: "IT",
-        techStack: "React, Node.js, MongoDB, Express, Material-UI, Redux, Socket.io",
-        name: "End-To-End E-Commerce Platform for A Book Publisher",
+        category: "Publishing / E-commerce / Online Bookstore",
+        seoTitle: "Aaheli Publishers Case Study | E-commerce Bookstore Website Development | Techmapperz",
+        seoDescription: "See how Techmapperz developed an e-commerce website for Aaheli Publishers with category-based browsing, direct book purchase, cart flow, and a scalable online bookstore experience.",
+        techStack: "E-commerce Website Development, Product Catalog Architecture, Cart & Direct Purchase Flow, Responsive UI, SEO-Friendly Store Structure, Content-Driven Publishing Commerce Design",
+        name: "E-commerce Website for a Growing Educational Book Publisher",
         link: "/portfolios/aahelipublishers",
         slug: "aahelipublishers",
         details: [
-            "A comprehensive interior design mobile application that connects customers with professional designers and vendors. The platform streamlines the entire interior design process from consultation to project completion."
+            "Techmapperz developed a complete e-commerce website for Aaheli Publishers to help the brand present its educational catalog more effectively, support direct book purchases, improve product discoverability, and build a stronger digital sales presence. The live site includes category-based browsing, featured and bestselling sections, account/cart functionality, and product pages with direct buying actions.",
+            "This project was not only about building an online catalog. It was about helping a traditional publishing business establish a stronger digital sales channel, improve product discoverability, and create a smoother buying experience for customers looking for educational books across multiple segments."
         ],
         projectDetails: {
-            year: "2023",
-            location: "Mumbai, India",
-            duration: "8 months",
-            teamSize: "12 developers",
-            industry: "Interior Design",
-            projectType: "Mobile Application"
+            industry: "Publishing / Educational Books",
+            projectType: "E-commerce Website + Online Book Sales Platform"
         },
         challenges: [
             {
-                title: "Complex User Journey Management",
-                description: "Managing multiple user types (customers, designers, vendors) with different needs and workflows within a single platform."
+                title: "Complex Catalog Management",
+                description: "Aaheli Publishers has a broad and content-rich catalog covering teacher education, university books, competitive exam books, and school books. The client needed a website that would present their books in a clear, organized, and searchable way."
             },
             {
-                title: "Real-time Collaboration Features",
-                description: "Implementing seamless real-time communication and project tracking between customers, designers, and vendors."
-            },
-            {
-                title: "Scalable Architecture Design",
-                description: "Creating a robust backend architecture that could handle growing user base and complex business logic."
+                title: "Direct Online Selling Requirement",
+                description: "Instead of depending only on offline purchase channels, the client wanted customers to be able to select books online and proceed toward purchase from the website itself with Add to Cart and Buy Now actions."
             }
         ],
         solutions: [
             {
-                title: "Multi-Role Dashboard System",
-                description: "Developed comprehensive role-based dashboards with customized interfaces for each user type.",
+                title: "Commerce-Ready Publishing Platform",
+                description: "Techmapperz developed an e-commerce website tailored to the needs of an education-focused publishing company. The live site includes storefront navigation, user account access, cart functionality, and product-led merchandising blocks.",
                 features: [
-                    "Customer project management interface",
-                    "Designer portfolio and project tools",
-                    "Vendor inventory and order management",
-                    "Admin oversight and analytics dashboard"
+                    "Full e-commerce website for an educational publishing business",
+                    "Category-based online book browsing",
+                    "Featured books, bestsellers, new arrivals, and deal sections",
+                    "Direct product purchase flow through product pages"
                 ]
             },
             {
-                title: "Real-Time Communication Hub",
-                description: "Integrated Socket.io for instant messaging, project updates, and collaborative design sessions.",
+                title: "Structured Catalog Discovery",
+                description: "We structured the website around how book buyers actually search and shop, supporting browsing through relevant academic categories and merchandising sections.",
                 features: [
-                    "Instant messaging system",
-                    "File sharing and collaboration",
-                    "Real-time project status updates",
-                    "Push notifications for important events"
+                    "Add to Cart and Buy Now functionality",
+                    "Sign in, registration, and cart-based shopping experience",
+                    "Product pages with pricing, offers, and stock display",
+                    "Request a Book feature for unavailable books"
                 ]
             }
         ],
         results: [
             {
-                label: "User Acquisition",
-                value: "10,000+",
-                description: "Active users within first 6 months",
-                icon: "👥"
+                label: "Project Type",
+                value: "Platform",
+                description: "E-commerce Website + Online Book Sales Platform",
+                icon: "💻"
             },
             {
-                label: "Project Completion Rate",
-                value: "95%",
-                description: "Successful project completion through platform",
-                icon: "✅"
+                label: "Industry",
+                value: "Publishing",
+                description: "Publishing / Educational Books",
+                icon: "📚"
             },
             {
-                label: "Response Time",
-                value: "<2s",
-                description: "Average API response time optimization",
-                icon: "⚡"
+                label: "Functionality",
+                value: "Commerce",
+                description: "Online Book Discovery, Cart, and Direct Purchase",
+                icon: "🛒"
             },
             {
-                label: "User Satisfaction",
-                value: "4.8/5",
-                description: "Average rating from customer feedback",
-                icon: "⭐"
+                label: "Goal",
+                value: "Growth",
+                description: "Improve online visibility, direct sales, and customer convenience",
+                icon: "📈"
             }
         ],
-        conclusion: "The Fabcon mobile application successfully revolutionized the interior design industry workflow by creating a unified platform that seamlessly connects all stakeholders.",
+        conclusion: "The final website gave Aaheli Publishers a more structured, commercially ready digital presence. Instead of functioning only as a publisher information site, the platform now supports real product discovery and direct online purchase behaviour, reducing dependence on purely manual inquiry-based ordering and creating a scalable base for future offers and catalog growth.",
         testimonial: {
-            quote: "Techmapperz delivered exactly what we envisioned and more. The app has transformed how we manage our interior design projects and communicate with clients.",
-            author: "Rajesh Sharma",
-            position: "CEO, Fabcon"
+            quote: "The e-commerce platform has completely transformed how we sell our educational books online, making our vast catalog easily accessible to students and teachers alike.",
+            author: "Aaheli Publishers Team",
+            position: "Management"
         }
     },
     {
@@ -792,89 +787,84 @@ const itPortfolioData = [
     },
     {
         image: "/Photos/IT_portfolio/Expoguru/1.webp",
-        category: "IT",
-        techStack: "React, Node.js, MongoDB, Express, Material-UI, Redux, Socket.io",
-        name: "Dynamic & Interactive Interior Company Website",
+        category: "Interior Design / Creative Services",
+        seoTitle: "Project Expo Guru Case Study | Interior Design Company Website Development | Techmapperz",
+        seoDescription: "See how Techmapperz developed a dynamic informative website for Project Expo Guru to improve service presentation, brand visibility, trust, and lead generation.",
+        techStack: "Dynamic Website Development, Responsive UI, Service-Focused Information Architecture, SEO-Friendly Structure, Content-Driven Business Website Design, Scalable Frontend Presentation",
+        name: "Informative Dynamic Website for an Interior Design and Creative Solutions Company",
         link: "/portfolios/expoguru",
         slug: "expoguru",
         details: [
-            "A comprehensive interior design mobile application that connects customers with professional designers and vendors. The platform streamlines the entire interior design process from consultation to project completion."
+            "Techmapperz designed and developed an informative, dynamic business website for Project Expo Guru, a creative brand working across interior design and related experience-driven service areas. The goal of the project was to create a digital platform that could present the company in a more structured, professional, and convincing way while helping visitors quickly understand its service capabilities and brand identity. The live website publicly positions the company around interior design, modern home and office decor, and broader creative execution.",
+            "This project was not just about launching an online presence. It was about creating a website that could communicate trust, show design-oriented business value, and support lead generation for a service company that needs strong presentation to convert interest into inquiries."
         ],
         projectDetails: {
-            year: "2023",
-            location: "Mumbai, India",
-            duration: "8 months",
-            teamSize: "12 developers",
-            industry: "Interior Design",
-            projectType: "Mobile Application"
+            industry: "Interior Design / Creative Services",
+            projectType: "Dynamic Informative Business Website"
         },
         challenges: [
             {
-                title: "Complex User Journey Management",
-                description: "Managing multiple user types (customers, designers, vendors) with different needs and workflows within a single platform."
+                title: "Trust and First Impression",
+                description: "Project Expo Guru operates in a space where visual impression and service trust matter from the very first click. The website needed to reflect capability, professionalism, clarity, and confidence."
             },
             {
-                title: "Real-time Collaboration Features",
-                description: "Implementing seamless real-time communication and project tracking between customers, designers, and vendors."
-            },
-            {
-                title: "Scalable Architecture Design",
-                description: "Creating a robust backend architecture that could handle growing user base and complex business logic."
+                title: "Broad Service Positioning",
+                description: "Since the brand is not limited to a single narrow service, the website had to support a broader business narrative including interior design, exhibitions, events, retail, and branding without feeling fragmented."
             }
         ],
         solutions: [
             {
-                title: "Multi-Role Dashboard System",
-                description: "Developed comprehensive role-based dashboards with customized interfaces for each user type.",
+                title: "Business-Facing Platform",
+                description: "We structured the website so visitors could quickly learn who the company is, what it does, and why it is relevant to their project needs, featuring dedicated areas such as Who We Are and What We Do.",
                 features: [
-                    "Customer project management interface",
-                    "Designer portfolio and project tools",
-                    "Vendor inventory and order management",
-                    "Admin oversight and analytics dashboard"
+                    "Dynamic informative website for an interior design company",
+                    "Structured service presentation for better user understanding",
+                    "Dedicated business storytelling sections",
+                    "Lead-generation-ready presentation"
                 ]
             },
             {
-                title: "Real-Time Communication Hub",
-                description: "Integrated Socket.io for instant messaging, project updates, and collaborative design sessions.",
+                title: "Polished and Accessible Design",
+                description: "Because interior design is a trust-based service, we focused on making the website feel polished, informative, and accessible to reduce friction for first-time visitors.",
                 features: [
-                    "Instant messaging system",
-                    "File sharing and collaboration",
-                    "Real-time project status updates",
-                    "Push notifications for important events"
+                    "Modern, design-oriented website layout",
+                    "Responsive browsing experience across devices",
+                    "Trust-building visual and content structure",
+                    "Scalable architecture for future expansion"
                 ]
             }
         ],
         results: [
             {
-                label: "User Acquisition",
-                value: "10,000+",
-                description: "Active users within first 6 months",
-                icon: "👥"
+                label: "Project Type",
+                value: "Website",
+                description: "Dynamic Informative Business Website",
+                icon: "💻"
             },
             {
-                label: "Project Completion Rate",
-                value: "95%",
-                description: "Successful project completion through platform",
-                icon: "✅"
+                label: "Industry",
+                value: "Design",
+                description: "Interior Design / Creative Services",
+                icon: "🎨"
             },
             {
-                label: "Response Time",
-                value: "<2s",
-                description: "Average API response time optimization",
-                icon: "⚡"
+                label: "Functionality",
+                value: "Brand",
+                description: "Service Presentation + Brand Positioning",
+                icon: "✨"
             },
             {
-                label: "User Satisfaction",
-                value: "4.8/5",
-                description: "Average rating from customer feedback",
-                icon: "⭐"
+                label: "Goal",
+                value: "Leads",
+                description: "Improve digital trust, visibility, and lead generation",
+                icon: "📈"
             }
         ],
-        conclusion: "The Fabcon mobile application successfully revolutionized the interior design industry workflow by creating a unified platform that seamlessly connects all stakeholders.",
+        conclusion: "The final website gave Project Expo Guru a more polished and business-ready digital presence. Instead of relying on fragmented communication or basic online visibility, the brand now has a website that can support clearer service explanation, stronger first impressions, and better inquiry readiness.",
         testimonial: {
-            quote: "Techmapperz delivered exactly what we envisioned and more. The app has transformed how we manage our interior design projects and communicate with clients.",
-            author: "Rajesh Sharma",
-            position: "CEO, Fabcon"
+            quote: "The new website successfully captures our brand's creative capabilities while functioning as a highly effective, professional tool for lead generation and client presentation.",
+            author: "Project Expo Guru Team",
+            position: "Management"
         }
     },
     {

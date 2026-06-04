@@ -207,25 +207,46 @@ export const authApi = {
 export const bannerApi = {
   getAll: () => api.get('/banner').then(res => ({ data: Array.isArray(res.data) ? res.data : [] })),
   getById: (id) => api.get(`/banner/${id}`),
-  create: (data) => {
-    // Convert image URL if needed
-    const processedData = data.imageUrl ? {
-      ...data,
-      imageUrl: getImageUrl(data.imageUrl)
-    } : data
+  create: async (data) => {
+    const formData = new FormData()
     
-    return api.post('/banner', processedData)
+    // Check if banner_img_url is a File object from the ImageUpload component
+    if (data.banner_img_url instanceof File) {
+      formData.append('file', data.banner_img_url)
+      // Extract other data
+      const { banner_img_url, ...restData } = data
+      formData.append('data', JSON.stringify(restData))
+    } else {
+      formData.append('data', JSON.stringify(data))
+    }
+
+    const baseURL = getBaseURL()
+    return axios.post(`${baseURL}/api/banner`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
   },
-  update: (id, data) => {
-    // Convert image URL if needed
-    const processedData = data.imageUrl ? {
-      ...data,
-      imageUrl: getImageUrl(data.imageUrl)
-    } : data
+  update: async (id, data) => {
+    const formData = new FormData()
     
-    return api.put(`/banner/${id}`, processedData)
+    if (data.banner_img_url instanceof File) {
+      formData.append('file', data.banner_img_url)
+      const { banner_img_url, ...restData } = data
+      formData.append('data', JSON.stringify(restData))
+    } else {
+      formData.append('data', JSON.stringify(data))
+    }
+    
+    const baseURL = getBaseURL()
+    return axios.put(`${baseURL}/api/banner/${id}`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
   },
-  delete: (id) => api.delete(`/banner/${id}`),
+  delete: (ids) => {
+    const selectedHomeBannerIds = Array.isArray(ids) ? ids : [ids]
+    return api.delete('/banner', {
+      data: { selectedHomeBannerIds }
+    })
+  },
 }
 
 // Comments API

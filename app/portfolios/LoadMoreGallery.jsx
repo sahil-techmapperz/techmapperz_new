@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function LoadMoreGallery({ projects }) {
@@ -36,7 +37,7 @@ export default function LoadMoreGallery({ projects }) {
             >
               <Link href={`/portfolios/${project.slug}`} className="w-full h-full flex flex-col relative flex-grow">
                 <div className="relative flex-grow overflow-hidden bg-[#1C2331]">
-                  <img src={project.image} alt={project.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <Image src={project.image} alt={project.name} fill={true} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#161C26] to-transparent opacity-60"></div>
                 </div>
                 <div className="p-4 bg-[#141A24] border-t border-white/5 flex items-center justify-between z-10 mt-auto">

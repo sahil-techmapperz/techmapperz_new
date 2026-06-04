@@ -67,7 +67,7 @@ const Testimonial = async () => {
           {safeTestimonials.length > 0 ? safeTestimonials.map((data, idx) => (
             <div
               key={data._id || data.userId || `testimonial-${idx}`}
-              className="group relative bg-[#111622] border border-white/5 rounded-[2rem] p-8 md:p-10 mx-4 min-h-[350px] flex flex-col transition-all duration-500 hover:border-[#05D7DE]/30 hover:bg-[#161C28] shadow-2xl overflow-hidden"
+              className="group relative bg-[#111622] border border-white/5 rounded-[2rem] p-8 md:p-10 mx-4 min-h-[350px] h-full flex flex-col transition-all duration-500 hover:border-[#05D7DE]/30 hover:bg-[#161C28] shadow-2xl overflow-hidden"
             >
               {/* Subtle gradient hover reveal */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#05D7DE]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />

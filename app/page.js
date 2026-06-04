@@ -65,6 +65,8 @@ import Link from 'next/link';
 import company_logo from "@/public/logo.webp";
 import { LazySection } from './_hooks/useIntersectionObserver';
 import ScrollReveal from './_Components/ScrollReveal';
+import connectDB from './lib/db';
+import Banner from './lib/models/Banner';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.techmapperz.com"; // Fallback URL
 
@@ -159,11 +161,28 @@ export const metadata = {
 
 
 
-const Home = () => {
+const Home = async () => {
+  let latestBanner = null;
+  try {
+    await connectDB();
+    // Try to find specifically the Home Hero banner, otherwise fallback to any banner
+    let banners = await Banner.find({ pageName: "Home Hero" }).sort({ _id: -1 }).limit(1).lean();
+    
+    if (!banners || banners.length === 0) {
+      banners = await Banner.find().sort({ _id: -1 }).limit(1).lean();
+    }
+    if (banners && banners.length > 0) {
+      // lean() returns plain JS object but we stringify and parse to avoid Mongoose doc issues across server boundaries
+      latestBanner = JSON.parse(JSON.stringify(banners[0]));
+    }
+  } catch (error) {
+    console.error("Failed to fetch banner data:", error);
+  }
+
   return (
-    <div>
+    <div className='bg-[#070A11]'>
       <ScrollToTop />
-      <HomeHero />
+      <HomeHero bannerData={latestBanner} />
       <section className="bg-[#070A11] pt-16 pb-12 max-sm:py-8 max-sm:px-4 px-[4rem] relative overflow-x-hidden w-full border-t border-white/5">
         <ScrollReveal>
           <div className="w-full max-w-7xl mx-auto mb-16">

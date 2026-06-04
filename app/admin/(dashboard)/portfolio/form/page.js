@@ -18,10 +18,16 @@ export default function PortfolioForm() {
   const [formData, setFormData] = useState({
     name: '', category: '', slug: '', image: '', link: '', techStack: '', conclusion: '',
     details: [''],
-    projectDetails: { year: '', location: '', duration: '', teamSize: '', industry: '', projectType: '' },
+    deliverables: [''],
+    executionSteps: [{ step: '', title: '', desc: '' }],
+    projectDetails: { year: '', location: '', duration: '', teamSize: '', industry: '', projectType: '', coreFunctionality: '', businessGoal: '' },
     challenges: [{ title: '', description: '' }],
     solutions: [{ title: '', description: '', features: [''] }],
     results: [{ label: '', value: '', description: '', icon: '' }],
+    galleryImages: [],
+    highlights: [{ title: '', description: '' }],
+    relatedServices: [''],
+    cta: { title: '', heading: '', description: '', button1Text: '', button1Link: '', button2Text: '', button2Link: '' },
     testimonial: { quote: '', author: '', position: '' }
   })
 
@@ -33,23 +39,24 @@ export default function PortfolioForm() {
 
   const fetchPortfolio = async () => {
     try {
-      // Create a specific fetch for a single portfolio if needed, but since we didn't build a GET /id,
-      // we can fetch all and filter, or we can quickly build a GET /id.
-      // Wait, we didn't build GET /api/admin/portfolio/[id] ! 
-      // I'll fetch all and find it for now.
       const res = await fetch('/api/admin/portfolio')
       const data = await res.json()
       if (data.success) {
         const item = data.data.find(p => p._id === id)
         if (item) {
-          // ensure arrays are at least initialized
           setFormData({
             ...item,
             details: item.details?.length ? item.details : [''],
+            deliverables: item.deliverables?.length ? item.deliverables : [''],
+            executionSteps: item.executionSteps?.length ? item.executionSteps : [{ step: '', title: '', desc: '' }],
             challenges: item.challenges?.length ? item.challenges : [{ title: '', description: '' }],
             solutions: item.solutions?.length ? item.solutions : [{ title: '', description: '', features: [''] }],
             results: item.results?.length ? item.results : [{ label: '', value: '', description: '', icon: '' }],
-            projectDetails: item.projectDetails || { year: '', location: '', duration: '', teamSize: '', industry: '', projectType: '' },
+            galleryImages: item.galleryImages || [],
+            highlights: item.highlights?.length ? item.highlights : [{ title: '', description: '' }],
+            relatedServices: item.relatedServices?.length ? item.relatedServices : [''],
+            cta: item.cta || { title: '', heading: '', description: '', button1Text: '', button1Link: '', button2Text: '', button2Link: '' },
+            projectDetails: item.projectDetails || { year: '', location: '', duration: '', teamSize: '', industry: '', projectType: '', coreFunctionality: '', businessGoal: '' },
             testimonial: item.testimonial || { quote: '', author: '', position: '' }
           })
         }
@@ -77,7 +84,7 @@ export default function PortfolioForm() {
       if (field) {
         newArray[index] = { ...newArray[index], [field]: value }
       } else {
-        newArray[index] = value // for flat arrays like details
+        newArray[index] = value 
       }
       return { ...prev, [arrayName]: newArray }
     })
@@ -119,10 +126,8 @@ export default function PortfolioForm() {
     })
   }
 
-  const handleImageUpload = async (e) => {
-    const file = e.target.files?.[0]
+  const handleGenericImageUpload = async (file, callback) => {
     if (!file) return
-
     setUploading(true)
     const data = new FormData()
     data.append('image', file)
@@ -134,7 +139,7 @@ export default function PortfolioForm() {
       })
       const result = await response.json()
       if (response.ok) {
-        setFormData(prev => ({ ...prev, image: result.url }))
+        callback(result.url)
       } else {
         alert("Failed to upload image")
       }
@@ -195,9 +200,9 @@ export default function PortfolioForm() {
         </button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-8">
+      <div className="space-y-8">
         {/* Basic Info */}
-        <section className="space-y-4">
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
           <h2 className="text-xl font-semibold border-b pb-2">Basic Information</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -212,14 +217,17 @@ export default function PortfolioForm() {
               <label className="block text-sm font-medium mb-1">Category *</label>
               <input type="text" name="category" value={formData.category} onChange={handleChange} required className="w-full border rounded-lg p-2" placeholder="e.g. IT, GIS" />
             </div>
-            <div>
-              <label className="block text-sm font-medium mb-1">Tech Stack</label>
-              <input type="text" name="techStack" value={formData.techStack} onChange={handleChange} className="w-full border rounded-lg p-2" />
-            </div>
+
             <div>
               <label className="block text-sm font-medium mb-1">Live Link</label>
               <input type="text" name="link" value={formData.link} onChange={handleChange} className="w-full border rounded-lg p-2" />
             </div>
+            {isEdit && (
+              <div>
+                <label className="block text-sm font-medium mb-1">Project ID (_id)</label>
+                <input type="text" value={id} readOnly className="w-full border rounded-lg p-2 bg-gray-100 text-gray-500 cursor-not-allowed" />
+              </div>
+            )}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium mb-1">Banner Image *</label>
               <div className="flex items-center space-x-4">
@@ -227,7 +235,7 @@ export default function PortfolioForm() {
                 <label className="flex items-center bg-gray-100 px-4 py-2 rounded-lg cursor-pointer hover:bg-gray-200">
                   <Upload className="w-4 h-4 mr-2" />
                   {uploading ? 'Uploading...' : 'Upload Image'}
-                  <input type="file" className="hidden" accept="image/*" onChange={handleImageUpload} disabled={uploading} />
+                  <input type="file" className="hidden" accept="image/*" onChange={(e) => handleGenericImageUpload(e.target.files?.[0], (url) => setFormData(prev => ({ ...prev, image: url })))} disabled={uploading} />
                 </label>
                 <input type="text" name="image" value={formData.image} onChange={handleChange} placeholder="Or paste image URL" className="flex-1 border rounded-lg p-2" />
               </div>
@@ -236,10 +244,12 @@ export default function PortfolioForm() {
         </section>
 
         {/* Project Details */}
-        <section className="space-y-4">
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
           <h2 className="text-xl font-semibold border-b pb-2">Project Details</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {Object.keys(formData.projectDetails).map(key => (
+            {Object.keys(formData.projectDetails)
+              .filter(key => key !== '_id')
+              .map(key => (
               <div key={key}>
                 <label className="block text-sm font-medium mb-1 capitalize">{key}</label>
                 <input type="text" name={`projectDetails.${key}`} value={formData.projectDetails[key]} onChange={handleChange} className="w-full border rounded-lg p-2" />
@@ -249,7 +259,7 @@ export default function PortfolioForm() {
         </section>
 
         {/* Details (Array of strings) */}
-        <section className="space-y-4">
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
           <div className="flex justify-between items-center border-b pb-2">
             <h2 className="text-xl font-semibold">Details / Descriptions</h2>
             <button type="button" onClick={() => addArrayItem('details', '')} className="text-indigo-600 text-sm flex items-center"><Plus className="w-4 h-4 mr-1"/> Add Paragraph</button>
@@ -262,8 +272,41 @@ export default function PortfolioForm() {
           ))}
         </section>
 
+        {/* Gallery Images */}
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+          <div className="flex justify-between items-center border-b pb-2">
+            <h2 className="text-xl font-semibold">Gallery Images (Up to 5)</h2>
+            {formData.galleryImages.length < 5 && (
+              <button type="button" onClick={() => addArrayItem('galleryImages', { src: '', alt: '' })} className="text-indigo-600 text-sm flex items-center"><Plus className="w-4 h-4 mr-1"/> Add Image</button>
+            )}
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {formData.galleryImages.map((img, index) => (
+              <div key={index} className="bg-gray-50 p-4 rounded-lg relative pr-10">
+                <button type="button" onClick={() => removeArrayItem('galleryImages', index)} className="absolute top-2 right-2 text-red-500 hover:bg-red-50 p-1 rounded"><Trash2 className="w-4 h-4" /></button>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-4">
+                    {img.src ? (
+                      <img src={img.src} alt={img.alt || 'Gallery item'} className="h-16 w-16 object-cover rounded" />
+                    ) : (
+                      <div className="h-16 w-16 bg-gray-200 rounded flex items-center justify-center text-gray-400 text-xs text-center">No Img</div>
+                    )}
+                    <label className="flex items-center bg-white border px-3 py-1.5 rounded cursor-pointer hover:bg-gray-50 text-sm">
+                      <Upload className="w-4 h-4 mr-2" />
+                      {uploading ? '...' : 'Upload'}
+                      <input type="file" className="hidden" accept="image/*" onChange={(e) => handleGenericImageUpload(e.target.files?.[0], (url) => handleArrayChange('galleryImages', index, 'src', url))} disabled={uploading} />
+                    </label>
+                  </div>
+                  <input type="text" value={img.src} onChange={(e) => handleArrayChange('galleryImages', index, 'src', e.target.value)} placeholder="Image URL" className="w-full border rounded p-2 text-sm" />
+                  <input type="text" value={img.alt} onChange={(e) => handleArrayChange('galleryImages', index, 'alt', e.target.value)} placeholder="Alt Text / Caption (e.g. Project Overview)" className="w-full border rounded p-2 text-sm" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* Challenges */}
-        <section className="space-y-4">
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
           <div className="flex justify-between items-center border-b pb-2">
             <h2 className="text-xl font-semibold">Challenges</h2>
             <button type="button" onClick={() => addArrayItem('challenges', { title: '', description: '' })} className="text-indigo-600 text-sm flex items-center"><Plus className="w-4 h-4 mr-1"/> Add Challenge</button>
@@ -280,7 +323,7 @@ export default function PortfolioForm() {
         </section>
 
         {/* Solutions */}
-        <section className="space-y-4">
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
           <div className="flex justify-between items-center border-b pb-2">
             <h2 className="text-xl font-semibold">Solutions</h2>
             <button type="button" onClick={() => addArrayItem('solutions', { title: '', description: '', features: [''] })} className="text-indigo-600 text-sm flex items-center"><Plus className="w-4 h-4 mr-1"/> Add Solution</button>
@@ -309,31 +352,137 @@ export default function PortfolioForm() {
           ))}
         </section>
 
+        {/* Technology Stack */}
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+          <h2 className="text-xl font-semibold border-b pb-2">Technology Stack</h2>
+          <div>
+            <label className="block text-sm font-medium mb-1 text-gray-600">Tech Stack (comma separated or detailed string)</label>
+            <input type="text" name="techStack" value={formData.techStack} onChange={handleChange} placeholder="e.g. React, Node.js, MongoDB" className="w-full border rounded-lg p-2" />
+          </div>
+        </section>
+
+        {/* Key Features (Deliverables) */}
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+          <div className="flex justify-between items-center border-b pb-2">
+            <h2 className="text-xl font-semibold">Key Features</h2>
+            <button type="button" onClick={() => addArrayItem('deliverables', '')} className="text-indigo-600 text-sm flex items-center"><Plus className="w-4 h-4 mr-1"/> Add Feature</button>
+          </div>
+          {formData.deliverables.map((detail, index) => (
+            <div key={index} className="flex space-x-2">
+              <input type="text" value={detail} onChange={(e) => handleArrayChange('deliverables', index, null, e.target.value)} placeholder="Feature description" className="flex-1 border rounded-lg p-2" />
+              <button type="button" onClick={() => removeArrayItem('deliverables', index)} className="text-red-500 hover:bg-red-50 p-2 rounded"><Trash2 className="w-5 h-5" /></button>
+            </div>
+          ))}
+        </section>
+
+        {/* Project Process (Execution Steps) */}
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+          <div className="flex justify-between items-center border-b pb-2">
+            <h2 className="text-xl font-semibold">Project Process</h2>
+            <button type="button" onClick={() => addArrayItem('executionSteps', { step: '', title: '', desc: '' })} className="text-indigo-600 text-sm flex items-center"><Plus className="w-4 h-4 mr-1"/> Add Step</button>
+          </div>
+          {formData.executionSteps.map((item, index) => (
+            <div key={index} className="bg-gray-50 p-4 rounded-lg flex space-x-4">
+              <div className="flex-1 space-y-3">
+                <div className="flex space-x-2">
+                  <input type="text" value={item.step} onChange={(e) => handleArrayChange('executionSteps', index, 'step', e.target.value)} placeholder="Step (e.g. 01)" className="w-20 border rounded p-2" />
+                  <input type="text" value={item.title} onChange={(e) => handleArrayChange('executionSteps', index, 'title', e.target.value)} placeholder="Step Title" className="flex-1 border rounded p-2" />
+                </div>
+                <textarea value={item.desc} onChange={(e) => handleArrayChange('executionSteps', index, 'desc', e.target.value)} placeholder="Step Description" className="w-full border rounded p-2" rows={2}></textarea>
+              </div>
+              <button type="button" onClick={() => removeArrayItem('executionSteps', index)} className="text-red-500 hover:bg-red-50 p-2 rounded h-fit"><Trash2 className="w-5 h-5" /></button>
+            </div>
+          ))}
+        </section>
+
+        {/* Highlights */}
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+          <div className="flex justify-between items-center border-b pb-2">
+            <h2 className="text-xl font-semibold">Project Highlights</h2>
+            <button type="button" onClick={() => addArrayItem('highlights', { title: '', description: '' })} className="text-indigo-600 text-sm flex items-center"><Plus className="w-4 h-4 mr-1"/> Add Highlight</button>
+          </div>
+          {formData.highlights.map((item, index) => (
+            <div key={index} className="bg-gray-50 p-4 rounded-lg flex space-x-4">
+              <div className="flex-1 space-y-3">
+                <input type="text" value={item.title} onChange={(e) => handleArrayChange('highlights', index, 'title', e.target.value)} placeholder="Highlight Title" className="w-full border rounded p-2" />
+                <textarea value={item.description} onChange={(e) => handleArrayChange('highlights', index, 'description', e.target.value)} placeholder="Highlight Description" className="w-full border rounded p-2" rows={2}></textarea>
+              </div>
+              <button type="button" onClick={() => removeArrayItem('highlights', index)} className="text-red-500 hover:bg-red-50 p-2 rounded h-fit"><Trash2 className="w-5 h-5" /></button>
+            </div>
+          ))}
+        </section>
+
+        {/* Related Services */}
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+          <div className="flex justify-between items-center border-b pb-2">
+            <h2 className="text-xl font-semibold">Related Services</h2>
+            <button type="button" onClick={() => addArrayItem('relatedServices', '')} className="text-indigo-600 text-sm flex items-center"><Plus className="w-4 h-4 mr-1"/> Add Service</button>
+          </div>
+          {formData.relatedServices.map((service, index) => (
+            <div key={index} className="flex space-x-2">
+              <input type="text" value={service} onChange={(e) => handleArrayChange('relatedServices', index, null, e.target.value)} placeholder="Service Name" className="flex-1 border rounded-lg p-2" />
+              <button type="button" onClick={() => removeArrayItem('relatedServices', index)} className="text-red-500 hover:bg-red-50 p-2 rounded"><Trash2 className="w-5 h-5" /></button>
+            </div>
+          ))}
+        </section>
+
         {/* Results */}
-        <section className="space-y-4">
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
           <div className="flex justify-between items-center border-b pb-2">
             <h2 className="text-xl font-semibold">Results</h2>
-            <button type="button" onClick={() => addArrayItem('results', { label: '', value: '', description: '', icon: '' })} className="text-indigo-600 text-sm flex items-center"><Plus className="w-4 h-4 mr-1"/> Add Result</button>
+            <button type="button" onClick={() => addArrayItem('results', { description: '' })} className="text-indigo-600 text-sm flex items-center"><Plus className="w-4 h-4 mr-1"/> Add Result</button>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-3 mt-4">
             {formData.results.map((item, index) => (
-              <div key={index} className="bg-gray-50 p-4 rounded-lg relative pr-10">
-                <button type="button" onClick={() => removeArrayItem('results', index)} className="absolute top-2 right-2 text-red-500 hover:bg-red-50 p-1 rounded"><Trash2 className="w-4 h-4" /></button>
-                <div className="grid grid-cols-2 gap-2 mb-2">
-                  <input type="text" value={item.label} onChange={(e) => handleArrayChange('results', index, 'label', e.target.value)} placeholder="Label (e.g. Revenue)" className="border rounded p-2 text-sm" />
-                  <input type="text" value={item.value} onChange={(e) => handleArrayChange('results', index, 'value', e.target.value)} placeholder="Value (e.g. +180%)" className="border rounded p-2 text-sm" />
-                </div>
-                <div className="grid grid-cols-4 gap-2">
-                  <input type="text" value={item.icon} onChange={(e) => handleArrayChange('results', index, 'icon', e.target.value)} placeholder="Emoji (🌿)" className="border rounded p-2 text-sm text-center" />
-                  <input type="text" value={item.description} onChange={(e) => handleArrayChange('results', index, 'description', e.target.value)} placeholder="Description" className="border rounded p-2 text-sm col-span-3" />
-                </div>
+              <div key={index} className="flex space-x-2">
+                <input type="text" value={item.description} onChange={(e) => handleArrayChange('results', index, 'description', e.target.value)} placeholder="Result Description (e.g. improved control over sales orders)" className="flex-1 border rounded-lg p-2" />
+                <button type="button" onClick={() => removeArrayItem('results', index)} className="text-red-500 hover:bg-red-50 p-2 rounded"><Trash2 className="w-5 h-5" /></button>
               </div>
             ))}
           </div>
         </section>
 
+        {/* CTA Banner */}
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
+          <h2 className="text-xl font-semibold border-b pb-2">CTA Banner</h2>
+          <div className="bg-gray-50 p-4 rounded-lg space-y-3">
+            <div>
+              <label className="block text-sm font-medium mb-1 text-gray-600">Sub-Title (Cyan Text)</label>
+              <input type="text" value={formData.cta?.title || ''} onChange={(e) => setFormData(prev => ({ ...prev, cta: { ...prev.cta, title: e.target.value } }))} placeholder="Need a high-accuracy survey for your infrastructure project?" className="w-full border rounded p-2" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1 text-gray-600">Main Heading</label>
+              <textarea value={formData.cta?.heading || ''} onChange={(e) => setFormData(prev => ({ ...prev, cta: { ...prev.cta, heading: e.target.value } }))} placeholder="Let's plan your next drone LiDAR... (Use Enter for line breaks)" className="w-full border rounded p-2" rows={2}></textarea>
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1 text-gray-600">Description Paragraph</label>
+              <textarea value={formData.cta?.description || ''} onChange={(e) => setFormData(prev => ({ ...prev, cta: { ...prev.cta, description: e.target.value } }))} placeholder="Techmapperz Helps Infrastructure Teams Execute Fast, Accurate..." className="w-full border rounded p-2" rows={3}></textarea>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1 text-gray-600">Button 1 Text</label>
+                <input type="text" value={formData.cta?.button1Text || ''} onChange={(e) => setFormData(prev => ({ ...prev, cta: { ...prev.cta, button1Text: e.target.value } }))} placeholder="Request a Proposal" className="w-full border rounded p-2" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1 text-gray-600">Button 1 Link</label>
+                <input type="text" value={formData.cta?.button1Link || ''} onChange={(e) => setFormData(prev => ({ ...prev, cta: { ...prev.cta, button1Link: e.target.value } }))} placeholder="/contact" className="w-full border rounded p-2" />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium mb-1 text-gray-600">Button 2 Text</label>
+                <input type="text" value={formData.cta?.button2Text || ''} onChange={(e) => setFormData(prev => ({ ...prev, cta: { ...prev.cta, button2Text: e.target.value } }))} placeholder="View Our Work" className="w-full border rounded p-2" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-1 text-gray-600">Button 2 Link</label>
+                <input type="text" value={formData.cta?.button2Link || ''} onChange={(e) => setFormData(prev => ({ ...prev, cta: { ...prev.cta, button2Link: e.target.value } }))} placeholder="/portfolios" className="w-full border rounded p-2" />
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Testimonial & Conclusion */}
-        <section className="space-y-4">
+        <section className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-4">
           <h2 className="text-xl font-semibold border-b pb-2">Conclusion & Testimonial</h2>
           <div>
             <label className="block text-sm font-medium mb-1">Conclusion Paragraph</label>

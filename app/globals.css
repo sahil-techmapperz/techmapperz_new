@@ -121,3 +121,9 @@ img {
   font-family: 'Montserrat';
   font-display: swap;
 }
+
+/* Ensure all carousel items (cards) stretch to equal height */
+.react-multi-carousel-item {
+  display: flex;
+  align-items: stretch;
+}

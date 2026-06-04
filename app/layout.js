@@ -2,14 +2,21 @@ import CriticalCSS from './_Components/CriticalCSS';
 import "./globals.css";
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
+import { IBM_Plex_Sans } from 'next/font/google';
+
+// Configure the IBM Plex Sans font
+const ibmPlexSans = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-ibm-plex-sans',
+});
 
 // Conditional layout component that handles Navbar/Footer based on route
 const ConditionalLayout = dynamic(() => import('./_Components/ConditionalLayout'));
 const PerformanceProvider = dynamic(() => import('./_Components/PerformanceProvider'));
 import Head from 'next/head';
 import SmoothScroll from './_Components/SmoothScroll';
-
-
 
 // Enhanced SEO metadata for the root layout
 export const metadata = {
@@ -127,9 +134,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={ibmPlexSans.variable}>
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
         {/* Preload critical assets */}
         <link rel="preload" href="/Photos/3Drendered_digital_Ear.webp" as="image" />
         <link rel="preload" href="/logo.webp" as="image" />
@@ -138,11 +144,9 @@ export default function RootLayout({ children }) {
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://connect.facebook.net" />
         <link rel="dns-prefetch" href="https://calendly.com" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 
         {/* Preconnect to external domains */}
         <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" crossOrigin="anonymous" />
 
         {/* Schema.org structured data */}
         <script

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 const OurGISService = ({ OurGISServices }) => {
     return (
@@ -18,11 +19,13 @@ const OurGISService = ({ OurGISServices }) => {
                             }`}
                     >
                         {/* Image Section with Transition */}
-                        <div className="w-full md:w-[45%] overflow-hidden rounded-[20px]">
-                            <img
+                        <div className="w-full md:w-[45%] overflow-hidden rounded-[20px] relative aspect-video md:aspect-auto md:h-64">
+                            <Image
                                 src={service.serviceimg || "https://via.placeholder.com/500"}
                                 alt={service.servicetitle}
-                                className="w-full sm:h-auto md:h-64   shadow-lg transform transition duration-700 ease-in-out hover:scale-110 hover:shadow-xl"
+                                fill={true}
+                                sizes="(max-width: 768px) 100vw, 45vw"
+                                className="object-cover shadow-lg transform transition duration-700 ease-in-out hover:scale-110 hover:shadow-xl"
                             />
                         </div>
 

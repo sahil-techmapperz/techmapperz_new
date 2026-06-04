@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Explore More Services Section Preview</title>
+  <style>
+    :root{
+      --bg:#060b12;
+      --panel:#0d1a26;
+      --card:#151c26;
+      --card2:#172636;
+      --text:#ffffff;
+      --muted:#aebbd0;
+      --cyan:#18d7df;
+      --cyan-soft:rgba(24,215,223,.16);
+      --border:rgba(255,255,255,.09);
+      --cyan-border:rgba(24,215,223,.42);
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 74% 20%, rgba(24,215,223,.12), transparent 28%),
+        radial-gradient(circle at 14% 85%, rgba(43,104,255,.10), transparent 30%),
+        var(--bg);
+      font-family: Georgia, "Times New Roman", serif;
+      color:var(--text);
+      padding:60px 40px;
+    }
+
+    .case-study-section{
+      max-width:1280px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 1fr .98fr;
+      gap:70px;
+      align-items:start;
+    }
+
+    .eyebrow{
+      color:var(--cyan);
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      font-size:13px;
+      font-weight:800;
+      margin:0 0 18px;
+    }
+
+    h2{
+      font-size:48px;
+      line-height:1.04;
+      margin:0 0 38px;
+      letter-spacing:-.03em;
+    }
+
+    .takeaway-list{
+      display:flex;
+      flex-direction:column;
+      gap:24px;
+    }
+
+    .takeaway-card{
+      background:rgba(21,28,38,.92);
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:30px 34px;
+      display:flex;
+      gap:22px;
+      min-height:138px;
+      box-shadow:0 20px 50px rgba(0,0,0,.18);
+    }
+
+    .check{
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      background:linear-gradient(135deg, var(--cyan), #11bfc7);
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+      margin-top:2px;
+      font-family:Arial, sans-serif;
+      font-weight:900;
+      color:white;
+      box-shadow:0 0 22px rgba(24,215,223,.25);
+    }
+
+    .takeaway-card h3{
+      font-size:20px;
+      margin:0 0 20px;
+      line-height:1.3;
+    }
+
+    .takeaway-card p{
+      color:#bfd0e4;
+      font-size:18px;
+      line-height:1.7;
+      margin:0;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .related-panel{
+      background:
+        linear-gradient(180deg, rgba(15,31,45,.98), rgba(10,22,33,.98)),
+        var(--panel);
+      border:1px solid rgba(24,215,223,.12);
+      border-radius:34px;
+      padding:46px 44px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.03) inset,
+        0 28px 90px rgba(0,0,0,.32),
+        0 0 45px rgba(24,215,223,.06);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .related-panel:before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:radial-gradient(circle at 82% 8%, rgba(24,215,223,.18), transparent 28%);
+      pointer-events:none;
+    }
+
+    .related-panel > *{
+      position:relative;
+      z-index:1;
+    }
+
+    .service-list{
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+    }
+
+    .service-card{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:22px 24px;
+      background:rgba(21,28,38,.96);
+      border:1px solid var(--border);
+      border-radius:22px;
+      transition:.25s ease;
+      min-height:104px;
+    }
+
+    .service-card:hover{
+      transform:translateX(7px);
+      background:var(--card2);
+      border-color:var(--cyan-border);
+      box-shadow:0 16px 44px rgba(24,215,223,.08);
+    }
+
+    .service-main{
+      display:flex;
+      gap:18px;
+      align-items:flex-start;
+    }
+
+    .service-icon{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:var(--cyan-soft);
+      border:1px solid rgba(24,215,223,.32);
+      color:var(--cyan);
+      font-family:Arial, sans-serif;
+      font-weight:900;
+      flex:0 0 auto;
+      margin-top:2px;
+    }
+
+    .service-card h3{
+      margin:0;
+      font-size:19px;
+      line-height:1.25;
+      letter-spacing:.01em;
+    }
+
+    .service-card p{
+      margin:9px 0 0;
+      color:var(--muted);
+      font-size:14.5px;
+      line-height:1.55;
+      font-family:Arial, sans-serif;
+    }
+
+    .arrow{
+      font-family:Arial, sans-serif;
+      font-size:28px;
+      color:var(--cyan);
+      opacity:.72;
+      transition:.25s ease;
+      flex:0 0 auto;
+    }
+
+    .service-card:hover .arrow{
+      opacity:1;
+      transform:translateX(5px);
+    }
+
+    .cta-strip{
+      max-width:980px;
+      margin:76px auto 0;
+      background:rgba(21,28,38,.96);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:28px;
+      padding:42px 48px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:44px;
+      box-shadow:0 24px 80px rgba(0,0,0,.24);
+    }
+
+    .cta-strip h3{
+      font-size:32px;
+      line-height:1.15;
+      margin:0 0 18px;
+      max-width:610px;
+    }
+
+    .cta-strip p{
+      color:#b8c5d6;
+      font-family:Arial, sans-serif;
+      font-size:15px;
+      line-height:1.75;
+      margin:0;
+      max-width:620px;
+    }
+
+    .buttons{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      min-width:250px;
+    }
+
+    .btn{
+      border:0;
+      border-radius:999px;
+      padding:17px 26px;
+      font-weight:800;
+      color:#fff;
+      cursor:pointer;
+      font-family:Arial, sans-serif;
+      letter-spacing:.02em;
+    }
+
+    .btn.primary{
+      background:linear-gradient(90deg,#5278ff,#e42e57);
+      box-shadow:0 14px 32px rgba(228,46,87,.18);
+    }
+
+    .btn.secondary{
+      background:rgba(255,255,255,.08);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    @media(max-width:980px){
+      body{padding:36px 18px}
+      .case-study-section{grid-template-columns:1fr;gap:34px}
+      h2{font-size:38px}
+      .cta-strip{flex-direction:column;align-items:flex-start;padding:32px 24px}
+      .buttons{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <section class="case-study-section">
+    <div>
+      <p class="eyebrow">Project Highlights</p>
+      <h2>Key Takeaways.</h2>
+
+      <div class="takeaway-list">
+        <article class="takeaway-card">
+          <span class="check">✓</span>
+          <div>
+            <h3>Sales-Control Focused Platform</h3>
+            <p>Built to support structured order movement instead of basic order capture.</p>
+          </div>
+        </article>
+
+        <article class="takeaway-card">
+          <span class="check">✓</span>
+          <div>
+            <h3>Hierarchy-Based Approval Workflow</h3>
+            <p>Designed to reflect real organizational control and role-based order authorization.</p>
+          </div>
+        </article>
+
+        <article class="takeaway-card">
+          <span class="check">✓</span>
+          <div>
+            <h3>ERP and APK Connected Ecosystem</h3>
+            <p>Integrated with a broader digital operations environment so the sales dashboard works as part of a larger system.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <aside class="related-panel">
+      <p class="eyebrow">Related Services</p>
+      <h2>Explore More Services</h2>
+
+      <div class="service-list">
+        <article class="service-card">
+          <div class="service-main">
+            <span class="service-icon">↗</span>
+            <div>
+              <h3>B2B E-commerce Website Development</h3>
+              <p>Build ordering platforms for dealers, distributors and business buyers.</p>
+            </div>
+          </div>
+          <span class="arrow">→</span>
+        </article>
+
+        <article class="service-card">
+          <div class="service-main">
+            <span class="service-icon">⚙</span>
+            <div>
+              <h3>Custom ERP Integration Solutions</h3>
+              <p>Connect sales, inventory, billing and approval workflows in one system.</p>
+            </div>
+          </div>
+          <span class="arrow">→</span>
+        </article>
+
+        <article class="service-card">
+          <div class="service-main">
+            <span class="service-icon">▣</span>
+            <div>
+              <h3>Sales Dashboard Development</h3>
+              <p>Monitor orders, revenue, performance and team activity with clarity.</p>
+            </div>
+          </div>
+          <span class="arrow">→</span>
+        </article>
+
+        <article class="service-card">
+          <div class="service-main">
+            <span class="service-icon">◎</span>
+            <div>
+              <h3>FMCG / Distribution Management Platforms</h3>
+              <p>Manage distributor orders, approval chains and operational control.</p>
+            </div>
+          </div>
+          <span class="arrow">→</span>
+        </article>
+
+        <article class="service-card">
+          <div class="service-main">
+            <span class="service-icon">⌁</span>
+            <div>
+              <h3>Mobile App / APK-Connected Business Systems</h3>
+              <p>Extend business workflows from web portal to field and mobile teams.</p>
+            </div>
+          </div>
+          <span class="arrow">→</span>
+        </article>
+      </div>
+    </aside>
+  </section>
+
+  <section class="cta-strip">
+    <div>
+      <h3>Let’s plan your next B2B ordering portal or custom ERP-integrated solution.</h3>
+      <p>If your company manages complex sales workflows, distributor ordering, internal approvals, or multi-level operational coordination, Techmapperz can help you build a platform that fits the way your business actually works.</p>
+    </div>
+
+    <div class="buttons">
+      <button class="btn primary">Start a Similar Project →</button>
+      <button class="btn secondary">View More Projects</button>
+    </div>
+  </section>
+</body>
+</html>

@@ -24,7 +24,7 @@ export async function POST(request) {
       return NextResponse.json({ message: 'provide all the necessary details' }, { status: 201 });
     }
 
-    const { heading, banner_img_url, subTitle } = JSON.parse(dataStr);
+    const { heading, banner_img_url, subTitle, pageName } = JSON.parse(dataStr);
 
     if (file) {
       const arrayBuffer = await file.arrayBuffer();
@@ -40,6 +40,7 @@ export async function POST(request) {
         userId: allBanner.length + 1,
         heading,
         subTitle,
+        pageName,
       });
       await newBanner.save();
       return NextResponse.json({ message: 'your banner details submitted successfully', data: newBanner }, { status: 200 });
@@ -50,6 +51,7 @@ export async function POST(request) {
         userId: allBanner.length + 1,
         heading,
         subTitle,
+        pageName,
       });
       await newBanner.save();
       return NextResponse.json({ message: 'your banner details submitted successfully', data: newBanner }, { status: 200 });

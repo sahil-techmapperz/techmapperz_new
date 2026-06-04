@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import HeroButtons from '../_Components/HeroButtons';
 
 const CheckIcon = () => (
@@ -165,7 +166,7 @@ const PortfolioPage = () => {
           {/* Top Row - Image 1 (Wider) */}
           <div className="md:col-span-2 group rounded-2xl overflow-hidden border border-white/5 bg-[#161C26] flex flex-col h-80 md:h-[400px] hover:border-[#05D7DE]/30 transition-all duration-300">
             <div className="relative flex-grow overflow-hidden bg-[#1C2331]">
-              <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=1000" alt="Drone Survey" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <Image src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&q=80&w=1000" alt="Drone Survey" fill={true} sizes="(max-width: 768px) 100vw, 66vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#161C26] to-transparent opacity-60"></div>
             </div>
             <div className="p-4 bg-[#141A24] border-t border-white/5 flex items-center justify-between z-10">
@@ -176,7 +177,7 @@ const PortfolioPage = () => {
           {/* Top Row - Image 2 (Narrower) */}
           <div className="md:col-span-1 group rounded-2xl overflow-hidden border border-white/5 bg-[#161C26] flex flex-col h-80 md:h-[400px] hover:border-[#05D7DE]/30 transition-all duration-300">
             <div className="relative flex-grow overflow-hidden bg-[#1C2331]">
-              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800" alt="LiDAR" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <Image src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800" alt="LiDAR" fill={true} sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#161C26] to-transparent opacity-60"></div>
             </div>
             <div className="p-4 bg-[#141A24] border-t border-white/5 flex items-center justify-between z-10">
@@ -187,7 +188,7 @@ const PortfolioPage = () => {
           {/* Bottom Row - Image 3 */}
           <div className="md:col-span-1 group rounded-2xl overflow-hidden border border-white/5 bg-[#161C26] flex flex-col h-80 md:h-[350px] hover:border-[#05D7DE]/30 transition-all duration-300">
             <div className="relative flex-grow overflow-hidden bg-[#1C2331]">
-              <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&q=80&w=800" alt="Railway" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <Image src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&q=80&w=800" alt="Railway" fill={true} sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#161C26] to-transparent opacity-60"></div>
             </div>
             <div className="p-4 bg-[#141A24] border-t border-white/5 flex items-center justify-between z-10">
@@ -198,7 +199,7 @@ const PortfolioPage = () => {
           {/* Bottom Row - Image 4 */}
           <div className="md:col-span-1 group rounded-2xl overflow-hidden border border-white/5 bg-[#161C26] flex flex-col h-80 md:h-[350px] hover:border-[#05D7DE]/30 transition-all duration-300">
             <div className="relative flex-grow overflow-hidden bg-[#1C2331]">
-              <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&q=80&w=800" alt="Engineering" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <Image src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&q=80&w=800" alt="Engineering" fill={true} sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#161C26] to-transparent opacity-60"></div>
             </div>
             <div className="p-4 bg-[#141A24] border-t border-white/5 flex items-center justify-between z-10">
@@ -209,7 +210,7 @@ const PortfolioPage = () => {
           {/* Bottom Row - Image 5 */}
           <div className="md:col-span-1 group rounded-2xl overflow-hidden border border-white/5 bg-[#161C26] flex flex-col h-80 md:h-[350px] hover:border-[#05D7DE]/30 transition-all duration-300">
             <div className="relative flex-grow overflow-hidden bg-[#1C2331]">
-              <img src="https://images.unsplash.com/photo-1464039397811-476f652a343b?auto=format&fit=crop&q=80&w=800" alt="Landscape" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+              <Image src="https://images.unsplash.com/photo-1464039397811-476f652a343b?auto=format&fit=crop&q=80&w=800" alt="Landscape" fill={true} sizes="(max-width: 768px) 100vw, 33vw" className="object-cover group-hover:scale-105 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-[#161C26] to-transparent opacity-60"></div>
             </div>
             <div className="p-4 bg-[#141A24] border-t border-white/5 flex items-center justify-between z-10">
@@ -258,7 +259,7 @@ const PortfolioPage = () => {
             
             {/* Illustration */}
             <div className="relative w-full max-w-md mt-auto flex items-center justify-center">
-              <img src="/portfolio/Executed.png" alt="Execution Process Illustration" className="w-full h-auto object-contain" />
+              <Image src="/portfolio/Executed.png" alt="Execution Process Illustration" width={800} height={800} className="w-full h-auto object-contain" />
             </div>
           </div>
 

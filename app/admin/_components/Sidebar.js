@@ -16,7 +16,8 @@ import {
   Calendar,
   Heart,
   Building,
-  FolderOpen
+  FolderOpen,
+  Image as ImageIcon
 } from 'lucide-react'
 
 const navigation = [
@@ -33,6 +34,7 @@ const navigation = [
   { name: 'Authors', href: '/admin/authors', icon: UserCircle },
   { name: 'Newsletter', href: '/admin/newsletter', icon: Mail },
   { name: 'Portfolios', href: '/admin/portfolio', icon: FolderOpen },
+  { name: 'Banners', href: '/admin/banner', icon: ImageIcon },
   { name: 'Logout', href: '/admin/logout', icon: LogOut },
 ]
 

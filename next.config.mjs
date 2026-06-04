@@ -99,6 +99,16 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'via.placeholder.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'ik.imagekit.io',
         pathname: '/**',  // Allows any path after the domain
       },

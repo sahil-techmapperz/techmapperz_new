@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import PortfolioDetailTemplate from '../PortfolioDetailTemplate';
-import enhancedPortfolioData from '../PortfolioData';
+import connectDB from '@/app/lib/db';
+import Portfolio from '@/app/lib/models/Portfolio';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.techmapperz.com";
 
@@ -8,12 +9,8 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.techmapperz.co
 export async function generateMetadata({ params }) {
   const { slug } = await params;
   
-  // Find the portfolio item by slug or link match
-  const portfolioItem = enhancedPortfolioData.find(item => {
-    const itemSlug = item.slug || item.link?.replace('/portfolios/', '') || 
-                    item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    return itemSlug === slug;
-  });
+  await connectDB();
+  const portfolioItem = await Portfolio.findOne({ slug: slug }).lean();
 
   if (!portfolioItem) {
     return {
@@ -27,21 +24,21 @@ export async function generateMetadata({ params }) {
     : portfolioItem.details;
 
   return {
-    title: `${portfolioItem.name} | ${portfolioItem.category} Portfolio | Techmapperz`,
-    description: description?.substring(0, 160) + '...' || `${portfolioItem.name} - Professional ${portfolioItem.category} project by Techmapperz`,
+    title: portfolioItem.seoTitle || `${portfolioItem.name} | ${portfolioItem.category} Portfolio | Techmapperz`,
+    description: portfolioItem.seoDescription || description?.substring(0, 160) + '...' || `${portfolioItem.name} - Professional ${portfolioItem.category} project by Techmapperz`,
     alternates: {
       canonical: `${BASE_URL}/portfolios/${slug}`,
     },
     openGraph: {
-      title: `${portfolioItem.name} | Techmapperz Portfolio`,
-      description: description?.substring(0, 160) + '...',
+      title: portfolioItem.seoTitle || `${portfolioItem.name} | Techmapperz Portfolio`,
+      description: portfolioItem.seoDescription || description?.substring(0, 160) + '...',
       images: [portfolioItem.image],
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${portfolioItem.name} | Techmapperz Portfolio`,
-      description: description?.substring(0, 160) + '...',
+      title: portfolioItem.seoTitle || `${portfolioItem.name} | Techmapperz Portfolio`,
+      description: portfolioItem.seoDescription || description?.substring(0, 160) + '...',
       images: [portfolioItem.image],
     },
     keywords: [
@@ -56,11 +53,12 @@ export async function generateMetadata({ params }) {
 
 // Generate static params for all portfolio items
 export async function generateStaticParams() {
-  return enhancedPortfolioData.map((item) => {
-    const slug = item.slug || item.link?.replace('/portfolios/', '') || 
-                item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  await connectDB();
+  const portfolios = await Portfolio.find({}, 'slug').lean();
+  
+  return portfolios.map((item) => {
     return {
-      slug: slug,
+      slug: item.slug,
     };
   });
 }
@@ -68,17 +66,16 @@ export async function generateStaticParams() {
 export default async function PortfolioDetailPage({ params }) {
   const { slug } = await params;
 
-  // Find the portfolio item by slug or link match
-  const portfolioItem = enhancedPortfolioData.find(item => {
-    const itemSlug = item.slug || item.link?.replace('/portfolios/', '') || 
-                    item.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-    return itemSlug === slug;
-  });
+  await connectDB();
+  const portfolioItemData = await Portfolio.findOne({ slug: slug }).lean();
 
   // If no portfolio item is found, return 404
-  if (!portfolioItem) {
+  if (!portfolioItemData) {
     notFound();
   }
+
+  // Parse to plain object for client component
+  const portfolioItem = JSON.parse(JSON.stringify(portfolioItemData));
 
   return (
     <PortfolioDetailTemplate

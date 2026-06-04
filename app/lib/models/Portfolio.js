@@ -12,8 +12,8 @@ const SolutionSchema = new mongoose.Schema({
 });
 
 const ResultSchema = new mongoose.Schema({
-    label: { type: String, required: true },
-    value: { type: String, required: true },
+    label: { type: String },
+    value: { type: String },
     description: { type: String },
     icon: { type: String }
 });
@@ -25,12 +25,40 @@ const TestimonialSchema = new mongoose.Schema({
 });
 
 const ProjectDetailsSchema = new mongoose.Schema({
-    year: { type: String },
-    location: { type: String },
-    duration: { type: String },
-    teamSize: { type: String },
-    industry: { type: String },
-    projectType: { type: String }
+    year: String,
+    location: String,
+    duration: String,
+    teamSize: String,
+    industry: String,
+    projectType: String,
+    coreFunctionality: String,
+    businessGoal: String
+}, { _id: false });
+
+const GalleryImageSchema = new mongoose.Schema({
+    src: { type: String, required: true },
+    alt: { type: String }
+});
+
+const ExecutionStepSchema = new mongoose.Schema({
+    step: String,
+    title: String,
+    desc: String
+});
+
+const CtaSchema = new mongoose.Schema({
+    title: { type: String },
+    heading: { type: String },
+    description: { type: String },
+    button1Text: { type: String },
+    button1Link: { type: String },
+    button2Text: { type: String },
+    button2Link: { type: String }
+});
+
+const HighlightSchema = new mongoose.Schema({
+    title: String,
+    description: String
 });
 
 const PortfolioSchema = new mongoose.Schema({
@@ -45,6 +73,12 @@ const PortfolioSchema = new mongoose.Schema({
     challenges: [ChallengeSchema],
     solutions: [SolutionSchema],
     results: [ResultSchema],
+    galleryImages: [GalleryImageSchema],
+    deliverables: [{ type: String }],
+    executionSteps: [ExecutionStepSchema],
+    highlights: [HighlightSchema],
+    relatedServices: [{ type: String }],
+    cta: { type: CtaSchema },
     conclusion: { type: String },
     testimonial: { type: TestimonialSchema },
     createdAt: { type: Date, default: Date.now }
