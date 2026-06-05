@@ -82,7 +82,16 @@ jobs:
             # Navigate to project directory
             cd /var/www/techmapperz
 
+            echo "🛑 Stopping existing application before extracting files..."
+            pm2 stop techmapperz-app 2>/dev/null || echo "No existing process to stop"
+            pm2 delete techmapperz-app 2>/dev/null || echo "No existing process to delete"
+            
+            # IMPORTANT: Kill any dangling process on port 3000
+            fuser -k 3000/tcp 2>/dev/null || true
+            sudo lsof -t -i:3000 | xargs -r sudo kill -9 || true
+
             # Extract uploaded files
+            echo "📦 Extracting new build files..."
             tar -xzf deploy.tar.gz
             rm deploy.tar.gz
 
@@ -112,15 +121,8 @@ jobs:
 
             echo "✅ Build verification successful"
 
-            pm2 stop techmapperz-app 2>/dev/null || echo "No existing process to stop"
-            pm2 delete techmapperz-app 2>/dev/null || echo "No existing process to delete"
-            
-            # IMPORTANT: Kill any dangling process on port 3000 (resolves the VPS restart requirement)
-            fuser -k 3000/tcp 2>/dev/null || true
-            sudo lsof -t -i:3000 | xargs -r sudo kill -9 || true
-
-            # Start Next.js directly instead of using npm, to prevent process orphaning
-            pm2 start node_modules/next/dist/bin/next --name "techmapperz-app" --watch -- start
+            # Start Next.js directly without --watch (watch mode breaks Next.js prod by restarting on cache writes)
+            pm2 start node_modules/next/dist/bin/next --name "techmapperz-app" -- start
             pm2 save
 
             echo "✅ PM2 started successfully"
