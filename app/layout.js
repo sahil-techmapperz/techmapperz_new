@@ -1,4 +1,5 @@
 import CriticalCSS from './_Components/CriticalCSS';
+import MarketingScripts from './_Components/MarketingScripts';
 import "./globals.css";
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
