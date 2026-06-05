@@ -1,5 +1,4 @@
 "use client"
-import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function Template({ children }) {
@@ -14,18 +13,29 @@ export default function Template({ children }) {
     setShouldAnimate(!prefersReducedMotion && !isLowEndDevice);
   }, []);
 
-  // Return children without animation for better performance on initial load
+  // Return children without animation for better performance on initial load or low-end devices
   if (!shouldAnimate) {
     return <div>{children}</div>;
   }
 
   return (
-    <motion.div
-      initial={{ y: 10, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ ease: "easeOut", duration: 0.3 }}
-    >
+    <div className="page-transition-enter">
       {children}
-    </motion.div>
+      <style jsx>{`
+        @keyframes fadeSlideUp {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        .page-transition-enter {
+          animation: fadeSlideUp 0.3s ease-out forwards;
+        }
+      `}</style>
+    </div>
   );
 }

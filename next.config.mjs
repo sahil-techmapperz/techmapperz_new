@@ -44,6 +44,10 @@ const nextConfig = {
             value: 'camera=(), microphone=(), geolocation=()'
           },
           {
+            key: 'Cross-Origin-Opener-Policy',
+            value: 'same-origin-allow-popups'
+          },
+          {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
@@ -56,9 +60,19 @@ const nextConfig = {
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
-              "frame-ancestors 'self'"
+              "frame-ancestors 'self'",
+              "require-trusted-types-for 'script'"
             ].join('; ')
           }
+        ],
+      },
+      {
+        source: '/(.*\\.(?:webp|jpg|jpeg|gif|png|svg|ico|avif|woff2|woff|ttf|css))',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
         ],
       },
     ];

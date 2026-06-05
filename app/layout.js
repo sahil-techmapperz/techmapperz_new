@@ -144,7 +144,6 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning className={`${ibmPlexSans.variable} ${poppins.variable}`}>
       <head>
         {/* Preload critical assets */}
-        <link rel="preload" href="/Photos/3Drendered_digital_Ear.webp" as="image" />
         <link rel="preload" href="/logo.webp" as="image" />
 
         {/* DNS Prefetch for external resources */}
