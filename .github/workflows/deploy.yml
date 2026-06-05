@@ -121,8 +121,8 @@ jobs:
 
             echo "✅ Build verification successful"
 
-            # Start Next.js directly without --watch (watch mode breaks Next.js prod by restarting on cache writes)
-            pm2 start node_modules/next/dist/bin/next --name "techmapperz-app" -- start
+            # Start Next.js directly with watch mode (ignoring .next to prevent crash loops)
+            pm2 start node_modules/next/dist/bin/next --name "techmapperz-app" --watch --ignore-watch=".next node_modules" -- start
             pm2 save
 
             echo "✅ PM2 started successfully"
