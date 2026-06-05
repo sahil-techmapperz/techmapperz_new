@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { BsCalendarEvent } from "react-icons/bs";
 
@@ -10,11 +11,17 @@ const HomeHero = ({ bannerData }) => {
 
     return (
         <section
-            className="w-full min-h-[90vh] lg:min-h-[100vh] flex items-center relative overflow-hidden bg-cover bg-center bg-no-repeat pt-24 lg:pt-20 pb-12 lg:pb-0"
-            style={{ backgroundImage: `url('${bgImage}')` }}
+            className="w-full min-h-[90vh] lg:min-h-[100vh] flex items-center relative overflow-hidden pt-24 lg:pt-20 pb-12 lg:pb-0"
         >
+            <Image
+                src={bgImage}
+                alt="Hero Background"
+                fill
+                priority
+                className="object-cover object-center absolute inset-0 z-0"
+            />
             {/* Subtle dark overlay on left to keep text legible */}
-            {/* <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent pointer-events-none" /> */}
+            {/* <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent pointer-events-none z-[5]" /> */}
 
             <div className="max-w-[1600px] w-full mx-auto px-6 md:px-12 lg:px-20 relative z-10 flex flex-col gap-6 ">
 

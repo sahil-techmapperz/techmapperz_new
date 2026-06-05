@@ -4,21 +4,6 @@ import { useEffect } from 'react';
 
 // Optimized Critical CSS for minimal blocking time
 export default function CriticalCSS() {
-  useEffect(() => {
-    // Defer non-critical font loading to reduce blocking time
-    const loadFonts = () => {
-      const fontLink = document.createElement('link');
-      fontLink.rel = 'stylesheet';
-      fontLink.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap';
-      fontLink.media = 'print';
-      fontLink.onload = function() { this.media = 'all'; };
-      document.head.appendChild(fontLink);
-    };
-
-    // Load fonts after initial render
-    setTimeout(loadFonts, 50);
-  }, []);
-
   return (
     <style jsx>{`
       /* Minimal critical CSS for fastest FCP and LCP */

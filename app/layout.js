@@ -2,7 +2,7 @@ import CriticalCSS from './_Components/CriticalCSS';
 import "./globals.css";
 import dynamic from 'next/dynamic';
 import Script from 'next/script';
-import { IBM_Plex_Sans } from 'next/font/google';
+import { IBM_Plex_Sans, Poppins } from 'next/font/google';
 
 // Configure the IBM Plex Sans font
 const ibmPlexSans = IBM_Plex_Sans({
@@ -10,6 +10,13 @@ const ibmPlexSans = IBM_Plex_Sans({
   weight: ['400', '500', '600', '700'],
   display: 'swap',
   variable: '--font-ibm-plex-sans',
+});
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '600', '700'],
+  display: 'swap',
+  variable: '--font-poppins',
 });
 
 // Conditional layout component that handles Navbar/Footer based on route
@@ -134,7 +141,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning className={ibmPlexSans.variable}>
+    <html lang="en" suppressHydrationWarning className={`${ibmPlexSans.variable} ${poppins.variable}`}>
       <head>
         {/* Preload critical assets */}
         <link rel="preload" href="/Photos/3Drendered_digital_Ear.webp" as="image" />
