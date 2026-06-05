@@ -120,7 +120,7 @@ jobs:
             sudo lsof -t -i:3000 | xargs -r sudo kill -9 || true
 
             # Start Next.js directly instead of using npm, to prevent process orphaning
-            pm2 start node_modules/next/dist/bin/next --name "techmapperz-app" -- start
+            pm2 start node_modules/next/dist/bin/next --name "techmapperz-app" --watch -- start
             pm2 save
 
             echo "✅ PM2 started successfully"
