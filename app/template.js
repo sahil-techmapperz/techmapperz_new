@@ -21,7 +21,7 @@ export default function Template({ children }) {
   return (
     <div className="page-transition-enter">
       {children}
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @keyframes fadeSlideUp {
           from {
             opacity: 0;
@@ -35,7 +35,7 @@ export default function Template({ children }) {
         .page-transition-enter {
           animation: fadeSlideUp 0.3s ease-out forwards;
         }
-      `}</style>
+      `}} />
     </div>
   );
 }
