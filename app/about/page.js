@@ -244,28 +244,42 @@ const About = () => {
 
             <div className="space-y-5 text-gray-300 text-lg leading-relaxed">
               <p>
-                Techmapperz is an India-based IT, GIS, and drone solutions company helping businesses and organizations solve real-world challenges through technology, mapping, and digital innovation. We provide GIS services, drone survey and mapping solutions, custom software development, web and mobile app development, and IT consulting.
+                Techmapperz is an India-based IT, GIS, and drone solutions company helping businesses and organizations solve real-world challenges through technology, mapping, and digital innovation. We provide a combination of GIS services, drone survey and mapping solutions, custom software development, web development, mobile app development, and IT consulting to support smarter planning, better operations, and business growth.
               </p>
               <p>
-                Our work spans urban planning, agriculture, real estate, logistics, environmental management, infrastructure, and enterprise digital transformation. By combining geospatial intelligence with modern software development, we help our clients make informed decisions and build scalable digital systems.
+                Our work serves a wide range of sectors, including urban planning, agriculture, real estate, logistics, environmental management, infrastructure, and enterprise digital transformation. By combining geospatial intelligence with modern software development, we help our clients make informed decisions, improve efficiency, and build scalable digital systems.
+              </p>
+              <p>
+                At Techmapperz, we believe that great solutions do not have to be complicated. We are a team of practical thinkers, problem solvers, and technology professionals who focus on simplifying complex business and operational challenges. Our goal is to build solutions that are effective, reliable, and easy to use. Since 2021, Techmapperz has served clients across government and enterprise, delivering tailored solutions that streamline operations and boost ROI.
               </p>
             </div>
 
-            {/* Who We Are box */}
-            <div className="bg-gradient-to-br from-[#a82123]/10 to-[#2d5689]/5 border border-[#a82123]/20 rounded-2xl p-6 space-y-3">
-              <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                <FiTarget className="text-[#a82123]" /> Who We Are
-              </h3>
-              <p className="text-gray-300 leading-relaxed">
-                Built with a vision to make innovation practical and results-driven, we believe great solutions do not have to be complicated. Since 2021, we have served clients across government and enterprise with tailored digital and geospatial solutions that create measurable value.
-              </p>
-              <p className="text-gray-300 leading-relaxed">
-                We do not believe in one-size-fits-all delivery. Every project gets a custom strategy — understanding the requirement first, then designing a solution that is simple, useful, and scalable.
-              </p>
-            </div>
+
           </div>
         </div>
       </section>
+      {/* ─── WHO WE ARE ─── */}
+      <section className="py-24 px-6 relative overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[#a82123] rounded-full filter blur-[200px] opacity-[0.03]" />
+        
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#a82123]/10 text-[#a82123] mb-6 border border-[#a82123]/20 shadow-[0_0_20px_rgba(168,33,35,0.2)]">
+            <FiTarget className="text-3xl" />
+          </div>
+          <h2 className="text-4xl max-sm:text-3xl font-extrabold text-white mb-6">Who We Are</h2>
+          <div className="w-20 h-1 bg-gradient-to-r from-[#a82123] to-[#2d5689] rounded-full mx-auto mb-8" />
+          
+          <div className="space-y-6 text-xl max-sm:text-lg text-gray-300 leading-relaxed">
+            <p>
+              Techmapperz was built with a vision to make innovation more practical, accessible, and results-driven. We aim to support businesses, institutions, and government-related projects with smart digital and geospatial solutions that create measurable value.
+            </p>
+            <p>
+              We do not believe in one-size-fits-all delivery. Every business has different goals, workflows, and challenges. That is why we take a tailored approach to every project—understanding the requirement first, then designing a solution that is simple, useful, and scalable.
+            </p>
+          </div>
+        </div>
+      </section>
+
 
       {/* ─── MISSION & VISION ─── */}
       <section className="py-24 px-6 bg-[#0d0d0d] relative overflow-hidden">
@@ -409,7 +423,7 @@ const About = () => {
                 </h2>
                 <div className="w-16 h-1 bg-gradient-to-r from-[#a82123] to-[#2d5689] rounded-full mt-5" />
                 <p className="text-gray-400 mt-5 text-lg leading-relaxed">
-                  Techmapperz implements Agile methodology to lead in fast-moving environments. Our flexible, efficient processes drive results:
+                  Techmapperz follows an agile approach to project execution so we can deliver efficiently in fast-changing business and technology environments.
                 </p>
               </div>
 
