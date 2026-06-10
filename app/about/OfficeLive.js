@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { FiX, FiMaximize2 } from 'react-icons/fi';
 
@@ -26,9 +26,24 @@ import img18 from '@/public/lifeatTechmapperz/img_18.webp';
 const OfficeLive = () => {
 	const [selectedIndex, setSelectedIndex] = useState(null);
 	const [mounted, setMounted] = useState(false);
+	const carouselRef = useRef(null);
 
 	useEffect(() => {
 		setMounted(true);
+	}, []);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			if (carouselRef.current && window.innerWidth < 640) {
+				const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+				if (scrollLeft + clientWidth >= scrollWidth - 10) {
+					carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
+				} else {
+					carouselRef.current.scrollBy({ left: clientWidth, behavior: 'smooth' });
+				}
+			}
+		}, 3000);
+		return () => clearInterval(interval);
 	}, []);
 
 	const images = [
@@ -64,12 +79,12 @@ const OfficeLive = () => {
 
 	return (
 		<>
-			{/* Grid gallery */}
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto">
+			{/* Grid/Carousel gallery */}
+			<div ref={carouselRef} className="flex overflow-x-auto snap-x snap-mandatory sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
 				{images.map((image, index) => (
 					<div
 						key={index}
-						className="cursor-pointer overflow-hidden rounded-2xl group relative border border-white/5 hover:border-[#00B0FE]/30 transition-all duration-300 aspect-square"
+						className="shrink-0 w-full sm:w-auto snap-center cursor-pointer overflow-hidden rounded-2xl group relative border border-white/5 hover:border-[#00B0FE]/30 transition-all duration-300 aspect-square"
 						onClick={() => setSelectedIndex(index)}
 						role="button"
 						aria-label={`View ${image.alt}`}

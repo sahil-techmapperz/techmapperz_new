@@ -302,34 +302,8 @@ const About = () => {
                 <source src="/media/Introducation_video.mp4" type="video/mp4" />
               </video>
             </div>
-            {/* Service pills */}
-            {/* <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
-              <style dangerouslySetInnerHTML={{__html: `
-                .service-pill-inline {
-                  display: flex;
-                  align-items: center;
-                  gap: 8px;
-                  color: #05d7de;
-                  font-size: 14px;
-                  font-weight: 500;
-                  padding: 8px 16px;
-                  border-radius: 9999px;
-                  background: rgba(5, 215, 222, 0.08);
-                  border: 1px solid rgba(168, 33, 35, 0.15);
-                  transition: all 0.2s ease;
-                }
-                .service-pill-inline:hover {
-                  background: rgba(5, 215, 222, 0.2);
-                }
-              `}} />
-              {services.map((s, i) => (
-                <div key={i} className="service-pill-inline">
-                  <span>{s.icon}</span>
-                  <span>{s.label}</span>
-                </div>
-              ))}
-            </div> */}
-            <p className="text-gray-300 text-lg leading-relaxed">
+           
+            <p className="text-gray-400 text-lg leading-relaxed">
               At Techmapperz, we believe that great solutions do not have to be complicated. We are a team of practical thinkers, problem solvers, and technology professionals who focus on simplifying complex business and operational challenges. Our goal is to build solutions that are effective, reliable, and easy to use. Since 2021, Techmapperz has served clients across government and enterprise, delivering tailored solutions that streamline operations and boost ROI.
             </p>
           </div>
@@ -543,9 +517,9 @@ const About = () => {
             <h2 className="text-3xl max-sm:text-xl font-extrabold text-white mt-3">Benefits of Our Agile Methodology</h2>
             <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
           </div>
-          <div className="grid grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-4">
+          <div className="flex flex-wrap justify-center gap-4">
             {benefits.map((b, i) => (
-              <div key={i} className="group flex items-center gap-4 bg-white/3 backdrop-blur-xl border border-white/5 rounded-2xl p-5 hover:border-[#05d7de]/30 hover:bg-[#05d7de]/5 transition-all duration-300 shadow-md">
+              <div key={i} className="w-[calc(33.333%-11px)] max-md:w-[calc(50%-8px)] max-sm:w-full group flex items-center gap-4 bg-white/3 backdrop-blur-xl border border-white/5 rounded-2xl p-5 hover:border-[#05d7de]/30 hover:bg-[#05d7de]/5 transition-all duration-300 shadow-md">
                 <div className="min-w-[36px] h-9 flex items-center justify-center">
                   <FiCheckCircle className="text-[#05d7de] text-xl group-hover:scale-125 transition-transform duration-300" />
                 </div>
@@ -585,7 +559,7 @@ const About = () => {
             {values.map((v, i) => (
               <div
                 key={i}
-                className="group relative flex flex-col items-center text-center bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-3xl p-8 w-[calc(20%-1.5rem)] max-lg:w-[calc(33%-1rem)] max-sm:w-[calc(50%-0.75rem)] hover:border-[#05d7de]/40 hover:-translate-y-2 transition-all duration-400 overflow-hidden shadow-lg"
+                className="group relative flex flex-col items-center text-center bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-3xl p-8 w-[calc(20%-1.5rem)] max-lg:w-[calc(33%-1rem)] max-sm:w-full hover:border-[#05d7de]/40 hover:-translate-y-2 transition-all duration-400 overflow-hidden shadow-lg"
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-[#05d7de]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-3xl" />
                 <div className="relative z-10 flex flex-col items-center">
