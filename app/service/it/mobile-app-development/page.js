@@ -23,7 +23,7 @@ const CTABanner = dynamic(() => import('@/app/_Components/CTABanner'), {
   ...createOptimizedLoader("300px", "bg-black")
 });
 
-const CaseStudyCard = dynamic(() => import('@/app/_Components/CaseStudyCard'), {
+const FeaturedCaseStudy = dynamic(() => import('@/app/_Components/FeaturedCaseStudy'), {
   ...createOptimizedLoader("400px", "bg-gray-800")
 });
 
@@ -55,7 +55,11 @@ export const metadata = {
     },
 };
 
+
+
 const Mobile_development = () => {
+
+    
     const introData = {
         imageSrc: "/Photos/mobiledevelopment_introduction.webp",
         imageAlt: "Mobile App Development",
@@ -199,12 +203,12 @@ const Mobile_development = () => {
     const mobileTechItems = [
         { name: "React Native", icon: <TbBrandReactNative />, bg: "#f0f5ff", textColor: "#61DAFB" },
         { name: "Android", icon: <FaAndroid />, bg: "#f5f5f5", textColor: "#3DDC84" },
-        { name: "iOS", icon: <FaApple />, bg: "#fff0f0", textColor: "#000000" },
+        { name: "iOS", icon: <FaApple />, bg: "#fff0f0", textColor: "#ffffff" },
         { name: "Flutter", icon: <SiFlutter />, bg: "#f0f5ff", textColor: "#02569B" },
         { name: "Kotlin", icon: <SiKotlin />, bg: "#f0f5ff", textColor: "#7F52FF" },
         { name: "Swift", icon: <SiSwift />, bg: "#fff0f0", textColor: "#F05138" },
         { name: "Firebase", icon: <SiFirebase />, bg: "#f5f5f5", textColor: "#FFCA28" },
-        { name: "Git", icon: <FaGithub />, bg: "#f0f5ff", textColor: "#181717" },
+        { name: "Git", icon: <FaGithub />, bg: "#f0f5ff", textColor: "#ffffff" },
         { name: "MongoDB", icon: <FaDatabase />, bg: "#f5f5f5", textColor: "#47A248" },
         { name: "NPM", icon: <FaNpm />, bg: "#f5f5f5", textColor: "#CB3837" }
     ];
@@ -237,17 +241,30 @@ const Mobile_development = () => {
 
             <ScrollToTop />
 
+            <style dangerouslySetInnerHTML={{
+        __html: `
+          .case-gradient-text-inline {
+            background: linear-gradient(90deg, #f87171, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+          }
+        `
+      }} />
+
             <section 
                 className="w-full min-h-[100vh] flex items-center relative bg-cover bg-center bg-no-repeat pt-20" 
                 style={{ backgroundImage: `url('/Application_Development/Application_Development.png')` }}
             >
                 <div className="max-w-[1600px] w-full mx-auto px-20 max-sm:px-4 relative z-10 flex flex-col gap-6">
-                    <div className="w-fit border border-[#4a5f82] bg-[#2a3c5a]/40 backdrop-blur-sm text-[#799ccc] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+                    <div className="w-fit border border-[#05d7de]/30 bg-[#05d7de]/10 backdrop-blur-sm text-[#05d7de] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
                         Next-Gen Mobile App Development Company in India
                     </div>
                     
-                    <h1 className="text-4xl lg:text-[45px] max-sm:text-4xl font-bold text-white max-w-[800px] leading-[1.2]">
-                        Custom Mobile App That Boosts Your Business – Build, Launch, Grow!
+                    <h1 className="text-4xl lg:text-[52px] max-sm:text-3xl font-extrabold text-white max-w-[950px] leading-[1.15]">
+                        Custom Mobile App That Boosts <br/>
+
+                       <span className="case-gradient-text-inline"> Your Business – Build, Launch, Grow!</span>
                     </h1>
                     
                     <HeroButtons 
@@ -272,16 +289,17 @@ const Mobile_development = () => {
             {/* Our Mobile App Development Services */}
             <section className="py-16 bg-gradient-to-b from-black to-gray-900">
                 <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Mobile App Development Services</h2>
-                        <div className="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
+                    <div className="text-center mb-14">
+                        <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">Our Capabilities</span>
+                        <h2 className="text-4xl max-sm:text-2xl font-extrabold text-white mt-3">Our Mobile App Development Services</h2>
+                        <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
                     </div>
                     
                     <div className="space-y-12">
                         {mobileServicesData.map((service, index) => (
                             <div key={service.id} className={`flex flex-col lg:flex-row gap-8 items-center group ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''} bg-gray-800/30 p-8 rounded-2xl border border-gray-700/50 hover:bg-gray-800/60 transition-colors shadow-lg`}>
                                 <div className="w-full lg:w-1/3 flex justify-center">
-                                    <div className="w-full max-w-xs aspect-square relative rounded-2xl overflow-hidden border border-blue-500/20 shadow-2xl shadow-blue-900/10 group-hover:border-blue-500/40 group-hover:shadow-blue-900/30 transition-all duration-500">
+                                    <div className="w-full max-w-xs aspect-square relative rounded-2xl overflow-hidden border border-[#05d7de]/20 shadow-2xl shadow-[#05d7de]/10 group-hover:border-[#05d7de]/40 group-hover:shadow-[#05d7de]/30 transition-all duration-500">
                                         <Image
                                             fill
                                             src={service.icon} 
@@ -300,14 +318,14 @@ const Mobile_development = () => {
                                         <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                             {service.features.map((feature, idx) => (
                                                 <li key={idx} className="flex items-start text-gray-300">
-                                                    <FaCheckCircle className="text-blue-500 mt-1 mr-3 flex-shrink-0" />
+                                                    <FaCheckCircle className="text-[#05d7de] mt-1 mr-3 flex-shrink-0" />
                                                     <span>{feature}</span>
                                                 </li>
                                             ))}
                                         </ul>
                                     </div>
                                     
-                                    <Link href={service.cta.link} className="inline-flex items-center text-blue-400 font-semibold hover:text-blue-300 transition-colors">
+                                    <Link href={service.cta.link} className="inline-flex items-center text-[#05d7de] font-semibold hover:text-white transition-colors duration-300">
                                         {service.cta.text} &rarr;
                                     </Link>
                                 </div>
@@ -319,24 +337,8 @@ const Mobile_development = () => {
 
             <OurProcess steps={processSteps} />
 
-            {/* Case Studies Section */}
-            <section className="py-16 bg-black">
-                <div className="max-w-[1200px] mx-auto px-6 lg:px-8">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Our Case Studies</h2>
-                        <div className="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
-                        <p className="mt-4 text-gray-400 max-w-2xl mx-auto">Explore some of our recent mobile application projects and see how we have helped businesses grow.</p>
-                    </div>
-                    
-                    <CaseStudyCard filter="all" />
-                    
-                    <div className="text-center mt-8">
-                        <Link href="/portfolios" className="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full transition-colors inline-block">
-                            View Full Portfolio
-                        </Link>
-                    </div>
-                </div>
-            </section>
+            {/* ── FEATURED CASE STUDY ── */}
+            <FeaturedCaseStudy />
 
             <TechStack techItems={mobileTechItems} />
 

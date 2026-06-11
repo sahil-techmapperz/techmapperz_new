@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useRef } from 'react';
-import { Globe, Settings, Network } from 'lucide-react';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -108,10 +108,10 @@ const WhyChooseTechmapperz = ({ features, heading = "Why Choose Us" }) => {
                 {/* Header */}
                 <div className="text-center mb-24">
                     <span className="text-[#05D7DE] text-sm font-bold tracking-[0.2em] uppercase">The Techmapperz Advantage</span>
-                    <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mt-4 mb-6 tracking-tight">
+                    <h2 className="text-4xl max-sm:text-2xl font-extrabold text-white mt-3 mb-6">
                         {heading}
                     </h2>
-                    <div className="w-24 h-[3px] bg-gradient-to-r from-[#2d5689] to-[#05D7DE] mx-auto rounded-full" />
+                    <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] mx-auto rounded-full" />
                 </div>
 
                 {/* Hub and Spoke Layout Container */}
@@ -158,11 +158,15 @@ const WhyChooseTechmapperz = ({ features, heading = "Why Choose Us" }) => {
                         <div className="absolute inset-8 rounded-full bg-gradient-to-tr from-[#111622] to-[#1A2235] border border-white/10 shadow-inner flex items-center justify-center overflow-hidden">
                             <div className="absolute inset-0 bg-[#05D7DE]/5 animate-pulse"></div>
                             
-                            {/* Complex Icon composition */}
-                            <div className="relative flex items-center justify-center">
-                                <Globe className="text-[#05D7DE] w-24 h-24 absolute opacity-80" strokeWidth={1} />
-                                <Settings className="text-[#2d5689] w-32 h-32 absolute animate-[spin_10s_linear_infinite_reverse] opacity-40" strokeWidth={1} />
-                                <Network className="text-white w-12 h-12 relative z-10 drop-shadow-[0_0_10px_rgba(255,255,255,0.8)]" strokeWidth={1.5} />
+                            {/* Logo composition */}
+                            <div className="relative flex items-center justify-center w-full h-full">
+                                <Image 
+                                    src="/Short_logo.webp" 
+                                    alt="Techmapperz" 
+                                    width={160} 
+                                    height={160} 
+                                    className="relative z-10 object-contain drop-shadow-[0_0_20px_rgba(5,215,222,0.6)]" 
+                                />
                             </div>
                         </div>
                     </div>

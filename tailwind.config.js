@@ -5,6 +5,14 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    'bg-[#10141d]',
+    'from-[#7b61ff]',
+    'to-[#e23e57]',
+    'bg-[#05d7de]/10',
+    'bg-[#2d5689]/10',
+    'shadow-[#e23e57]/20'
+  ],
   theme: {
     extend: {
       fontFamily: {

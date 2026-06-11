@@ -39,6 +39,10 @@ const CTABanner = dynamic(() => import('@/app/_Components/CTABanner'), {
   ...createOptimizedLoader("300px", "bg-black")
 });
 
+const FeaturedCaseStudy = dynamic(() => import('@/app/_Components/FeaturedCaseStudy'), {
+  ...createOptimizedLoader("400px", "bg-[#0b0f19]")
+});
+
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "https://www.techmapperz.com";
 
 export const revalidate = 7200;
@@ -196,6 +200,17 @@ const WebDevelopment = () => {
   return (
     <div className="bg-black text-white">
       <ScrollToTop />
+      
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .case-gradient-text-inline {
+            background: linear-gradient(90deg, #f87171, #60a5fa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+          }
+        `
+      }} />
 
       {/* ── HERO ── */}
       <section
@@ -204,14 +219,14 @@ const WebDevelopment = () => {
       >
         {/* <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" /> */}
         <div className="max-w-[1600px] w-full mx-auto px-20 max-sm:px-4 relative z-10 flex flex-col gap-6">
-          <div className="w-fit border border-[#4a5f82] bg-[#2a3c5a]/40 backdrop-blur-sm text-[#799ccc] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+          <div className="w-fit border border-[#05d7de]/30 bg-[#05d7de]/10 backdrop-blur-sm text-[#05d7de] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
             Custom Website Development Company in India
           </div>
 
-          <h1 className="text-4xl lg:text-[52px] max-sm:text-3xl font-bold text-white max-w-[900px] leading-[1.15]">
-            Responsive, SEO-Optimized Business & <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2d5689] to-[#a82123]">
-              eCommerce Websites
+          <h1 className="text-4xl lg:text-[52px] max-sm:text-3xl font-extrabold text-white max-w-[900px] leading-[1.15]">
+            Responsive, SEO-Optimized <br />
+            <span className="case-gradient-text-inline">
+              Business & eCommerce Websites
             </span>
           </h1>
 
@@ -240,13 +255,13 @@ const WebDevelopment = () => {
       </section>
 
       {/* ── OUR SERVICES ── */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-950 to-black relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2d5689] rounded-full filter blur-[200px] opacity-5" />
+      <section className="py-20 px-6 bg-[#0d0d0d] relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#05d7de] rounded-full filter blur-[200px] opacity-5" />
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center mb-14">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Our Capabilities</span>
-            <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Our Website Development Services</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+            <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">Our Capabilities</span>
+            <h2 className="text-4xl max-sm:text-2xl font-extrabold text-white mt-3">Our Website Development Services</h2>
+            <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
             <p className="text-gray-400 mt-5 text-lg max-w-3xl mx-auto">
               We design and develop mobile-responsive, fast, secure, and scalable websites that help businesses establish a strong online presence and generate real results.
             </p>
@@ -254,17 +269,17 @@ const WebDevelopment = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {webDevFeatures.map((feature, i) => (
-              <div key={i} className="group relative bg-gray-900/60 border border-white/5 rounded-3xl p-8 hover:border-[#a82123]/30 hover:-translate-y-1 transition-all duration-400 overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#a82123] rounded-full filter blur-[80px] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+              <div key={i} className="group relative bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-3xl p-8 hover:border-[#05d7de]/30 hover:bg-[#05d7de]/5 hover:-translate-y-2 transition-all duration-400 overflow-hidden shadow-lg">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#05d7de] rounded-full filter blur-[80px] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
                 <div className="relative z-10">
-                  <div className="w-14 h-14 bg-gradient-to-br from-[#2d5689]/30 to-[#a82123]/20 border border-white/10 rounded-2xl flex items-center justify-center text-[#a82123] mb-5 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-14 h-14 bg-gradient-to-br from-[#05d7de]/20 to-[#2d5689]/20 border border-white/10 rounded-2xl flex items-center justify-center text-[#05d7de] mb-5 group-hover:scale-110 transition-transform duration-300">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#a82123] transition-colors duration-300">{feature.title}</h3>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#05d7de] transition-colors duration-300">{feature.title}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed mb-5 group-hover:text-gray-300 transition-colors duration-300">{feature.desc}</p>
                   <div className="flex flex-wrap gap-2">
                     {feature.tags.map((tag, j) => (
-                      <span key={j} className="text-xs text-[#799ccc] bg-[#2d5689]/15 border border-[#2d5689]/20 px-3 py-1 rounded-full">
+                      <span key={j} className="text-xs text-[#05d7de] bg-[#05d7de]/10 border border-[#05d7de]/20 px-3 py-1 rounded-full">
                         {tag}
                       </span>
                     ))}
@@ -281,10 +296,10 @@ const WebDevelopment = () => {
         <div className="absolute inset-0 bg-black/80" />
         <div className="relative z-10 px-6 flex max-md:flex-col-reverse gap-10 items-center justify-center max-w-7xl mx-auto">
           <div className="flex flex-col gap-6 w-1/2 max-md:w-full">
-            <h2 className="text-4xl max-sm:text-3xl font-bold text-white leading-tight">
-              Why Web Design and Web Development is <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#2d5689] to-[#a82123]">Important?</span>
+            <h2 className="text-4xl max-sm:text-3xl font-extrabold text-white leading-tight">
+              Why Web Design and Web Development is <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#05d7de] to-[#2d5689]">Important?</span>
             </h2>
-            <div className="w-16 h-1 bg-[#a82123] rounded-full" />
+            <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full" />
             <p className="text-gray-300 text-lg leading-relaxed">
               Today the world is connected online, and people turn to the Internet for any kind of need they may have. In this era, web design and development are crucial for any business that wants to create a strong online presence. 
             </p>
@@ -293,7 +308,7 @@ const WebDevelopment = () => {
             </p>
           </div>
           <div className="w-[40%] max-md:w-[80%] max-sm:w-full relative">
-            <div className="absolute -inset-4 bg-gradient-to-r from-[#2d5689] to-[#a82123] opacity-20 blur-xl rounded-2xl" />
+            <div className="absolute -inset-4 bg-gradient-to-r from-[#05d7de] to-[#2d5689] opacity-20 blur-xl rounded-2xl" />
             <Image 
               src="/Photos/Why_web Design_Important.webp" 
               unoptimized={true} 
@@ -307,14 +322,17 @@ const WebDevelopment = () => {
       </section>
 
       {/* ── ROADMAP ── */}
-      <div className="py-20 bg-gradient-to-b from-gray-950 to-black">
+      <div className="py-20 bg-[#111111]">
         <div className="text-center mb-14 px-6 max-w-7xl mx-auto">
-          <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Our Methodology</span>
-          <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Our Web Development Process</h2>
-          <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+          <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">Our Methodology</span>
+          <h2 className="text-4xl max-sm:text-2xl font-extrabold text-white mt-3">Our Web Development Process</h2>
+          <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
         </div>
         <OurProcess steps={processSteps} title="" />
       </div>
+
+      {/* ── FEATURED CASE STUDY ── */}
+      <FeaturedCaseStudy />
 
       {/* ── DESIGN ELEMENTS ── */}
       <div className="pt-10">
@@ -327,24 +345,15 @@ const WebDevelopment = () => {
       </section>
 
       {/* ── WHY CHOOSE US ── */}
-      <section className="bg-black">
-        <div className="max-w-7xl mx-auto px-6 pt-10">
-          <div className="text-center mb-4">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">The Techmapperz Advantage</span>
-            <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Why Choose Us for Website Development</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
-          </div>
-        </div>
-        <WhyChooseTechmapperz heading="" />
-      </section>
+      <WhyChooseTechmapperz heading="Why Choose Us for Website Development" />
 
       {/* ── FAQ ── */}
       <section className="bg-black pt-6">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-10">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Common Questions</span>
-            <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Frequently Asked Questions</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+            <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">Common Questions</span>
+            <h2 className="text-4xl max-sm:text-2xl font-extrabold text-white mt-3">Frequently Asked Questions</h2>
+            <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
           </div>
         </div>
         <FAQ faqData={faqData} />

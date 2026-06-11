@@ -198,6 +198,17 @@ const ITConsulting = () => {
     <div className="bg-black text-white">
       <ScrollToTop />
 
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .case-gradient-text-inline {
+            background: linear-gradient(90deg, #ef7376 0%, #a27fb0 50%, #70a1ed 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+          }
+        `
+      }} />
+
       {/* ── HERO ── */}
       <section
         className="w-full min-h-[100vh] flex items-center relative bg-cover bg-center bg-no-repeat pt-20"
@@ -205,13 +216,13 @@ const ITConsulting = () => {
       >
         {/* <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" /> */}
         <div className="max-w-[1600px] w-full mx-auto px-20 max-sm:px-4 relative z-10 flex flex-col gap-6">
-          <div className="w-fit border border-[#4a5f82] bg-[#2a3c5a]/40 backdrop-blur-sm text-[#799ccc] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+          <div className="w-fit border border-[#05d7de]/30 bg-[#05d7de]/10 backdrop-blur-sm text-[#05d7de] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
             Leading IT Strategy & Consulting Company in India
           </div>
 
-          <h1 className="text-4xl lg:text-[52px] max-sm:text-3xl font-bold text-white max-w-[820px] leading-[1.15]">
+          <h1 className="text-4xl lg:text-[52px] max-sm:text-3xl font-extrabold text-white max-w-[820px] leading-[1.15]">
             Expert IT Consulting <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2d5689] to-[#a82123]">
+            <span className="case-gradient-text-inline">
               Services in India
             </span>
           </h1>
@@ -245,9 +256,9 @@ const ITConsulting = () => {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2d5689] rounded-full filter blur-[200px] opacity-5" />
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center mb-14">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Expertise</span>
+            <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">Expertise</span>
             <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Our IT Consulting Services</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+            <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
             <p className="text-gray-400 mt-5 text-lg max-w-3xl mx-auto">
               We provide expert IT consulting services tailored to streamline operations, improve security, and support long-term business growth through practical and scalable technology solutions.
             </p>
@@ -255,13 +266,13 @@ const ITConsulting = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {consultingFeatures.map((feature, i) => (
-              <div key={i} className="group relative bg-gray-900/60 border border-white/5 rounded-3xl p-8 hover:border-[#a82123]/30 hover:-translate-y-1 transition-all duration-400 overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#a82123] rounded-full filter blur-[80px] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+              <div key={i} className="group relative bg-gray-900/60 border border-white/5 rounded-3xl p-8 hover:border-[#05d7de]/30 hover:-translate-y-1 transition-all duration-400 overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#05d7de] rounded-full filter blur-[80px] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
                 <div className="relative z-10">
-                  <div className="w-14 h-14 bg-gradient-to-br from-[#2d5689]/30 to-[#a82123]/20 border border-white/10 rounded-2xl flex items-center justify-center text-[#a82123] mb-5 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-14 h-14 bg-gradient-to-br from-[#2d5689]/30 to-[#a82123]/20 border border-white/10 rounded-2xl flex items-center justify-center text-[#05d7de] mb-5 group-hover:scale-110 transition-transform duration-300">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#a82123] transition-colors duration-300">{feature.title}</h3>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#05d7de] transition-colors duration-300">{feature.title}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed mb-5 group-hover:text-gray-300 transition-colors duration-300">{feature.desc}</p>
                   <div className="flex flex-wrap gap-2">
                     {feature.tags.map((tag, j) => (
@@ -281,9 +292,9 @@ const ITConsulting = () => {
       <section className="py-6 bg-gradient-to-b from-black to-gray-950">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Roadmap</span>
+            <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">Roadmap</span>
             <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Our IT Consulting Process</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+            <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
           </div>
         </div>
         <OurProcess steps={processSteps} title="" />
@@ -295,27 +306,18 @@ const ITConsulting = () => {
       </section>
 
       {/* ── WHY CHOOSE ── */}
-      <section className="bg-black">
-        <div className="max-w-7xl mx-auto px-6 pt-10">
-          <div className="text-center mb-4">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Our Advantage</span>
-            <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Why Choose Techmapperz for IT Consulting</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
-          </div>
-        </div>
-        <WhyChooseTechmapperz
-          features={whyChooseFeatures}
-          heading=""
-        />
-      </section>
+      <WhyChooseTechmapperz
+        features={whyChooseFeatures}
+        heading="Why Choose Techmapperz for IT Consulting"
+      />
 
       {/* ── FAQ ── */}
       <section className="bg-black pt-6">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-10">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Common Questions</span>
+            <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">Common Questions</span>
             <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Frequently Asked Questions</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+            <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
           </div>
         </div>
         <FAQ faqData={faqData} />

@@ -41,9 +41,9 @@ const WebsiteDesignElements = () => {
             
             <div className="max-w-[1400px] mx-auto px-6 relative z-10">
                 <div className="text-center mb-16">
-                    <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Key Principles</span>
-                    <h2 className="text-4xl max-sm:text-3xl font-bold text-white mt-3">Elements of Website Design</h2>
-                    <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] mx-auto rounded-full mt-4" />
+                    <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">Key Principles</span>
+                    <h2 className="text-4xl max-sm:text-3xl font-extrabold text-white mt-3">Elements of Website Design</h2>
+                    <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] mx-auto rounded-full mt-4" />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -57,13 +57,13 @@ const WebsiteDesignElements = () => {
                             className="group relative h-full"
                         >
                             {/* Hover Glow Background */}
-                            <div className={`absolute -inset-0.5 bg-gradient-to-br ${item.glow} opacity-0 group-hover:opacity-20 transition duration-500 rounded-3xl blur-xl`} />
+                            <div className={`absolute -inset-0.5 bg-gradient-to-br from-[#05d7de] to-[#2d5689] opacity-0 group-hover:opacity-20 transition duration-500 rounded-3xl blur-xl pointer-events-none z-0`} />
                             
-                            <div className="relative h-full bg-gray-900/60 backdrop-blur-md border border-white/5 rounded-3xl p-8 flex flex-col items-center text-center transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-gray-800/80 group-hover:border-white/10">
+                            <div className="relative h-full bg-white/[0.02] backdrop-blur-xl border border-white/5 rounded-3xl p-8 flex flex-col items-center text-center transition-all duration-500 group-hover:-translate-y-2 group-hover:bg-[#05d7de]/5 group-hover:border-[#05d7de]/30 shadow-lg">
                                 
                                 {/* Icon Container */}
                                 <div className={`w-20 h-20 rounded-2xl flex items-center justify-center mb-6 relative overflow-hidden`}>
-                                    <div className={`absolute inset-0 bg-gradient-to-br ${item.glow} opacity-10 group-hover:opacity-30 transition-opacity duration-500`} />
+                                    <div className={`absolute inset-0 bg-gradient-to-br from-[#05d7de] to-[#2d5689] opacity-10 group-hover:opacity-30 transition-opacity duration-500`} />
                                     <div className="relative z-10 p-4">
                                         <Image
                                             src={item.primaryImage}

@@ -23,7 +23,7 @@ const OurProcess = dynamic(() => import('@/app/_Components/OurProcess'), {
   ...createOptimizedLoader("300px", "bg-gray-900")
 });
 
-const CaseStudyCard = dynamic(() => import('@/app/_Components/CaseStudyCard'), {
+const FeaturedCaseStudy = dynamic(() => import('@/app/_Components/FeaturedCaseStudy'), {
   ...createOptimizedLoader("400px", "bg-gray-800")
 });
 
@@ -234,6 +234,17 @@ const CRM_pages = () => {
     <div className="bg-black text-white">
       <ScrollToTop />
 
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .case-gradient-text-inline {
+            background: linear-gradient(90deg, #ef7376 0%, #a27fb0 50%, #70a1ed 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+          }
+        `
+      }} />
+
       {/* ── HERO ── */}
       <section
         className="w-full min-h-[100vh] flex items-center relative bg-cover bg-center bg-no-repeat pt-20"
@@ -241,13 +252,13 @@ const CRM_pages = () => {
       >
         {/* <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent" /> */}
         <div className="max-w-[1600px] w-full mx-auto px-20 max-sm:px-4 relative z-10 flex flex-col gap-6">
-          <div className="w-fit border border-[#4a5f82] bg-[#2a3c5a]/40 backdrop-blur-sm text-[#799ccc] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+          <div className="w-fit border border-[#05d7de]/30 bg-[#05d7de]/10 backdrop-blur-sm text-[#05d7de] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
             Custom CRM Development Company in India
           </div>
 
-          <h1 className="text-4xl lg:text-[52px] max-sm:text-3xl font-bold text-white max-w-[820px] leading-[1.15]">
+          <h1 className="text-4xl lg:text-[52px] max-sm:text-3xl font-extrabold text-white max-w-[820px] leading-[1.15]">
             Custom CRM Development &<br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#2d5689] to-[#a82123]">
+            <span className="case-gradient-text-inline">
               Implementation Services
             </span>
           </h1>
@@ -281,11 +292,11 @@ const CRM_pages = () => {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#2d5689] rounded-full filter blur-[200px] opacity-5" />
         <div className="max-w-5xl mx-auto relative">
           <div className="text-center mb-14">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Outcomes First</span>
+            <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">Outcomes First</span>
             <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">
               What You Get with a CRM Built for Your Workflows
             </h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+            <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
             <p className="text-gray-400 mt-5 text-lg max-w-3xl mx-auto">
               A CRM should not feel like "another system to update." It should remove friction from your day-to-day work. We focus on outcomes that matter:
             </p>
@@ -293,8 +304,8 @@ const CRM_pages = () => {
 
           <div className="grid grid-cols-1 gap-4">
             {outcomes.map((item, i) => (
-              <div key={i} className="group flex items-start gap-5 p-6 bg-gray-900/50 border border-white/5 rounded-2xl hover:border-[#a82123]/30 hover:bg-gray-900 transition-all duration-300">
-                <div className="min-w-[52px] h-13 bg-gradient-to-br from-[#2d5689]/20 to-[#a82123]/20 border border-white/10 rounded-xl flex items-center justify-center text-[#a82123] group-hover:scale-110 transition-transform duration-300 p-3">
+              <div key={i} className="group flex items-start gap-5 p-6 bg-gray-900/50 border border-white/5 rounded-2xl hover:border-[#05d7de]/30 hover:bg-gray-900 transition-all duration-300">
+                <div className="min-w-[52px] h-13 bg-gradient-to-br from-[#2d5689]/20 to-[#a82123]/20 border border-white/10 rounded-xl flex items-center justify-center text-[#05d7de] group-hover:scale-110 transition-transform duration-300 p-3">
                   {item.icon}
                 </div>
                 <p className="text-gray-300 text-lg leading-relaxed group-hover:text-white transition-colors duration-300 pt-2">{item.text}</p>
@@ -308,9 +319,9 @@ const CRM_pages = () => {
       <section className="py-20 px-6 bg-black">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Capabilities</span>
+            <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">Capabilities</span>
             <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">CRM Features We Typically Implement</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+            <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
             <p className="text-gray-400 mt-5 text-lg max-w-3xl mx-auto">
               Every business is different, but most high-performing CRMs share a strong foundation. Based on your requirements, we can implement:
             </p>
@@ -318,13 +329,13 @@ const CRM_pages = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {crmFeatures.map((feature, i) => (
-              <div key={i} className="group relative bg-gray-900/60 border border-white/5 rounded-3xl p-8 hover:border-[#a82123]/30 hover:-translate-y-1 transition-all duration-400 overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-[#a82123] rounded-full filter blur-[80px] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
+              <div key={i} className="group relative bg-gray-900/60 border border-white/5 rounded-3xl p-8 hover:border-[#05d7de]/30 hover:-translate-y-1 transition-all duration-400 overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#05d7de] rounded-full filter blur-[80px] opacity-0 group-hover:opacity-10 transition-opacity duration-500" />
                 <div className="relative z-10">
-                  <div className="w-14 h-14 bg-gradient-to-br from-[#2d5689]/30 to-[#a82123]/20 border border-white/10 rounded-2xl flex items-center justify-center text-[#a82123] mb-5 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-14 h-14 bg-gradient-to-br from-[#2d5689]/30 to-[#a82123]/20 border border-white/10 rounded-2xl flex items-center justify-center text-[#05d7de] mb-5 group-hover:scale-110 transition-transform duration-300">
                     {feature.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#a82123] transition-colors duration-300">{feature.title}</h3>
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#05d7de] transition-colors duration-300">{feature.title}</h3>
                   <p className="text-gray-400 text-sm leading-relaxed mb-5 group-hover:text-gray-300 transition-colors duration-300">{feature.desc}</p>
                   <div className="flex flex-wrap gap-2">
                     {feature.tags.map((tag, j) => (
@@ -344,37 +355,37 @@ const CRM_pages = () => {
       <section className="py-6 bg-gradient-to-b from-black to-gray-950">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-14">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">How We Deliver</span>
+            <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">How We Deliver</span>
             <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Our CRM Delivery Process</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+            <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
             <p className="text-gray-400 mt-5 text-lg max-w-2xl mx-auto">
               We follow a structured approach that reduces risk and improves user adoption.
             </p>
           </div>
         </div>
-        <OurProcess steps={processSteps} />
+        <OurProcess steps={processSteps} title="" />
       </section>
 
       {/* ── INDUSTRIES ── */}
       <section className="py-20 px-6 bg-black relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: 'radial-gradient(circle, rgba(168,33,35,1) 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(circle, rgba(5,215,222,0.5) 1px, transparent 1px)',
             backgroundSize: '32px 32px'
           }}
         />
         <div className="max-w-5xl mx-auto relative">
           <div className="text-center mb-14">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Sectors We Serve</span>
+            <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">Sectors We Serve</span>
             <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Industries We Support</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+            <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
             <p className="text-gray-400 mt-5 text-lg">
               We deliver CRM solutions for organizations across multiple sectors:
             </p>
           </div>
           <div className="grid grid-cols-4 max-md:grid-cols-2 max-sm:grid-cols-2 gap-4">
             {industries.map((ind, i) => (
-              <div key={i} className="group flex flex-col items-center justify-center gap-3 p-6 bg-gray-900/50 border border-white/5 rounded-2xl hover:border-[#a82123]/30 hover:bg-gray-900 transition-all duration-300 text-center">
+              <div key={i} className="group flex flex-col items-center justify-center gap-3 p-6 bg-gray-900/50 border border-white/5 rounded-2xl hover:border-[#05d7de]/30 hover:bg-gray-900 transition-all duration-300 text-center">
                 <span className="text-4xl group-hover:scale-110 transition-transform duration-300">{ind.icon}</span>
                 <span className="text-gray-300 text-sm font-semibold group-hover:text-white transition-colors duration-300">{ind.label}</span>
               </div>
@@ -383,48 +394,22 @@ const CRM_pages = () => {
         </div>
       </section>
 
-      {/* ── CASE STUDIES ── */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-950 to-black">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Our Work</span>
-            <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Case Studies</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
-            <p className="text-gray-400 mt-4 max-w-2xl mx-auto text-lg">
-              See how we have helped businesses streamline operations and grow with custom CRM solutions.
-            </p>
-          </div>
-          <CaseStudyCard filter="all" />
-          <div className="text-center mt-10">
-            <Link href="/portfolios" className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#2d5689] to-[#a82123] text-white font-bold rounded-full hover:scale-105 transition-all duration-300 shadow-lg">
-              View Full Portfolio <FaArrowRightLong />
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* ── FEATURED CASE STUDY ── */}
+      <FeaturedCaseStudy />
 
       {/* ── WHY CHOOSE ── */}
-      <section className="bg-black">
-        <div className="max-w-7xl mx-auto px-6 pt-10">
-          <div className="text-center mb-4">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Our Advantage</span>
-            <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Why Choose Techmapperz for CRM</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
-          </div>
-        </div>
-        <WhyChooseTechmapperz
-          features={whyChooseFeatures}
-          heading=""
-        />
-      </section>
+      <WhyChooseTechmapperz
+        features={whyChooseFeatures}
+        heading="Why Choose Techmapperz for CRM"
+      />
 
       {/* ── FAQ ── */}
       <section className="bg-black pt-6">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-10">
-            <span className="text-[#a82123] text-sm font-semibold tracking-widest uppercase">Common Questions</span>
+            <span className="text-[#05d7de] text-sm font-semibold tracking-widest uppercase">Common Questions</span>
             <h2 className="text-4xl max-sm:text-2xl font-bold text-white mt-3">Frequently Asked Questions</h2>
-            <div className="w-16 h-1 bg-gradient-to-r from-[#2d5689] to-[#a82123] rounded-full mx-auto mt-4" />
+            <div className="w-16 h-1 bg-gradient-to-r from-[#05d7de] to-[#2d5689] rounded-full mx-auto mt-4" />
           </div>
         </div>
         <FAQ faqData={faqData} />

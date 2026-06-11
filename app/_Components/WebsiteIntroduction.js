@@ -45,9 +45,9 @@ const WebsiteIntroduction = ({
                     <div className="w-full flex flex-col gap-4">
                         {services.map((item, index) => (
                             <div key={index} className="text-[22px] max-md:text-[18px] flex flex-row flex-wrap gap-2 items-baseline w-full">
-                                <FaCircleRight className="text-[#336AA8]" />
+                                <FaCircleRight className="text-[#05d7de]" />
                                 <span>{item.text} </span>
-                                <span className="text-gradient text-[24px] max-md:text-[20px] font-bold">{item.highlight}</span>
+                                <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#05d7de] to-[#2d5689] text-[24px] max-md:text-[20px] font-bold">{item.highlight}</span>
                             </div>
                         ))}
                     </div>
