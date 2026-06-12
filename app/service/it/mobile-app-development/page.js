@@ -253,8 +253,8 @@ const Mobile_development = () => {
       }} />
 
             <section 
-                className="w-full min-h-[100vh] flex items-center relative bg-cover  bg-no-repeat pt-20" 
-                style={{ backgroundImage: `url('/Application_Development/mobile_dev_hero.jpg')` }}
+                className="w-full min-h-[100vh] flex items-center relative bg-cover bg-center bg-no-repeat pt-20" 
+                style={{ backgroundImage: `url('/Application_Development/mobile_dev_hero.png')` }}
             >
                 <div className="max-w-[1600px] w-full mx-auto px-20 max-sm:px-4 relative z-10 flex flex-col gap-6">
                     <div className="w-fit border border-[#05d7de]/30 bg-[#05d7de]/10 backdrop-blur-sm text-[#05d7de] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
