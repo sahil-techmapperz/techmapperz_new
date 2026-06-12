@@ -61,7 +61,7 @@ const Mobile_development = () => {
 
     
     const introData = {
-        imageSrc: "/Photos/mobiledevelopment_introduction.webp",
+        imageSrc: "/Photos/mobileappdevelopment.png",
         imageAlt: "Mobile App Development",
         paragraphs: [
             "Techmapperz is a trusted mobile app development company in India delivering powerful, user-friendly, and scalable mobile applications for businesses worldwide.",

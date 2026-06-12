@@ -165,8 +165,8 @@ const gisservice = () => {
         <ScrollToTop />
 
         <section
-          className="w-full min-h-[90vh] flex items-center relative bg-cover bg-center bg-no-repeat pt-20"
-          style={{ backgroundImage: `url('/GIS_Service/GIS_Service.png')` }}
+          className="w-full min-h-[90vh] flex items-center relative bg-no-repeat pt-20"
+          style={{ backgroundImage: `url('/GIS_Service/GIS_Service.png')`, backgroundSize: "cover", backgroundPosition: "center top" }}
         >
           <div 
             className="max-w-[1600px] w-full mx-auto px-20 max-sm:px-4 relative z-10 flex flex-col gap-6"

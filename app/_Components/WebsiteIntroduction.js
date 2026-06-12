@@ -30,7 +30,7 @@ const WebsiteIntroduction = ({
                     unoptimized
                     src={imageSrc}
                     alt={imageAlt}
-                    className="object-contain w-[40%] h-auto max-h-[500px] rounded-md max-lg:w-[50%] max-md:w-[70%] max-sm:w-[90vw]"
+                    className=" w-[40%] h-auto max-h-[500px] rounded-md max-lg:w-[50%] max-md:w-[70%] max-sm:w-[90vw]"
                     width={800}
                     height={800}
                 />

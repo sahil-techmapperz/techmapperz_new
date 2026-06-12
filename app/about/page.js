@@ -4,7 +4,7 @@ import Image from 'next/image';
 import ScrollToTop from '../_Components/ScrollToTop';
 import dynamic from 'next/dynamic';
 import agile_team_illustration from '@/public/Photos/agile_team_illustration.png';
-import about_us_banner_img from '@/public/Photos/about_us_banner.webp';
+import about_us_banner_img from '@/public/Photos/about_us_banner.png';
 import { FaArrowRightLong } from "react-icons/fa6";
 import {
   FaLightbulb, FaHandshake, FaBrain, FaBalanceScale, FaShieldAlt,
@@ -135,7 +135,7 @@ const About = () => {
         style={{ backgroundImage: `url(${about_us_banner_img.src})` }}
       >
         {/* Layered gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/55 to-[#111111]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/55 to-[#111111]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#05d7de]/10 via-transparent to-[#2d5689]/10" />
 
         {/* Animated grid pattern */}
@@ -161,7 +161,7 @@ const About = () => {
             Transforming Businesses with <br /><span className="case-gradient-text-inline">Smart IT, GIS & Drone Solutions</span>
           </h2>
 
-          <p className="text-xl max-sm:text-base text-gray-300 leading-relaxed max-w-3xl mx-auto mt-6 mb-10">
+          <p className="text-xl max-sm:text-base text-gray-300 leading-relaxed max-w-3xl mx-auto mt-10 mb-15">
             We combine IT development, GIS mapping, and drone intelligence to help organisations improve planning, operations, and decision-making.
           </p>
           <div style={{ display: 'flex', gap: '30px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '40px' }}>

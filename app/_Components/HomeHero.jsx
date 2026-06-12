@@ -18,7 +18,7 @@ const HomeHero = ({ bannerData }) => {
                 alt="Hero Background"
                 fill
                 priority
-                className="object-cover object-center absolute inset-0 z-0"
+                className="object-cover object-top absolute inset-0 z-0"
             />
             {/* Subtle dark overlay on left to keep text legible */}
             {/* <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent pointer-events-none z-[5]" /> */}

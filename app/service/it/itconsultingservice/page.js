@@ -55,7 +55,7 @@ export const metadata = {
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const introData = {
-  imageSrc: "/Photos/it_consulting_intro_new.png",
+  imageSrc: "/Photos/it_consulting_intro_new.jpeg",
   imageAlt: "Expert IT Consulting Services in India by Techmapperz",
   paragraphs: [
     "Techmapperz provides professional IT consulting services in India to help businesses improve operations, strengthen technology infrastructure, and accelerate digital growth. Our expert consultants work closely with organizations to deliver practical solutions in IT strategy consulting, digital transformation, infrastructure optimization, cybersecurity, and technology implementation.",

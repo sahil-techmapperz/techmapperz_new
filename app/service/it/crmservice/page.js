@@ -54,7 +54,7 @@ export const metadata = {
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const introData = {
-  imageSrc: "/Photos/CRM_Introduction.webp",
+  imageSrc: "/Photos/CRM_Introduction.png",
   imageAlt: "Custom CRM Development Services by Techmapperz",
   paragraphs: [
     "Techmapperz offers custom CRM development and implementation services to help businesses manage leads, customers, sales, support, and internal workflows more efficiently. In today's fast-moving business environment, customer data is often scattered across spreadsheets, emails, accounting tools, marketing platforms, and project trackers. A well-designed CRM system brings all this information together into one centralized platform, helping your team improve productivity, customer engagement, and decision-making.",
